@@ -1,0 +1,33 @@
+<mxfile host="app.diagrams.net" modified="2023-04-17T13:42:31.586Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0" etag="NAxlCVmeyt1eZ6qCRApB" version="21.1.8" type="github">
+  <diagram name="Page-1" id="YHzNBxK339q01hYUIvd3">
+    <mxGraphModel dx="1658" dy="937" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="OAGXBuWcis_1zp3LfC9G-1" value="Game options menu" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" parent="1" vertex="1">
+          <mxGeometry x="120" y="90" width="640" height="590" as="geometry" />
+        </mxCell>
+        <mxCell id="OAGXBuWcis_1zp3LfC9G-2" value="" style="swimlane;startSize=0;" parent="OAGXBuWcis_1zp3LfC9G-1" vertex="1">
+          <mxGeometry x="60" y="80" width="210" height="200" as="geometry">
+            <mxRectangle x="60" y="80" width="50" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OAGXBuWcis_1zp3LfC9G-5" value="" style="swimlane;startSize=0;" parent="OAGXBuWcis_1zp3LfC9G-1" vertex="1">
+          <mxGeometry x="370" y="80" width="210" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="OAGXBuWcis_1zp3LfC9G-4" value="" style="swimlane;startSize=0;" parent="OAGXBuWcis_1zp3LfC9G-1" vertex="1">
+          <mxGeometry x="220" y="330" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="OAGXBuWcis_1zp3LfC9G-7" value="Maths" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="260" y="228" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="OAGXBuWcis_1zp3LfC9G-8" value="English" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="560" y="258" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="OAGXBuWcis_1zp3LfC9G-9" value="Science" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="395" y="498" width="70" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
