@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" modified="2023-04-20T10:32:38.293Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0" etag="pvQTJq1Et31aN6-CkYs1" version="21.2.0" type="github">
+  <diagram name="Page-1" id="5ImCMWsDfqsMPT0lLU2O">
+    <mxGraphModel dx="1658" dy="937" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="WSjUhqkRepHEri01gwYH-1" value="Opening Menu" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="50" width="620" height="660" as="geometry" />
+        </mxCell>
+        <mxCell id="WSjUhqkRepHEri01gwYH-3" value="Toriel" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="WSjUhqkRepHEri01gwYH-1" vertex="1">
+          <mxGeometry x="60" y="150" width="90" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="WSjUhqkRepHEri01gwYH-4" value="Flowery" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="WSjUhqkRepHEri01gwYH-1" vertex="1">
+          <mxGeometry x="480" y="150" width="90" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="WSjUhqkRepHEri01gwYH-6" value="Kids" style="rounded=0;whiteSpace=wrap;html=1;" parent="WSjUhqkRepHEri01gwYH-1" vertex="1">
+          <mxGeometry x="179" y="180" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WSjUhqkRepHEri01gwYH-7" value="Parents" style="rounded=0;whiteSpace=wrap;html=1;" parent="WSjUhqkRepHEri01gwYH-1" vertex="1">
+          <mxGeometry x="270" y="553" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-1" value="Kids Menu" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" parent="1" vertex="1">
+          <mxGeometry x="129" y="782" width="620" height="660" as="geometry" />
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-2" value="Toriel" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="CVgGsUyU9AzUb1GFzr-s-1" vertex="1">
+          <mxGeometry x="60" y="150" width="90" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-3" value="Flowery" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="CVgGsUyU9AzUb1GFzr-s-1" vertex="1">
+          <mxGeometry x="480" y="150" width="90" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-4" value="Game" style="rounded=0;whiteSpace=wrap;html=1;" parent="CVgGsUyU9AzUb1GFzr-s-1" vertex="1">
+          <mxGeometry x="179" y="180" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-5" value="Options" style="rounded=0;whiteSpace=wrap;html=1;" parent="CVgGsUyU9AzUb1GFzr-s-1" vertex="1">
+          <mxGeometry x="260" y="560" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cS1CvEWXWD7R67V5tDuO-7" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="751" y="2063" as="targetPoint" />
+            <mxPoint x="132" y="2065" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-6" value="Choose user menu" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" parent="1" vertex="1">
+          <mxGeometry x="129" y="1483" width="620" height="660" as="geometry" />
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-7" value="Toriel" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="CVgGsUyU9AzUb1GFzr-s-6" vertex="1">
+          <mxGeometry x="60" y="150" width="90" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-8" value="Flowery" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="CVgGsUyU9AzUb1GFzr-s-6" vertex="1">
+          <mxGeometry x="480" y="150" width="90" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-9" value="User #1" style="rounded=0;whiteSpace=wrap;html=1;" parent="CVgGsUyU9AzUb1GFzr-s-6" vertex="1">
+          <mxGeometry x="179" y="180" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-10" value="Options" style="rounded=0;whiteSpace=wrap;html=1;" parent="CVgGsUyU9AzUb1GFzr-s-6" vertex="1">
+          <mxGeometry x="254" y="600" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CVgGsUyU9AzUb1GFzr-s-16" value="User #2" style="rounded=0;whiteSpace=wrap;html=1;" parent="CVgGsUyU9AzUb1GFzr-s-6" vertex="1">
+          <mxGeometry x="179" y="277" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cS1CvEWXWD7R67V5tDuO-1" value="Parents menu" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" parent="1" vertex="1">
+          <mxGeometry x="120" y="2188" width="620" height="660" as="geometry" />
+        </mxCell>
+        <mxCell id="cS1CvEWXWD7R67V5tDuO-4" value="Data" style="rounded=0;whiteSpace=wrap;html=1;" parent="cS1CvEWXWD7R67V5tDuO-1" vertex="1">
+          <mxGeometry x="179" y="180" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cS1CvEWXWD7R67V5tDuO-6" value="Options" style="rounded=0;whiteSpace=wrap;html=1;" parent="cS1CvEWXWD7R67V5tDuO-1" vertex="1">
+          <mxGeometry x="179" y="277" width="270" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
