@@ -1,4 +1,5 @@
 from game.menus.menu_class import Menu
+from game.run_game import start_game
 
 def start_game():
     pass

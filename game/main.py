@@ -1,6 +1,8 @@
 import pygame
-from settings import Settings
-from menus.main_menu import main_menu
+pygame.init()
+from game.settings import Settings
+from game.menus.main_menu import main_menu
+
 
 class Game:
     def __init__(self):
@@ -9,28 +11,25 @@ class Game:
         self.screen_height = settings.screen_height
 
     def main(self):
-        pygame.init()
         screen = pygame.display.set_mode((
             self.screen_width,
             self.screen_height
         ))
-        pygame.display.set_caption('')
         # Main game loop
         running = True
-        current_menu = main_menu
         while running:
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            for event in events:
                 if event.type == pygame.QUIT:
-                    running = False
-            
-            # Draw menu on screen
-            current_menu.mainloop(screen)
-            
-            # Update Pygame display
-            pygame.display.update()
+                    exit()
 
-        # Quit Pygame
-        pygame.quit()
+            if main_menu.is_enabled():
+                main_menu.update(events)
+                main_menu.draw(screen)
+        
+            pygame.display.update()
+        # pygame.display.set_caption('')
+
 
 game = Game()
 game.main()
