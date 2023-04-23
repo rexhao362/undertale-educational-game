@@ -27,5 +27,3 @@ class Menu(pygame_menu.Menu):
         self.menu_bar.add.button('Back', pygame_menu.events.BACK)
         self.menu_bar.add.button('Exit', pygame_menu.events.EXIT)
 
-        # Set background image placeholder
-        self.menu.background_image = None

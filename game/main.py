@@ -24,7 +24,7 @@ class Game:
                     running = False
             
             # Draw menu on screen
-            current_menu.draw(screen)
+            current_menu.mainloop(screen)
             
             # Update Pygame display
             pygame.display.update()

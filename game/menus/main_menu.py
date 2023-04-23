@@ -1,4 +1,4 @@
-from menu_class import Menu
+from game.menus.menu_class import Menu
 from parents_menu import parents_menu
 from game_menu import game_menu
 
