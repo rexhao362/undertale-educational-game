@@ -7,15 +7,14 @@ custom_theme = pygame_menu.themes.THEME_DARK.copy()
 image = pygame_menu.baseimage.BaseImage(
     image_path='./assets/pictures/undertale_bg.png',
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL
-    )
+)
 custom_theme.background_color = image
-
 
 
 class Menu(pygame_menu.Menu):
     """Class that sets default menu format"""
 
-    def __init__(self, name):#, screen):
+    def __init__(self, name):  # , screen):
         """Initialises menu"""
         self.screen_width = settings.screen_width
         self.screen_height = settings.screen_height
@@ -32,6 +31,7 @@ class Menu(pygame_menu.Menu):
 
         # Add three buttons to the frame
         self.bottom_frame.pack(self.add.button('Options', options_menu))
-        self.bottom_frame.pack(self.add.button('Back', pygame_menu.events.BACK))
-        self.bottom_frame.pack(self.add.button('Exit', pygame_menu.events.EXIT))
-
+        self.bottom_frame.pack(self.add.button(
+            'Back', pygame_menu.events.BACK))
+        self.bottom_frame.pack(self.add.button(
+            'Exit', pygame_menu.events.EXIT))

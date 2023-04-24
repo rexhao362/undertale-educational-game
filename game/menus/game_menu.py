@@ -1,19 +1,38 @@
-from game.menus.menu_class import Menu
+# from game.menus.menu_class import Menu
 from game.run_game import start_game
 from game.systems.battle.topic import set_subject
+import pygame_menu
+from game.settings import settings
+from game.menus.options import options_menu
+from game.menus.menu_class import custom_theme
 
 
-class Game_Menu(Menu):
-    def __init__(self):
-        super().__init__('Game')
-        self.add.selector(
-            'Subject :', [
-                ('Maths', 1), ('English', 2), ('Science', 3)
-            ],
-            onchange=set_subject
-        )
-        self.add.button('Play', start_game)
-        self.center_content()
+"""Initialises menu"""
+game_menu = pygame_menu.Menu(
+    'Main Menu', settings.screen_width/2, settings.screen_height/2, theme=custom_theme)
+
+game_menu.add.selector(
+    'Subject :', [
+        ('Maths', 1), ('English', 2), ('Science', 3)
+    ],
+    onchange=set_subject
+)
+game_menu.add.button('Play', start_game)
+game_menu.center_content()
 
 
-game_menu = Game_Menu()
+# Create a horizontal frame at the bottom of the screen
+game_menu.bottom_frame = game_menu.add.frame_h(
+    width=settings.screen_width,
+    height=100,
+    vertical_alignment=pygame_menu.locals.POSITION_SOUTH,
+    horizontal_alignment=pygame_menu.locals.ALIGN_CENTER,
+    border_width=0
+)
+
+# Add three buttons to the frame
+game_menu.bottom_frame.pack(game_menu.add.button('Options', options_menu))
+game_menu.bottom_frame.pack(
+    game_menu.add.button('Back', pygame_menu.events.BACK))
+game_menu.bottom_frame.pack(
+    game_menu.add.button('Exit', pygame_menu.events.EXIT))
