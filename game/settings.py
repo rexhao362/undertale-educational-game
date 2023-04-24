@@ -10,3 +10,5 @@ class Settings():
     def set_resolution(self, width, height):
         self.screen_width = width
         self.screen_height = height
+
+settings = Settings()

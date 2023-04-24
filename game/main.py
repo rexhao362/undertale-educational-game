@@ -1,5 +1,5 @@
 import pygame
-from settings import Settings
+from settings import settings
 # from menus.main_menu import main_menu
 import os
 os.environ["SDL_VIDEODRIVER"] = "dummy"
@@ -7,7 +7,6 @@ os.environ["SDL_VIDEODRIVER"] = "dummy"
 class Game:
     def __init__(self):
         pygame.init()
-        settings = Settings()
         self.screen_width = settings.screen_width
         self.screen_height = settings.screen_height
         self.screen = pygame.display.set_mode((
