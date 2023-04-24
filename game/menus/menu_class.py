@@ -18,11 +18,13 @@ class Menu(pygame_menu.Menu):
         super().__init__(name, 400, 300, theme=custom_theme)
 
         # Create menu bar for banner
-        self.menu_bar = pygame_menu.MenuBar(300, 50, pygame_menu.menu.MenuBarPosition.BOTTOM)
-        self.menu.add_widget(self.menu_bar)
+        self.menu_bar = self.add.frame_h(200, 30)
+        self.menu_bar.set_max_height(21)
+
+        # self.menu.add_widget(self.menu_bar)
 
         # Add buttons to menu bar
-        # self.menu_bar.add.button('Options', options_menu)
-        self.menu_bar.add.button('Back', pygame_menu.events.BACK)
-        self.menu_bar.add.button('Exit', pygame_menu.events.EXIT)
+        self.menu_bar.pack(self.add.button('Options', options_menu))
+        self.menu_bar.pack(self.add.button('Back', pygame_menu.events.BACK))
+        self.menu_bar.pack(self.add.button('Exit', pygame_menu.events.EXIT))
 

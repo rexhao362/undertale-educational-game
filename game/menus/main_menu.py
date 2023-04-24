@@ -1,6 +1,6 @@
 from menus.menu_class import Menu
-from menus.parents_menu import parents_menu
 from menus.game_menu import game_menu
+from menus.parents_menu import parents_menu
 
 
 class Main_Menu(Menu):

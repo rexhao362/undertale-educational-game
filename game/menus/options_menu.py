@@ -1,6 +1,5 @@
 import pygame
 import pygame_menu
-pygame.init()
 
 
 class Options(pygame_menu.Menu):
@@ -9,15 +8,15 @@ class Options(pygame_menu.Menu):
         super().__init__('Options', 400, 300, theme=pygame_menu.themes.THEME_DARK)
         # Options #TODO
 
+
         # Create menu bar for banner
-        self.menu_bar = pygame_menu.MenuBar(
-            300, 50, pygame_menu.menu.MenuBarPosition.BOTTOM)
-        self.menu.add_widget(self.menu_bar)
+        self.menu_bar = self.add.frame_h(400, 30)
+        self.menu_bar.set_max_height(21)
+        # self.menu.add_widget(self.menu_bar)
 
         # Add buttons to menu bar
-        self.menu_bar.add.button('Back', pygame_menu.events.BACK)
-        self.menu_bar.add.button('Exit', pygame_menu.events.EXIT)
+        self.menu_bar.pack(self.add.button('Back', pygame_menu.events.BACK))
+        self.menu_bar.pack(self.add.button('Exit', pygame_menu.events.EXIT))
 
 
-def options_menu(self):
-    self._open(Options())
+options_menu = Options()

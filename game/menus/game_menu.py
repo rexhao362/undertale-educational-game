@@ -1,5 +1,5 @@
-from menus.menu_class import Menu
-from run_game import start_game
+from game.menus.menu_class import Menu
+from game.run_game import start_game
 from game.systems.battle.topic import set_subject
 
 def start_game():
@@ -17,6 +17,7 @@ class Game_Menu(Menu):
             onchange=set_subject
         )
         self.add.button('Play', start_game)
+        self.center_content()
 
 
-game_menu = Game_Menu('game')
+game_menu = Game_Menu()
