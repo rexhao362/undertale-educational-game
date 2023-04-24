@@ -9,3 +9,5 @@ class Main_Menu(Menu):
 
         self.add.button('Kids', game_menu)
         self.add.button('Parents', parents_menu)
+
+main_menu = Main_Menu()
