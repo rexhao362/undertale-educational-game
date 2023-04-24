@@ -1,5 +1,8 @@
-from game.menus.menu_class import Menu
+from menus.menu_class import Menu
 
-parents_menu = Menu('Database')
+class Parents_Menu(Menu):
+    def __init__(self):
+        super().__init__('Database')
+        self.add.button('')
 
-parents_menu.add.button('')
+parents_menu = Parents_Menu()

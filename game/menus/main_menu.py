@@ -1,9 +1,11 @@
-from game.menus.menu_class import Menu
-from game.menus.parents_menu import parents_menu
-from game.menus.game_menu import game_menu
+from menus.menu_class import Menu
+from menus.parents_menu import parents_menu
+from menus.game_menu import game_menu
 
 
-main_menu = Menu('main menu')
+class Main_Menu(Menu):
+    def __init__(self):
+        super().__init__('Main Menu')
 
-main_menu.add.button('Kids', game_menu)
-main_menu.add.button('Parents', parents_menu)
+        self.add.button('Kids', game_menu)
+        self.add.button('Parents', parents_menu)

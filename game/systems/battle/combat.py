@@ -1,4 +1,4 @@
-from game.main import Game
+# from game.main import Game
 
 class Combat:
     def __init__(self):

@@ -1,7 +1,6 @@
 import pygame
-pygame.init()
-from game.settings import Settings
-from game.menus.main_menu import main_menu
+from settings import Settings
+from menus.main_menu import main_menu
 
 
 class Game:
@@ -26,10 +25,12 @@ class Game:
             if main_menu.is_enabled():
                 main_menu.update(events)
                 main_menu.draw(screen)
-        
+
             pygame.display.update()
-        # pygame.display.set_caption('')
+            pygame.display.set_caption('')
 
 
-game = Game()
-game.main()
+
+if __name__ == '__main__':
+    game = Game()
+    game.main()

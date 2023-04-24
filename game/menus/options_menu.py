@@ -1,4 +1,6 @@
+import pygame
 import pygame_menu
+pygame.init()
 
 
 class Options(pygame_menu.Menu):
@@ -17,4 +19,5 @@ class Options(pygame_menu.Menu):
         self.menu_bar.add.button('Exit', pygame_menu.events.EXIT)
 
 
-options_menu = Options()
+def options_menu(self):
+    self._open(Options())
