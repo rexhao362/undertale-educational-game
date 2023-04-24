@@ -2,10 +2,6 @@ from game.menus.menu_class import Menu
 from game.run_game import start_game
 from game.systems.battle.topic import set_subject
 
-def start_game():
-    pass
-
-
 
 class Game_Menu(Menu):
     def __init__(self):
