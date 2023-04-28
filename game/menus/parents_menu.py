@@ -6,7 +6,7 @@ from game.menus.options import options_menu
 
 """Initialises menu"""
 parents_menu = pygame_menu.Menu(
-    'Database', settings.screen_width/2, settings.screen_height/2, theme=custom_theme)
+    'Database', settings.screen_width, settings.screen_height, theme=custom_theme)
 
 
 # Create a horizontal frame at the bottom of the screen

@@ -9,6 +9,7 @@ image = pygame_menu.baseimage.BaseImage(
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL
 )
 custom_theme.background_color = image
+custom_theme.font = pygame_menu.font.FONT_8BIT
 
 
 class Menu(pygame_menu.Menu):

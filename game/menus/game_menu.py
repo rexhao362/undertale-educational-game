@@ -9,7 +9,7 @@ from game.menus.menu_class import custom_theme
 
 """Initialises menu"""
 game_menu = pygame_menu.Menu(
-    'Main Menu', settings.screen_width/2, settings.screen_height/2, theme=custom_theme)
+    'Main Menu', settings.screen_width, settings.screen_height, theme=custom_theme)
 
 game_menu.add.selector(
     'Subject :', [

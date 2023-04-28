@@ -1,8 +1,6 @@
 import pygame
 from settings import settings
 from importlib import import_module
-import os
-os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 class Game:
     def __init__(self):
@@ -13,10 +11,12 @@ class Game:
             self.screen_width,
             self.screen_height
         ))
+        pygame.display.set_caption('Game')
 
     def main(self):
         mod = import_module('game.menus.main_menu')
         main_menu = mod.main_menu
+        
         # Main game loop
         running = True
         while running:
@@ -24,12 +24,12 @@ class Game:
             for event in events:
                 if event.type == pygame.QUIT:
                     exit()
+
             if main_menu.is_enabled():
                 main_menu.update(events)
                 main_menu.draw(self.screen)
 
             pygame.display.update()
-            pygame.display.set_caption('Game')
 
 
 
