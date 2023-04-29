@@ -23,6 +23,7 @@ class Game:
             events = pygame.event.get()
             for event in events:
                 if event.type == pygame.QUIT:
+                    running = False
                     exit()
 
             if main_menu.is_enabled():
