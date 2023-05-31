@@ -5,12 +5,11 @@ from importlib import import_module
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen_width = settings.screen_width
-        self.screen_height = settings.screen_height
         self.screen = pygame.display.set_mode((
-            self.screen_width,
-            self.screen_height
+            settings.screen_width,
+            settings.screen_height
         ))
+        self.clock = pygame.time.Clock()
         pygame.display.set_caption('Game')
 
     def main(self):
@@ -25,6 +24,13 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
                     exit()
+                    
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    pass
+ 
+            # Event handling for a range of different key presses    
+                elif event.type == pygame.KEYDOWN:
+                    pass
 
             if main_menu.is_enabled():
                 main_menu.update(events)
