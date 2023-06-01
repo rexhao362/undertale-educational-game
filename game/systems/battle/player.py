@@ -6,6 +6,7 @@ class Player(Sprites):
         super.__init__(self, health, attack, defence)
         self.user = user
         self.mana = mana
+        self.acting = False
 
     def check_game_over(self):
         return self.health <= 0

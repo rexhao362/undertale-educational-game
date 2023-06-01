@@ -10,6 +10,9 @@ class Sprites(Sprite):
         self.attack = attack
         self.defence = defence
 
+    def attack_move(self, target):
+        target.current_health -= self.attack
+
 
 class Battle_Screen(Sprite):
     def __init__(self, player, enemy):
