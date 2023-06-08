@@ -10,3 +10,10 @@ class Player(Sprites):
 
     def check_game_over(self):
         return self.health <= 0
+
+    def update_user(self):
+
+class Healthbar(Sprites):
+    def __init__(self):
+        super.__init__()
+        

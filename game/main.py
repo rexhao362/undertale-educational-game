@@ -37,6 +37,8 @@ class Game:
                 main_menu.draw(self.screen)
 
             pygame.display.update()
+        
+        pygame.quit()
 
 
 
