@@ -1,16 +1,17 @@
 from game.systems.battle.player import Game
 
 class Combat:
-    def __init__(self):
-        pass
+    def __init__(self, player, enemy):
+        self.player = player
+        self.enemy = enemy
 
 
-    def check_win(enemy):
-        if enemy.check_enemy_defeat():
+    def check_win(self):
+        if self.enemy.check_enemy_defeat():
             pass
 
 
-    def game_over(player):
-        if player.check_game_over():
+    def game_over(self):
+        if self.player.check_game_over():
             pass
 
