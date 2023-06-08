@@ -10,11 +10,11 @@ class Sprites(Sprite):
         self.attack = attack
         self.defence = defence
 
-    def attack_move(self, target):
+    def attack_action(self, target):
         target.current_health -= self.attack
 
 
 class Battle_Screen(Sprite):
     def __init__(self, player, enemy):
         super.__init__()
-        self.background = pygame.image.load('assets/pictures/...')
+        self.background = pygame.image.load('assets/pictures/...') #TODO
