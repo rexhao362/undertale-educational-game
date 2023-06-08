@@ -2,7 +2,7 @@ from sprites import Sprites
 import pygame
 
 class Enemy(Sprites):
-    def __init__(self, name, health, attack, defence):
+    def __init__(self, name, health=100, attack=20, defence=0):
         super().__init__(health, attack, defence)
         self.name = name
         self.image = pygame.load.image(f'./assets/pictures/chars/{name}')
