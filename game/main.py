@@ -9,6 +9,7 @@ class Game:
             settings.screen_width,
             settings.screen_height
         ))
+        self.stage = 0
         self.clock = pygame.time.Clock()
         pygame.display.set_caption('Game')
 
