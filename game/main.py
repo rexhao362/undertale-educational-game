@@ -2,6 +2,7 @@ import pygame
 from settings import settings
 from importlib import import_module
 
+
 class Game:
     def __init__(self):
         pygame.init()
@@ -16,7 +17,7 @@ class Game:
     def main(self):
         mod = import_module('game.menus.main_menu')
         main_menu = mod.main_menu
-        
+
         # Main game loop
         running = True
         while running:
@@ -25,11 +26,11 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
                     exit()
-                    
+
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     pass
- 
-            # Event handling for a range of different key presses    
+
+            # Event handling for a range of different key presses
                 elif event.type == pygame.KEYDOWN:
                     pass
 
@@ -38,9 +39,8 @@ class Game:
                 main_menu.draw(self.screen)
 
             pygame.display.update()
-        
-        pygame.quit()
 
+        pygame.quit()
 
 
 if __name__ == '__main__':
