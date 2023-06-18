@@ -14,4 +14,4 @@ class Combat:
 
     def game_over(self):
         if self.player.check_game_over():
-            pass
+            screen.blit(defeat_img)
