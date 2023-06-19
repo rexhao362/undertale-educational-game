@@ -18,3 +18,17 @@ class Battle_Screen(Sprite):
     def __init__(self, player, enemy):
         super.__init__()
         self.background = pygame.image.load('assets/pictures/...') #TODO
+
+class HealthBar:
+    def __init__(self, left, top, width, height, total_health):
+        self.left = left
+        self.top = top
+        self.width = width
+        self.height = height
+        self.current_health = total_health
+        self.total_health = total_health
+
+    def draw(self, surface):
+        ratio = self.current_health / self.total_health
+        pygame.draw.rect(surface, "red", (self.left, self.top, self.width, self.height))
+        pygame.draw.rect(surface, "green", (self.left, self.top, self.width * ratio, self.height))
