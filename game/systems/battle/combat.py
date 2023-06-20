@@ -1,12 +1,11 @@
-from game.systems.battle.enemy import Enemy
 from game.systems.battle.player import Game
 
 
 class Combat:
-    def __init__(self, player):
+    def __init__(self, screen, player, enemy):
+        self.screen = screen
         self.player = player
-        self.enemy_name  # read enemy folders and choose random one
-        self.enemy = Enemy(self.enemy_name)
+        self.enemy = enemy
 
     def check_win(self):
         if self.enemy.check_enemy_defeat():
@@ -14,4 +13,4 @@ class Combat:
 
     def game_over(self):
         if self.player.check_game_over():
-            screen.blit(defeat_img)
+            self.screen.blit(defeat_img)

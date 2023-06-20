@@ -12,8 +12,7 @@ class Player(Sprites):
         return self.health <= 0
 
     def update_user(self):
+        pass
 
-class Healthbar(Sprites):
-    def __init__(self):
-        super.__init__()
+
         
