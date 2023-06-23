@@ -10,8 +10,9 @@ class Game:
             settings.screen_width,
             settings.screen_height
         ))
-        self.stage = 0
         self.clock = pygame.time.Clock()
+        self.fps = 60
+        self.stage = 0
         pygame.display.set_caption('Game')
 
     def main(self):
@@ -21,6 +22,7 @@ class Game:
         # Main game loop
         running = True
         while running:
+            self.clock.tick(self.fps)
             events = pygame.event.get()
             for event in events:
                 if event.type == pygame.QUIT:

@@ -1,12 +1,18 @@
-from game.systems.battle.enemy import Enemy
+from game.systems.battle.enemy import create_enemy
 
 
 class Stage:
-    def __init__(self, player, current_stage) -> None:
+    def __init__(self, screen, player, current_stage):
+        self.screen = screen
         self.player = player
         self.stage = current_stage
-        self.enemy
+        self.enemy = create_enemy()
+        self.image
 
-    def make_enemy(self):
-        enemy_name  # read enemy folders and choose random one
-        self.enemy = Enemy(enemy_name)
+    def check_win(self):
+        if self.enemy.check_enemy_defeat():
+            pass
+
+    def game_over(self):
+        if self.player.check_game_over():
+            self.screen.blit(defeat_img)

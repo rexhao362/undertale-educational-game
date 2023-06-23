@@ -14,5 +14,3 @@ class Player(Sprites):
     def update_user(self):
         pass
 
-
-        

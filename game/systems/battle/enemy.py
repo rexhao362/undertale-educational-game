@@ -2,6 +2,7 @@ from sprites import Sprites
 import pygame
 from random import choice
 
+
 class Enemy(Sprites):
     def __init__(self, name, health=100, attack=20, defence=0):
         super().__init__(health, attack, defence)
@@ -12,8 +13,12 @@ class Enemy(Sprites):
     def check_enemy_defeat(self):
         return self.current_health <= 0
 
+
+enemy_names = ['sans', 'undyne', 'asgore', 'mettaton',
+               'muffet', 'papyrus', 'flowey', 'aaron', 'froggit', 'asriel']
+
+
 def create_enemy():
-    pass
-    enemy_list = 
-    enemy_name = choice(enemy_list)
-    return Enemy(enemy_name)
+    enemy_list = enemy_names
+    enemy = choice(enemy_list)
+    return Enemy(enemy)
