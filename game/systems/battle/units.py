@@ -2,13 +2,14 @@ from pygame.sprite import Sprite
 import pygame
 
 
-class Sprites(Sprite):
+class Units(Sprite):
     def __init__(self, health, attack, defence):
         super.__init__()
         self.total_health = health
         self.current_health = health
         self.attack = attack
         self.defence = defence
+        self.alive = True
         # self.image
         # self.rect = self.image.get_rect()
         # self.rect.center = (left, top)
@@ -17,16 +18,15 @@ class Sprites(Sprite):
         target.current_health -= self.attack
 
     def draw(self, screen):
-        screen.blit
+        screen.blit(self.image, self.rect)
+
+    def check_is_alive(self):
+        if self.current_health <= 0:
+            self.alive = False
+        return self.alive
 
 
-class Battle_Screen(Sprite):
-    def __init__(self, player, enemy):
-        super.__init__()
-        self.background = pygame.image.load('assets/pictures/...')  # TODO
-
-
-class HealthBar:
+class HealthBar(Sprite):
     def __init__(self, left, top, width, height, total_health):
         self.left = left
         self.top = top

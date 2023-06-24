@@ -1,17 +1,15 @@
-from sprites import Sprites
+from game.systems.battle.units import Units
 import pygame
 from random import choice
 
 
-class Enemy(Sprites):
+class Enemy(Units):
     def __init__(self, name, health=100, attack=20, defence=0):
         super().__init__(health, attack, defence)
         self.name = name
         self.image = pygame.load.image(f'./assets/pictures/chars/{name}')
         self.rect = self.image.get_rect()
 
-    def check_enemy_defeat(self):
-        return self.current_health <= 0
 
 
 enemy_names = ['sans', 'undyne', 'asgore', 'mettaton',
