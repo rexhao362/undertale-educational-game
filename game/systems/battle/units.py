@@ -16,13 +16,13 @@ class Units(Sprite):
 
     def attack_action(self, target):
         target.current_health -= self.attack
+        if target.current_health <= 0:
+            target.alive = False
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
-    def check_is_alive(self):
-        if self.current_health <= 0:
-            self.alive = False
+    def is_alive(self):
         return self.alive
 
 

@@ -9,10 +9,11 @@ class Stage:
         self.enemy = create_enemy()
         self.image
 
-    def check_win(self):
-        if self.enemy.check_is_alive():
+    def victory(self):
+        if self.enemy.is_alive():
+            self.screen.blit(victory_img)
             pass
 
     def game_over(self):
-        if self.player.check_is_alive():
+        if self.player.is_alive():
             self.screen.blit(defeat_img)
