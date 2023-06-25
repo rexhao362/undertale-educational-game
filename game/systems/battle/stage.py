@@ -17,3 +17,9 @@ class Stage:
     def game_over(self):
         if self.player.is_alive():
             self.screen.blit(defeat_img)
+
+    def turn_combat(self):
+        self.player.action()
+        self.victory()
+        self.enemy.attack_action()
+        self.game_over()

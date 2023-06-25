@@ -12,6 +12,9 @@ class Player(Units):
     def update_user(self):
         pass
 
+    def action(self):
+        pass
+
     
 
 

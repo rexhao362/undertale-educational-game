@@ -14,11 +14,6 @@ class Sprites(Sprite):
         target.current_health -= self.attack
 
 
-class Battle_Screen(Sprite):
-    def __init__(self, player, enemy):
-        super.__init__()
-        self.background = pygame.image.load('assets/pictures/...') #TODO
-
 class HealthBar:
     def __init__(self, left, top, width, height, total_health):
         self.left = left

@@ -1,6 +1,6 @@
 # from game.menus.menu_class import Menu
 from game.run_game import start_game
-from game.systems.battle.topic import set_subject
+from game.systems.questions.topic import set_subject
 import pygame_menu
 from game.settings import settings
 from game.menus.options import options_menu
