@@ -10,11 +10,12 @@ class Player(Units):
         self.acting = False
         
 
-    def update_user(self):
-        pass
 
     def action(self):
         pass
+
+    def block(self):
+        self.defence += 10
 
     
 

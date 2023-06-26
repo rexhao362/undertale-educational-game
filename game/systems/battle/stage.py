@@ -21,5 +21,6 @@ class Stage:
     def turn_combat(self):
         self.player.action()
         self.victory()
-        self.enemy.attack_action()
+        self.enemy.attack()
         self.game_over()
+

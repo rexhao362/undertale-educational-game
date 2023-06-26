@@ -7,7 +7,7 @@ class Enemy(Units):
     def __init__(self, name, health=100, attack=20, defence=0):
         super().__init__(health, attack, defence)
         self.name = name
-        self.image = pygame.load.image(f'./assets/pictures/units/enemies/{name}')
+        self.image = pygame.load.image(f'./assets/pictures/units/enemies/{self.name}.png')
         self.rect = self.image.get_rect()
 
 

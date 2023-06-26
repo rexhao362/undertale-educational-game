@@ -7,15 +7,15 @@ class Units(Sprite):
         super.__init__()
         self.total_health = health
         self.current_health = health
-        self.attack = attack
+        self.attack_power = attack
         self.defence = defence
         self.alive = True
         # self.image
         # self.rect = self.image.get_rect()
         # self.rect.center = (left, top)
 
-    def attack_action(self, target):
-        target.current_health -= self.attack
+    def attack(self, target):
+        target.current_health -= self.attack_power
         if target.current_health <= 0:
             target.alive = False
 
@@ -26,7 +26,7 @@ class Units(Sprite):
         return self.alive
 
 
-class HealthBar(Sprite):
+class HealthBar():
     def __init__(self, left, top, width, height, total_health):
         self.left = left
         self.top = top
