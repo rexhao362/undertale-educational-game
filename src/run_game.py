@@ -1,7 +1,7 @@
 from src.systems.battle.player import Player
 from src.systems.battle.stage import Stage
 import pygame
-
+from src.main import screen
 
 class Game:
     def __init__(self, screen, user):
@@ -15,15 +15,7 @@ class Game:
         self.stage += 1
         return Stage(self.screen, self.player, self.stage)
 
-def start_game():
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        
-        # Update Pygame display
-        pygame.display.update()
-
-    # Quit Pygame
-    pygame.quit()
+def start_game(user):
+    game = Game(screen, user)
+    while game.stage < 5:
+        game.next_stage()

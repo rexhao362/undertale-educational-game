@@ -1,5 +1,5 @@
 from src.systems.battle.enemy import create_enemy
-
+import pygame
 
 class Stage:
     def __init__(self, screen, player, current_stage):
@@ -12,11 +12,15 @@ class Stage:
     def victory(self):
         if not self.enemy.is_alive():
             self.screen.blit(victory_img)
-            pass
+            self.game_won()
 
     def game_over(self):
         if not self.player.is_alive():
             self.screen.blit(defeat_img)
+
+    def game_won(self):
+        if self.stage == 5:
+            pygame.quit()
 
     def turn_combat(self):
         self.player.action()
