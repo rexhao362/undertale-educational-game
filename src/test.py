@@ -34,7 +34,7 @@ level = pygame_menu.Menu('Select a Difficulty', 600,
 level.add.selector(
     'Difficulty :', [('Hard', 1), ('Easy', 2)], onchange=set_difficulty)
 
-loading = pygame_menu.Menu('Loading the Game...', 600,
+loading = pygame_menu.Menu('Loading the src...', 600,
                            400, theme=themes.THEME_DARK)
 loading.add.progress_bar(
     "Progress", progressbar_id="1", default=0, width=200, )

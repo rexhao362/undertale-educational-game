@@ -1,4 +1,4 @@
-from game.systems.battle.enemy import create_enemy
+from src.systems.battle.enemy import create_enemy
 
 
 class Stage:
@@ -10,12 +10,12 @@ class Stage:
         self.image
 
     def victory(self):
-        if self.enemy.is_alive():
+        if not self.enemy.is_alive():
             self.screen.blit(victory_img)
             pass
 
     def game_over(self):
-        if self.player.is_alive():
+        if not self.player.is_alive():
             self.screen.blit(defeat_img)
 
     def turn_combat(self):
@@ -23,4 +23,3 @@ class Stage:
         self.victory()
         self.enemy.attack()
         self.game_over()
-

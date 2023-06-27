@@ -1,6 +1,6 @@
 import pygame_menu
-from game.settings import settings
-from game.menus.options import options_menu
+from src.settings import settings
+from src.menus.options import options_menu
 
 # Create a custom theme to add a background image
 custom_theme = pygame_menu.themes.THEME_DARK.copy()

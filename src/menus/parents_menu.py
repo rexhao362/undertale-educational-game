@@ -1,7 +1,7 @@
 from menus.menu_class import custom_theme
 import pygame_menu
-from game.settings import settings
-from game.menus.options import options_menu
+from src.settings import settings
+from src.menus.options import options_menu
 
 
 """Initialises menu"""

@@ -1,5 +1,5 @@
 import pygame_menu
-from game.settings import settings
+from src.settings import settings
 
 
 options_menu = pygame_menu.Menu('Options', settings.screen_width,

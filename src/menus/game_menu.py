@@ -1,10 +1,10 @@
-# from game.menus.menu_class import Menu
-from game.run_game import start_game
-from game.systems.questions.topic import set_subject
+# from src.menus.menu_class import Menu
+from src.run_game import start_game
+from src.systems.questions.topic import set_subject
 import pygame_menu
-from game.settings import settings
-from game.menus.options import options_menu
-from game.menus.menu_class import custom_theme
+from src.settings import settings
+from src.menus.options import options_menu
+from src.menus.menu_class import custom_theme
 
 
 """Initialises menu"""
