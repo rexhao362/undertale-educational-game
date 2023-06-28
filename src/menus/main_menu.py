@@ -1,7 +1,7 @@
 # from menus.menu_class import Menu
 import pygame_menu
 from src.settings import settings
-from src.menus.game_menu import game_menu
+from src.menus.users_menu import user_menu
 from src.menus.parents_menu import parents_menu
 from src.menus.options import options_menu
 from src.menus.menu_class import custom_theme
@@ -12,7 +12,7 @@ main_menu = pygame_menu.Menu(
     'Main Menu', settings.screen_width, settings.screen_height, theme=custom_theme)
 
 main_menu.font = pygame_menu.font.FONT_8BIT
-main_menu.add.button('Kids', game_menu)
+main_menu.add.button('Kids', user_menu)
 main_menu.add.button('Parents', parents_menu)
 main_menu.center_content()
 

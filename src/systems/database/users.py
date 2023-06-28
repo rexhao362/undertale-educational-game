@@ -17,3 +17,6 @@ class User:
 
     def update_user(self):
         pass
+
+def get_users():
+    pass
