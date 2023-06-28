@@ -5,7 +5,7 @@ class Buttons:
     def __init__(self, name, screen):
         self.name = name
         self.screen = screen
-        self.image = pygame.load.image(
+        self.image = pygame.image.load(
             f'assets/pictures/buttons/{self.name}.png')
         self.rect = self.image.get_rect()
         

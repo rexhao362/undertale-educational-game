@@ -1,8 +1,8 @@
 # from menus.menu_class import Menu
 import pygame_menu
+from src.settings import settings
 from src.menus.game_menu import game_menu
 from src.menus.parents_menu import parents_menu
-from src.settings import settings
 from src.menus.options import options_menu
 from src.menus.menu_class import custom_theme
 

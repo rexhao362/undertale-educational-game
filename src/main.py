@@ -1,6 +1,6 @@
 import pygame
-from settings import settings
-from src.menus.main_menu import main_menu
+from src.settings import settings
+# from src.menus.main_menu import main_menu
 from importlib import import_module
 
 pygame.init()
@@ -14,8 +14,8 @@ pygame.display.set_caption('Game')
 
 
 def main():
-    # mod = import_module('src.menus.main_menu')
-    # main_menu = mod.main_menu
+    mod = import_module('src.menus.main_menu')
+    main_menu = mod.main_menu
 
     # Main game loop
     running = True
