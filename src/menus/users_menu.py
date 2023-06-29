@@ -17,8 +17,6 @@ def set_user_name(name):
     pass
 
 
-def create_user(new_user):
-    pass
 
 pygame_menu.widgets.TextInput('Create New User', textinput_id='new_user', maxchar=50, onreturn=create_user)
 

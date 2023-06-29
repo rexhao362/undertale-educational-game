@@ -19,3 +19,4 @@ def create_maths_question():
         'text': text,
         'answer': answer
     }
+
