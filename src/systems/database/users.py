@@ -28,9 +28,6 @@ class User:
             f[self.name] = data
 
 
-def get_all_users():
-    with shelve.open('save_file', flag='r') as f:
-        return {list(f.keys())}
 
 def create_user(new_user):
     with shelve.open('save_file', flag='c') as f:
@@ -41,3 +38,7 @@ def create_user(new_user):
                     'total questions': 0
                 }
             }
+
+def get_users_names():
+    with shelve.open('save_file', flag='c') as f:
+        return list(f.keys())
