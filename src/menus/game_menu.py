@@ -13,10 +13,11 @@ game_menu = pygame_menu.Menu(
 
 game_menu.add.selector(
     'Subject :', [
-        ('Maths', 1), ('English', 2), ('Science', 3)
+        ('maths', 1), ('english', 2), ('science', 3)
     ],
     onchange=set_subject
 )
+# subject = game_menu.selector.get_value()[0]
 game_menu.add.button('Play', start_game)
 game_menu.center_content()
 
