@@ -4,7 +4,7 @@ import pygame
 from src.main import screen
 
 class Game:
-    def __init__(self, screen, user):
+    def __init__(self, screen, user='guest'):
         self.screen = screen
         self.user = user
         self.player = Player(self.user)
