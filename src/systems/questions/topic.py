@@ -2,5 +2,5 @@ class Subject:
     def __init__(self, name, problems):
         self.name = name
     
-def set_subject():
-    pass
+def set_subject(subject):
+    return subject

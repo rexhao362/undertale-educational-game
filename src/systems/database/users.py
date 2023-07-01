@@ -31,7 +31,7 @@ class User:
 
 def create_user(new_user):
     with shelve.open('save_file', flag='c') as f:
-        if f[new_user] == None:
+        if new_user not in get_users_names():
             f[new_user] = {
                 'maths': {
                     'total marks': 0,
