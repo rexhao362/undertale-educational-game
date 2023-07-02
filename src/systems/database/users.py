@@ -38,6 +38,7 @@ def create_user(new_user):
                     'total questions': 0
                 }
             }
+        
 
 def get_users_names():
     with shelve.open('save_file', flag='c') as f:

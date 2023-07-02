@@ -1,7 +1,10 @@
 import pygame
 from src.settings import settings
-# from src.menus.main_menu import main_menu
+from src.menus.main_menu import main_menu
 from importlib import import_module
+
+from src.systems.database.users import create_user
+create_user('player')
 
 pygame.init()
 screen = pygame.display.set_mode((
@@ -14,8 +17,8 @@ pygame.display.set_caption('Game')
 
 
 def main():
-    mod = import_module('src.menus.main_menu')
-    main_menu = mod.main_menu
+    # mod = import_module('src.menus.main_menu')
+    # main_menu = mod.main_menu
 
     # Main game loop
     running = True

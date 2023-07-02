@@ -4,7 +4,7 @@ import pygame
 
 class Units(Sprite):
     def __init__(self, health, attack, defence):
-        super.__init__()
+        super().__init__()
         self.total_health = health
         self.current_health = health
         self.attack_power = attack

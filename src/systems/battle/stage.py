@@ -7,7 +7,7 @@ class Stage:
         self.player = player
         self.stage = current_stage
         self.enemy = create_enemy()
-        self.image
+        self.image = pygame.image.load('assets/pictures/backgrounds/boss_battle_bg.png')
 
     def victory(self):
         if not self.enemy.is_alive():
