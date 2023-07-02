@@ -2,7 +2,6 @@ from src.systems.battle.player import Player
 from src.systems.battle.stage import Stage
 import pygame
 from src.main import screen
-from src.systems.questions.topic import subject
 
 class Game:
     def __init__(self, screen, subject, user='guest'):
@@ -20,7 +19,7 @@ class Game:
     def set_subject(self, subject):
         self.subject = subject
 
-def start_game(user):
+def start_game(user, subject):
     game = Game(screen, subject, user )
     while game.stage < 5:
         game.next_stage()

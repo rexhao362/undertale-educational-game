@@ -9,6 +9,7 @@ class Enemy(Units):
         self.name = name
         self.image = pygame.load.image(f'./assets/pictures/units/enemies/{self.name}.png')
         self.rect = self.image.get_rect()
+        self.rect.center = (600, 200)
 
 
 

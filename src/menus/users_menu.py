@@ -7,7 +7,6 @@ from src.menus.game_menu import game_menu
 from src.menus.options import options_menu
 from src.systems.database.users import create_user, get_users_names
 
-filename = ''
 
 
 def set_user_name(name):

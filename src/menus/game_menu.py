@@ -13,7 +13,7 @@ game_menu = pygame_menu.Menu(
 
 game_menu.add.selector(
     'Subject :', [
-        ('maths', 1), ('english', 2), ('science', 3)
+        ('Maths', 'maths'), ('English', 'english'), ('Science', 'science')
     ],
     onchange=set_subject
 )
