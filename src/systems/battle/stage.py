@@ -14,8 +14,9 @@ class Stage:
 
     def victory(self):
         if not self.enemy.is_alive():
-            victory_img = 'assets/pictures/game_over.png'
+            victory_img = 'assets/pictures/victory.png'
             # self.screen.blit(victory_img)
+            self.player.user.update
             self.game_won()
 
     def game_over(self):
@@ -28,7 +29,7 @@ class Stage:
             pygame.quit()
 
     def turn_combat(self):
-        self.player.attack(self.enemy)
+        self.player.action(self.enemy)
         self.victory()
         self.enemy.attack(self.player)
         self.game_over()

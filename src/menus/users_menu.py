@@ -1,7 +1,6 @@
 import pygame_menu
 from src.run_game import start_game, current_user
 from src.settings import settings
-import shelve
 import pygame
 from src.menus.menu_class import custom_theme
 from src.menus.game_menu import game_menu

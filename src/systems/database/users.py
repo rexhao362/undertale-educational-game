@@ -1,45 +1,45 @@
-import shelve
-
+import json
 
 class User:
     def __init__(self, name):
         self.name = name
         self.scores = {
             'maths': {
-                'marks': 0,
-                'questions': 0
+                'correct': 0,
+                'wrong': 0
             }
         }
 
     def correct_answer(self, subject):
-        self.scores[subject]['marks'] += 1
-        self.scores[subject]['questions'] += 1
+        self.scores[subject]['correct'] += 1
         return 'That is the right answer!'
 
     def wrong_answer(self, subject, answer):
-        self.scores[subject]['questions'] += 1
+        self.scores[subject]['wrong'] += 1
         return f'That is the wrong answer. The correct answer is {answer}'
 
     def update_user(self, subject):
-        with shelve.open('save_file', flag='c') as f:
-            data = f[self.name]
-            data[subject]['total marks'] += self.scores[subject]['marks']
-            data[subject]['total questions'] += self.scores[subject]['questions']
-            f[self.name] = data
-
+        with open('save_file.json', 'r+') as f:
+            data = json.load(f)
+            subject_data = data[self.name][subject]
+            subject_data['total correct'] += self.scores[subject]['correct']
+            subject_data['total wrong'] += self.scores[subject]['wrong']
+            json.dump(data, f)
 
 
 def create_user(new_user):
-    with shelve.open('save_file', flag='c') as f:
+    with open('save_file.json', 'r+', encoding='utf8') as f:
+        data = json.load(f)
         if new_user not in get_users_names():
-            f[new_user] = {
+            data[new_user] = {
                 'maths': {
-                    'total marks': 0,
-                    'total questions': 0
+                    'total correct': 0,
+                    'total wrong': 0
                 }
             }
-        
+        json.dump(data, f)
+
 
 def get_users_names():
-    with shelve.open('save_file', flag='c') as f:
-        return list(f.keys())
+    with open('save_file.json', 'r') as f:
+        return list(json.load(f).keys())

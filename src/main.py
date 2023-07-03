@@ -3,8 +3,6 @@ from src.settings import settings
 # from src.menus.main_menu import main_menu
 from importlib import import_module
 
-from src.systems.database.users import create_user
-create_user('player')
 
 pygame.init()
 screen = pygame.display.set_mode((
