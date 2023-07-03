@@ -2,7 +2,6 @@ from src.systems.battle.player import Player
 from src.systems.battle.stage import Stage
 import pygame
 from src.main import screen
-from src.main import main_menu
 
 current_user = ['player']
 
@@ -25,7 +24,8 @@ class Game:
 
 def start_game():
     game = Game(screen, 'maths', current_user[0])
-    main_menu.disable()
+    # main_menu.disable()
     while game.stage < 5:
-        game.next_stage()
+        stage = game.next_stage()
+        stage.turn_combat()
         

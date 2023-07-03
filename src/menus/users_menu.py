@@ -11,7 +11,6 @@ from src.systems.database.users import create_user, get_users_names
 
 def set_current_user(value, name):
     current_user[0] = name
-    print(current_user)
 
 
 user_menu = pygame_menu.Menu(
