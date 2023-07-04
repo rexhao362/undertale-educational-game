@@ -11,7 +11,7 @@ class Player(Units):
         
 
 
-    def action(self):
+    def action(self, target):
         pass
 
     def block(self):

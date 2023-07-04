@@ -1,6 +1,6 @@
 import pygame
 from src.settings import settings
-# from src.menus.main_menu import main_menu
+import src.menus.main_menu as m
 from importlib import import_module
 
 
@@ -15,9 +15,6 @@ pygame.display.set_caption('Game')
 
 
 def main():
-    mod = import_module('src.menus.main_menu')
-    main_menu = mod.main_menu
-
     # Main game loop
     running = True
     while running:
@@ -43,9 +40,9 @@ def main():
             pygame.draw.rect(screen, "white", [
                              settings.screen_width/2, settings.screen_height/2, 140, 40])
             
-        if main_menu.is_enabled():
-            main_menu.update(events)
-            main_menu.draw(screen)
+        if m.main_menu.is_enabled():
+            m.main_menu.update(events)
+            m.main_menu.draw(screen)
 
         pygame.display.update()
 

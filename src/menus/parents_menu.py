@@ -1,14 +1,27 @@
-from menus.menu_class import custom_theme
 import pygame_menu
+from src.menus.menu_class import custom_theme
+from src.menus.users_menu import set_current_user
 from src.settings import settings
 from src.menus.options import options_menu
+from src.systems.database.users import get_users_names
+from src.systems.questions.topic import set_current_subject
+from src.systems.database.donut_graph import donut_chart_draw
 
 
 """Initialises menu"""
 parents_menu = pygame_menu.Menu(
     'Database', settings.screen_width, settings.screen_height, theme=custom_theme)
 
+parents_menu.add.selector(
+    'User :', [(name, name) for name in get_users_names()],
+    onchange=set_current_user
+)
+parents_menu.add.selector(
+    'Subject :', [('Maths', 'maths')],
+    onchange=set_current_subject
+)
 
+parents_menu.add.button('Graph', donut_chart_draw)
 # Create a horizontal frame at the bottom of the screen
 parents_menu.bottom_frame = parents_menu.add.frame_h(
     width=settings.screen_width,

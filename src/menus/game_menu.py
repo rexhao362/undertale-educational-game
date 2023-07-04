@@ -1,6 +1,6 @@
 # from src.menus.menu_class import Menu
 from src.run_game import start_game
-from src.systems.questions.topic import set_subject
+from src.systems.questions.topic import set_current_subject
 import pygame_menu
 from src.settings import settings
 from src.menus.options import options_menu
@@ -15,7 +15,7 @@ game_menu.add.selector(
     'Subject :', [
         ('Maths', 'maths'), ('English', 'english'), ('Science', 'science')
     ],
-    onchange=set_subject
+    onchange=set_current_subject
 )
 # subject = game_menu.selector.get_value()[0]
 game_menu.add.button('Play', start_game)
