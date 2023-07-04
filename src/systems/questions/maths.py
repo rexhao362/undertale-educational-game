@@ -20,3 +20,19 @@ def create_maths_question():
         'answer': answer
     }
 
+def create_fraction_question():
+    pass
+
+
+def create_rounding_question():
+    num = random.randint(1, 100)/10
+    text = f'What is {num} rounded to the nearest integer?'
+    answer = round(num)
+
+    return {
+        'text': text,
+        'answer': answer
+    }
+
+def choose_maths_question():
+    pass

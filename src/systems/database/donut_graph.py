@@ -14,7 +14,6 @@ def create_graph(user, subject):
         data = load(f)
         subject_data = data[user][subject]
         labels, values = zip(*subject_data.items())
-        print(labels, '****', values)
 
     # draw pie chart
     # hex codes for yellowgreen and light coral
@@ -25,18 +24,18 @@ def create_graph(user, subject):
 
     # draw a circle at the center of pie chart
     circle = plt.Circle((0, 0), 0.7, color='white')
-    fig = plt.gcf()
-    fig.gca().add_artist(circle)
+    figure = plt.gcf()
+    figure.gca().add_artist(circle)
 
     # Set aspect ratio to be equal so that pie is drawn as a circle.
     plt.axis('equal')
 
-    return fig
+    return figure
 
 
 def donut_graph_draw():
-    fig = create_graph(current_user[0], current_subject[0])
-    canvas = agg.FigureCanvasAgg(fig)
+    figure = create_graph(current_user[0], current_subject[0])
+    canvas = agg.FigureCanvasAgg(figure)
     canvas.draw()
     renderer = canvas.get_renderer()
     raw_data = renderer.tostring_rgb()
@@ -45,4 +44,3 @@ def donut_graph_draw():
 
     surf = pygame.image.fromstring(raw_data, size, "RGB")
     screen.blit(surf, (600, 400))
-    # pygame.display.flip()
