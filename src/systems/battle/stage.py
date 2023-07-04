@@ -16,7 +16,7 @@ class Stage:
         if not self.enemy.is_alive():
             victory_img = 'assets/pictures/victory.png'
             # self.screen.blit(victory_img)
-            self.player.user.update
+            self.player.user.update_user()
             self.game_won()
 
     def game_over(self):

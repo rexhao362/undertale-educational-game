@@ -25,6 +25,8 @@ class User:
             subject_data['total correct'] += self.scores[subject]['correct']
             subject_data['total wrong'] += self.scores[subject]['wrong']
             json.dump(data, f)
+            self.scores[subject]['correct'] = 0
+            self.scores[subject]['wrong'] = 0
 
 
 def create_user(new_user):
