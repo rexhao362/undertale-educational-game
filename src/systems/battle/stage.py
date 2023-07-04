@@ -7,7 +7,7 @@ class Stage:
         self.player = player
         self.stage = current_stage
         self.enemy = create_enemy()
-        self.screen.fill((255, 255, 255))
+        self.screen.fill((0, 0, 0))
         self.bg_image = pygame.image.load('assets/pictures/backgrounds/boss_battle_bg.png')
         self.bg_rect = self.bg_image.get_rect()
         self.bg_rect.center = (600, 400)
@@ -33,3 +33,6 @@ class Stage:
         self.victory()
         self.enemy.attack(self.player)
         self.game_over()
+
+    def draw(self):
+        self.screen.blit(self.bg_image, self.bg_rect, self.enemy)

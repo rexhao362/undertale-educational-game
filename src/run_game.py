@@ -3,6 +3,7 @@ from src.systems.battle.stage import Stage
 import pygame
 from src.main import screen
 import src.menus.main_menu as m
+from settings import settings
 
 current_user = ['player']
 current_subject = ['maths']
@@ -27,20 +28,26 @@ class Game:
 def start_game():
     game = Game(screen, 'maths', current_user[0])
     m.main_menu.disable()
-    running = True
     stage = game.next_stage()
     stage.turn_combat()
+    running = True
     while running:
+        settings.clock.tick(settings.fps)
         events = pygame.event.get()
-        for e in events:
-            if e.type == pygame.QUIT:
+        for event in events:
+            if event.type == pygame.QUIT:
+                running = False
                 exit()
-            elif e.type == pygame.KEYDOWN:
-                if e.key == pygame.K_ESCAPE:
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                pass
+
+        # Event handling for a range of different key presses
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
                     m.main_menu.enable()
                     # Quit this function, then skip to loop of main-menu on line 221
                     return
 
-        # Pass events to main_menu
-        # if main_menu.is_enabled():
-        #     main_menu.update(events)
+        stage.draw()
+        pygame.display.flip()

@@ -9,16 +9,15 @@ screen = pygame.display.set_mode((
     settings.screen_width,
     settings.screen_height
 ))
-clock = pygame.time.Clock()
-fps = 60
 pygame.display.set_caption('Game')
+
 
 
 def main():
     # Main game loop
     running = True
     while running:
-        clock.tick(fps)
+        settings.clock.tick(settings.fps)
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -44,7 +43,7 @@ def main():
             m.main_menu.update(events)
             m.main_menu.draw(screen)
 
-        pygame.display.update()
+        pygame.display.flip()
 
     pygame.quit()
 
