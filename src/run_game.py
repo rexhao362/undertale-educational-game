@@ -49,5 +49,5 @@ def start_game():
                     # Quit this function, then skip to loop of main-menu on line 221
                     return
 
-        stage.draw()
+        state.draw()
         pygame.display.flip()

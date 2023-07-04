@@ -12,7 +12,6 @@ screen = pygame.display.set_mode((
 pygame.display.set_caption('Game')
 
 
-
 def main():
     # Main game loop
     running = True
@@ -31,13 +30,7 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 pass
 
-        mouse = pygame.mouse.get_pos()
-
-    # if mouse is hovered on a button it
-    # changes to lighter shade
-        if settings.screen_width/2 <= mouse[0] <= settings.screen_width/2+140 and settings.screen_height/2 <= mouse[1] <= settings.screen_height/2+40:
-            pygame.draw.rect(screen, "white", [
-                             settings.screen_width/2, settings.screen_height/2, 140, 40])
+       
             
         if m.main_menu.is_enabled():
             m.main_menu.update(events)
@@ -50,3 +43,11 @@ def main():
 
 if __name__ == '__main__':
     main()
+ 
+#  mouse = pygame.mouse.get_pos()
+
+    # # if mouse is hovered on a button it
+    # # changes to lighter shade
+    #     if settings.screen_width/2 <= mouse[0] <= settings.screen_width/2+140 and settings.screen_height/2 <= mouse[1] <= settings.screen_height/2+40:
+    #         pygame.draw.rect(screen, "white", [
+    #                          settings.screen_width/2, settings.screen_height/2, 140, 40])
