@@ -1,11 +1,16 @@
 import json
+import os
 
 
-with open('save_file.json', 'w') as f:
-    data = {'player': {'maths': {
-        'total correct': 0,
-        'total wrong': 0
+filename = 'save_file.json'
+if filename not in os.listdir():
+    with open(filename, 'w') as f:
+        data = {
+            'player': {
+                'maths': {
+                    'total correct': 0,
+                    'total wrong': 0
+                }
             }
         }
-    }
-    json.dump(data, f)
+        json.dump(data, f)

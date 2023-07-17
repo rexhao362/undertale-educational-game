@@ -30,8 +30,6 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 pass
 
-       
-            
         if m.main_menu.is_enabled():
             m.main_menu.update(events)
             m.main_menu.draw(screen)
@@ -43,7 +41,7 @@ def main():
 
 if __name__ == '__main__':
     main()
- 
+
 #  mouse = pygame.mouse.get_pos()
 
     # # if mouse is hovered on a button it
