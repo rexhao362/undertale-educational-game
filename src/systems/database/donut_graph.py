@@ -42,5 +42,5 @@ def donut_graph_draw():
 
     size = canvas.get_width_height()
 
-    surf = pygame.image.fromstring(raw_data, size, "RGB")
-    screen.blit(surf, (600, 400))
+    surface = pygame.image.fromstring(raw_data, size, "RGB")
+    screen.blit(surface, (600, 400))
