@@ -16,6 +16,7 @@ class Game:
         self.player = Player(self.user)
         self.subject = subject
         self.stage = 0
+        self.running = True
 
     def next_stage(self):
         self.stage += 1
@@ -24,19 +25,10 @@ class Game:
     def set_subject(self, subject):
         self.subject = subject
 
-
-def start_game():
-    game = Game(screen, 'maths', current_user[0])
-    m.main_menu.disable()
-    stage = game.next_stage()
-    stage.turn_combat()
-    running = True
-    while running:
-        settings.clock.tick(settings.fps)
-        events = pygame.event.get()
-        for event in events:
+    def events(self):
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                self.running = False
                 exit()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -48,6 +40,16 @@ def start_game():
                     m.main_menu.enable()
                     # Quit this function, then skip to loop of main-menu on line 221
                     return
+
+def start_game():
+    game = Game(screen, 'maths', current_user[0])
+    m.main_menu.disable()
+    stage = game.next_stage()
+    stage.turn_combat()
+    while game.running:
+        settings.clock.tick(settings.fps)
+        
+        game.events()
 
         state.draw()
         pygame.display.flip()
