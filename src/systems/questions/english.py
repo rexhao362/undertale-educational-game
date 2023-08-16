@@ -34,11 +34,26 @@ class GuessWordGame:
     def unmask(self, index):
         self.masked_word[index] = self.word[index]
 
-    def check_correct(self):
+    def check_answer(self):
         pass
 
     def draw_guessing(self):
-        pass
+        num_boxes = len(self.masked_word)
+        font = pygame.font.SysFont('chalkduster.ttf', 72)
+        word_image = []
+        index = -1
+        for char in self.masked_word:
+            index += 1
+            image = font.render(char, True, WHITE)
+            rect = image.get_rect()
+            if char != '*':
+                word_image.push(image)
+            else:
+                rect = image.get_rect()
+                word_image.push(char)
+        
+
+
 
     def draw_crosses(self):
         pass
