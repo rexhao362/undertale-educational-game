@@ -1,7 +1,6 @@
 import pygame
 from src.settings import settings
 import src.menus.main_menu as m
-from importlib import import_module
 
 
 pygame.init()
