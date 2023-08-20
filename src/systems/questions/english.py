@@ -51,11 +51,12 @@ class GuessWordGame:
 
 class LetterBoxes:
     def __init__(self) -> None:
-        font = pygame.font.SysFont('chalkduster.ttf', 36)
-        box_height = 50
-        box_spacing = 20
+        self.font = pygame.font.SysFont('chalkduster.ttf', 36)
+        self.box_height = 50
+        self.box_spacing = 20
 
 
 class Crosses:
-    def __init__(self):
-        pass
+    def __init__(self, x):
+        self.x_pos = x
+        self.font = pygame.font.Font('', 54)
