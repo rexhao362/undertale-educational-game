@@ -42,7 +42,7 @@ class Game:
                     return
 
 def start_game():
-    game = Game(screen, 'maths', current_user[0])
+    game = Game(screen, current_user[0])
     m.main_menu.disable()
     stage = game.next_stage()
     stage.turn_combat()
