@@ -46,17 +46,21 @@ class GuessWordGame:
 
 
     def draw_crosses(self):
-        pass
+        for i in range(self.guesses):
+            pygame.
 
 
 class LetterBoxes:
-    def __init__(self) -> None:
+    def __init__(self, word):
+        self.word = word
         self.font = pygame.font.SysFont('chalkduster.ttf', 36)
-        self.box_height = 50
-        self.box_spacing = 20
+        self.height = 50
+        self.spacing = 20
+        # self.width = 
 
 
 class Crosses:
-    def __init__(self, x):
-        self.x_pos = x
-        self.font = pygame.font.Font('', 54)
+    def __init__(self, left):
+        self.left_pos = left
+        self.top_pos = 56
+        self.font = pygame.font.SysFont('arial', 54)
