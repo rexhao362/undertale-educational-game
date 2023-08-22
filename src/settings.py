@@ -9,6 +9,7 @@ class Settings:
         self.screen_height = 800
         self.clock = pygame.time.Clock()
         self.fps = 60
+        self.time_delta = self.clock.tick(60)/1000.0
         # self.bg_colour = (0, 0, 0)
     
     def set_resolution(self, value, width_height):
