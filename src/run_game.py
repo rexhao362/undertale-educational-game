@@ -17,6 +17,8 @@ class Game:
         self.subject = subject
         self.stage = 0
         self.running = True
+        self.state_name = None
+        self.state = None
 
     def next_stage(self):
         self.stage += 1
@@ -24,6 +26,19 @@ class Game:
 
     def set_subject(self, subject):
         self.subject = subject
+
+    def set_state(self, state):
+        self.state = state
+
+    def state_manager(self):
+        if self.state_name == 'stage':
+            self.stage += 1
+            self.state = Stage(self.screen, self.player, self.stage)
+        elif self.state_name == 'quiz':
+            self.state = 
+        elif self.state_name == 'tilemap':
+            pass
+
 
     def events(self):
         for event in pygame.event.get():
@@ -39,7 +54,7 @@ class Game:
                 if event.key == pygame.K_ESCAPE:
                     m.main_menu.enable()
                     # Quit this function, then skip to loop of main-menu on line 221
-                    return
+                    
 
 def start_game():
     game = Game(screen, current_user[0])

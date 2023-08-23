@@ -10,6 +10,10 @@ if filename not in os.listdir():
                 'maths': {
                     'total correct': 0,
                     'total wrong': 0
+                },
+                'spelling': {
+                    'total correct': 0,
+                    'total wrong': 0
                 }
             }
         }

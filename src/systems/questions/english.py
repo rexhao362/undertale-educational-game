@@ -3,11 +3,11 @@ import random
 import pygame
 
 word_list = []
-with open('src/systems/questions/word_list.json') as f:
+with open('data/word_list.json') as f:
     word_list = load(f)['word_list']
 
 
-class GuessWordGame:
+class SpellingQuiz:
     def __init__(self, screen):
         self.screen = screen
         self.word = [random.choice(word_list)]
@@ -45,7 +45,10 @@ class GuessWordGame:
         pass
 
     def events(self):
-        pass
+        for event in pygame.events.get():
+            pass
+    
+    def update_score(self, user)
 
 
 class LetterBoxes:
