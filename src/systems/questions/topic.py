@@ -1,7 +1,7 @@
 from src.run_game import current_subject
 from random import choice
-from src.systems.questions.maths import MathsQuiz
-from src.systems.questions.english import SpellingQuiz
+from systems.questions.maths.maths_questions import MathsQuiz
+from systems.questions.spelling.english import SpellingQuiz
 
 
 class Subject:

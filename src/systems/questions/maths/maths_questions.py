@@ -2,6 +2,7 @@ import random
 from operator import add, sub, mul, truediv
 import pygame
 
+
 def create_maths_question():
     num_1 = random.randint(1, 12)
     num_2 = random.randint(1, 12)
@@ -45,7 +46,6 @@ def create_rounding_question():
         'answer': answer 
     }
 
-
 def choose_maths_question():
     questions_list = [
         create_maths_question,
@@ -57,24 +57,4 @@ def choose_maths_question():
 
     return chosen_question()
 
-class MathsQuiz:
-    def __init__(self) -> None:
-        self.quiz = choose_maths_question()
-        self.text = self.quiz['text']
-        self.answer = self.quiz['answer']
 
-    def events(self):
-        for event in pygame.events.get():
-            if event.type == pygame.QUIT:
-                # self.running = False
-                exit()
-
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                pass
-
-            elif event.type == pygame.KEYDOWN:
-                pass
-
-    def draw(self):
-        font = pygame.font.SysFont('chalkduster.ttf', 24)
-        image = font.render(self.text)
