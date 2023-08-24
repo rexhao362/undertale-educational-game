@@ -36,3 +36,6 @@ class Stage:
 
     def draw(self):
         self.screen.blit(self.bg_image, self.bg_rect, self.enemy)
+
+    def events(self):
+        pass

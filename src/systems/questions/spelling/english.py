@@ -1,20 +1,21 @@
 from json import load
 import random
 import pygame
+import pygame_gui
+from src.manager import manager
+from src.systems.questions.topic import Quiz
 
 word_list = []
 with open('data/word_list.json') as f:
     word_list = load(f)['word_list']
 
 
-class SpellingQuiz:
-    def __init__(self, screen):
-        self.screen = screen
+class SpellingQuiz(Quiz):
+    def __init__(self):
+        super().__init__(subject='spelling')
         self.word = [random.choice(word_list)]
         self.masked_word = self.word
-        # self.background
         self.letters_indices = {}
-        self.guesses = 0
 
     def mask_word(self):
         length = len(self.word)
@@ -46,9 +47,28 @@ class SpellingQuiz:
 
     def events(self):
         for event in pygame.events.get():
-            pass
+            if event.type == pygame.QUIT:
+                exit()
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                pass
+
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.key.key_code("return"):
+                    self.mark()
+
+            elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
+                if event.ui_element == num_box:
+                    self.guess = event.text
+
+            elif event.type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == start_button:
+                    self.mark()
+
+            manager.process_events(event)
     
-    def update_score(self, user)
+    def update_score(self, user):
+        pass
 
 
 class LetterBoxes:
@@ -60,8 +80,4 @@ class LetterBoxes:
         # self.width =
 
 
-class Crosses:
-    def __init__(self, left):
-        self.left_pos = left
-        self.top_pos = 56
-        self.font = pygame.font.SysFont('arial', 54)
+

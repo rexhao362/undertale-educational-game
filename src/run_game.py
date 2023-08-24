@@ -1,9 +1,12 @@
+from random import choice
 from src.systems.battle.player import Player
 from src.systems.battle.stage import Stage
 import pygame
 from src.main import screen
 import src.menus.main_menu as m
 from settings import settings
+from systems.questions.maths.quiz_maths import MathsQuiz
+from systems.questions.spelling.english import SpellingQuiz
 
 current_user = ['player']
 current_subject = ['maths']
@@ -35,7 +38,7 @@ class Game:
             self.stage += 1
             self.state = Stage(self.screen, self.player, self.stage)
         elif self.state_name == 'quiz':
-            self.state = 
+            self.state = choice([MathsQuiz(), SpellingQuiz()])
         elif self.state_name == 'tilemap':
             pass
 
