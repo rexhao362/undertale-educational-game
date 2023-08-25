@@ -7,6 +7,10 @@ class User:
             'maths': {
                 'correct': 0,
                 'wrong': 0
+            },
+            'spelling': {
+                'correct': 0,
+                'wrong': 0
             }
         }
 

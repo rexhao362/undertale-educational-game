@@ -15,9 +15,8 @@ class MathsQuiz(Quiz):
 
     def draw(self, screen):
         font = pygame.font.Font('chalkduster.ttf', 24)
-        question = font.render(self.text, 'white')
-        question_rect = question.get_rect()
-        screen.blit(question_rect, center)  # todo
+        question = font.render(self.text, True, 'white')
+        screen.blit(question, (0, 0))
 
         num_box = pygame_gui.UITextEntryBox(
             relative_rect=pygame.Rect(
