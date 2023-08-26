@@ -44,7 +44,7 @@ def create_user(new_user):
                     'total correct': 0,
                     'total wrong': 0
                 }, 
-                'english': {
+                'spelling': {
                     'total correct': 0,
                     'total wrong': 0
                 }
