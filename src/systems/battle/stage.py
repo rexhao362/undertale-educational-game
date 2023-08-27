@@ -10,6 +10,7 @@ class Stage:
         self.enemy = create_enemy()
         self.turn = 'player'
         self.bg_image = pygame.image.load('assets/pictures/backgrounds/boss_battle_bg.png')
+        self.buttons = {}
 
     def victory(self):
         if not self.enemy.is_alive():
@@ -37,12 +38,17 @@ class Stage:
             self.game_over()
             self.turn = 'player'
 
-    def draw(self, screen):
+    def draw(self, screen, time_delta):
         screen.blit(self.bg_image, (0, 0))
         if self.turn == 'player':
-            attack_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
-                                                    text='attack',
-                                                    manager=m.manager)
+            self.draw_buttons()
+        else:
+            pass
+            
+    def draw_buttons(self):
+        self.buttons['attack'] = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
+                                                    text='FIGHT')
+        self.buttons['act']
 
     def events(self):
         for event in pygame.events.get():

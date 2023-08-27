@@ -14,7 +14,7 @@ class MathsQuiz(Quiz):
         self.num_box = None
         # self.start_button = None
 
-    def draw(self, screen):
+    def draw(self, screen, time_delta):
         font = pygame.font.Font('data/fonts/league_spartan.ttf', 24)
         question = font.render(self.text, True, 'white')
         screen.blit(question, (0, 0))

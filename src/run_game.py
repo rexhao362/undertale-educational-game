@@ -27,9 +27,6 @@ class Game:
         self.stage += 1
         return Stage(self.player, self.stage)
 
-    def set_subject(self, subject):
-        self.subject = subject
-
     def set_state(self, state):
         self.state = state
 

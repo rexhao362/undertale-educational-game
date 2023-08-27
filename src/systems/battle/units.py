@@ -19,7 +19,7 @@ class Units(Sprite):
         if target.current_health <= 0:
             target.alive = False
 
-    def draw(self, screen):
+    def draw(self, screen, time_delta):
         screen.blit(self.image, self.rect)
 
     def is_alive(self):
