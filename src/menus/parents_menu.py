@@ -17,7 +17,7 @@ parents_menu.add.selector(
     onchange=set_current_user
 )
 parents_menu.add.selector(
-    'Subject :', [('Maths', 'maths')],
+    'Subject :', [('Maths', 'maths'), ('Spelling', 'spelling')],
     onchange=set_current_subject
 )
 

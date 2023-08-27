@@ -12,7 +12,7 @@ class Enemy(Units):
         self.rect.center = (600, 200)
 
     def draw(self, screen):
-        pass
+        screen.blit(self.enemy)
 
     def draw_attack(self, screen):
         pass

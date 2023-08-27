@@ -1,5 +1,4 @@
 from src.systems.battle.enemy import create_enemy
-import src.manager as m
 import pygame
 import pygame_gui
 
@@ -53,7 +52,7 @@ class Stage:
 
         self.buttons['block'] 
 
-    def events(self):
+    def events(self, manager):
         for event in pygame.events.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -65,18 +64,21 @@ class Stage:
                 pass
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == start_button:
-                    self.check_answer()
+                pass
 
-            m.manager.process_events(event)
+            manager.process_events(event)
 
     def update(self):
         self.turn_combat()
 
     def change_turn(self):
         if self.turn == 'player':
-            pass
+            self.turn == 'enemy'
         else:
             self.turn = 'enemy'
 
 
+def combat_button(text, left):
+    button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
+                                                    text=text)
+    return button
