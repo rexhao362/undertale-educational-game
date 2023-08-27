@@ -40,15 +40,18 @@ class Stage:
 
     def draw(self, screen, time_delta):
         screen.blit(self.bg_image, (0, 0))
+        self.enemy.draw(screen)
         if self.turn == 'player':
             self.draw_buttons()
         else:
-            pass
-            
+            self.enemy.draw_attack(self.player, screen, time_delta)
+
     def draw_buttons(self):
         self.buttons['attack'] = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
                                                     text='FIGHT')
         self.buttons['act']
+
+        self.buttons['block'] 
 
     def events(self):
         for event in pygame.events.get():
@@ -68,7 +71,7 @@ class Stage:
             m.manager.process_events(event)
 
     def update(self):
-        pass
+        self.turn_combat()
 
     def change_turn(self):
         if self.turn == 'player':

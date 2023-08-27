@@ -11,6 +11,12 @@ class Enemy(Units):
         self.rect = self.image.get_rect()
         self.rect.center = (600, 200)
 
+    def draw(self, screen):
+        pass
+
+    def draw_attack(self, screen):
+        pass
+
 enemy_pictures = listdir(f'assets/pictures/units/enemies')
 enemy_names = [enemy.split('.')[0] for enemy in enemy_pictures]
 

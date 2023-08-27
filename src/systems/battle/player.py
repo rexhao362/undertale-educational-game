@@ -7,12 +7,12 @@ class Player(Units):
         super().__init__(health, attack, defence)
         self.user = user
         self.mana = mana
-        self.acting = False
+        self.acting = True
         
 
 
     def action(self, target):
-        pass
+        self.acting = False
 
     def block(self):
         self.defence += 10
