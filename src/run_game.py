@@ -2,22 +2,22 @@ from random import choice
 from src.systems.battle.player import Player
 from src.systems.battle.stage import Stage
 import pygame
-from src.main import screen
 import src.menus.main_menu as m
-from settings import settings
-from systems.questions.maths.quiz_maths import MathsQuiz
-from systems.questions.spelling.english import SpellingQuiz
+from src.settings import settings, screen
+from src.systems.questions.maths.quiz_maths import MathsQuiz
+from src.systems.questions.spelling.english import SpellingQuiz
+from src.systems.database.users import User
+
 
 current_user = ['player']
 current_subject = ['maths']
 
 
 class Game:
-    def __init__(self, screen, subject, user):
+    def __init__(self, screen, username):
         self.screen = screen
-        self.user = user
+        self.user = User(username)
         self.player = Player(self.user)
-        self.subject = subject
         self.stage = 0
         self.running = True
         self.state_name = None
@@ -25,7 +25,7 @@ class Game:
 
     def next_stage(self):
         self.stage += 1
-        return Stage(self.screen, self.player, self.stage)
+        return Stage(self.player, self.stage)
 
     def set_subject(self, subject):
         self.subject = subject
@@ -60,7 +60,7 @@ class Game:
                     
 
 def start_game():
-    game = Game(screen, current_user[0])
+    game = Game(screen, User(current_user[0]))
     m.main_menu.disable()
     stage = game.next_stage()
     stage.turn_combat()

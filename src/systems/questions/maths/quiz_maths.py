@@ -1,8 +1,8 @@
 from src.systems.questions.maths.maths_questions import choose_maths_question
-from src.manager import manager
+import src.manager as m
 import pygame
 import pygame_gui
-from src.systems.questions.topic import Quiz
+from src.systems.questions.quiz import Quiz
 
 
 class MathsQuiz(Quiz):
@@ -12,20 +12,22 @@ class MathsQuiz(Quiz):
         self.text = self.quiz['text']
         self.answer = self.quiz['answer']
         self.guess = None
+        self.num_box = None
+        self.start_button = None
 
     def draw(self, screen):
-        font = pygame.font.Font('chalkduster.ttf', 24)
+        font = pygame.font.Font('data/fonts/league_spartan.ttf', 24)
         question = font.render(self.text, True, 'white')
         screen.blit(question, (0, 0))
 
-        num_box = pygame_gui.UITextEntryBox(
+        self.num_box = pygame_gui.elements.UITextEntryBox(
             relative_rect=pygame.Rect(
                 (0, 0), 50,
-                initial_text=""))
+                initial_text=''))
 
-        start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
+        self.start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
                                                     text='Start',
-                                                    manager=manager)
+                                                    manager=m.manager)
 
     def events(self):
         for event in pygame.events.get():
@@ -40,14 +42,14 @@ class MathsQuiz(Quiz):
                     self.check_answer()
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
-                if event.ui_element == num_box:
-                    self.guess = event.text
+                if event.ui_element == self.num_box:
+                    self.guess = self.num_box.get_text()
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == start_button:
+                if event.ui_element == self.start_button:
                     self.check_answer()
 
-            manager.process_events(event)
+            m.manager.process_events(event)
 
     def check_answer(self):
         try:

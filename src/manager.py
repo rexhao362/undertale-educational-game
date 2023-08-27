@@ -1,5 +1,7 @@
 import pygame_gui
-from src.main import screen_values
+from src.settings import screen_values
+import pygame
 
+pygame.init()
 
 manager = pygame_gui.UIManager(screen_values)

@@ -1,15 +1,10 @@
 import pygame
-from src.settings import settings
+from src.settings import settings, screen
 import src.menus.main_menu as m
 
 
 pygame.init()
-screen_values = (
-    settings.screen_width,
-    settings.screen_height
-)
-screen = pygame.display.set_mode(screen_values)
-pygame.display.set_caption('Game')
+
 
 
 def main():
@@ -42,10 +37,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-#  mouse = pygame.mouse.get_pos()
-
-    # # if mouse is hovered on a button it
-    # # changes to lighter shade
-    #     if settings.screen_width/2 <= mouse[0] <= settings.screen_width/2+140 and settings.screen_height/2 <= mouse[1] <= settings.screen_height/2+40:
-    #         pygame.draw.rect(screen, "white", [
-    #                          settings.screen_width/2, settings.screen_height/2, 140, 40])

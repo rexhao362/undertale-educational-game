@@ -1,6 +1,8 @@
 import pygame_menu
+import pygame
 from src.settings import settings
 
+pygame.init()
 
 options_menu = pygame_menu.Menu('Options', settings.screen_width,
                                 settings.screen_height, theme=pygame_menu.themes.THEME_DARK)

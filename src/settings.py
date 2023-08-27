@@ -1,4 +1,6 @@
 import pygame
+import pygame_gui 
+
 
 class Settings:
     """Class that stores game settings."""
@@ -17,3 +19,9 @@ class Settings:
         self.screen_height = height
 
 settings = Settings()
+screen_values = (
+    settings.screen_width,
+    settings.screen_height
+)
+screen = pygame.display.set_mode(screen_values)
+pygame.display.set_caption('Game')
