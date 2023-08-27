@@ -5,7 +5,7 @@ import pygame
 import src.menus.main_menu as m
 from src.settings import settings, screen
 from src.systems.questions.maths.quiz_maths import MathsQuiz
-from src.systems.questions.spelling.english import SpellingQuiz
+from systems.questions.spelling.spelling_quiz import SpellingQuiz
 from src.systems.database.users import User
 
 
@@ -14,8 +14,8 @@ current_subject = ['maths']
 
 
 class Game:
-    def __init__(self, screen, username):
-        self.screen = screen
+    def __init__(self, username):
+        # self.screen = screen
         self.user = User(username)
         self.player = Player(self.user)
         self.stage = 0
@@ -36,7 +36,7 @@ class Game:
     def state_manager(self):
         if self.state_name == 'stage':
             self.stage += 1
-            self.state = Stage(self.screen, self.player, self.stage)
+            self.state = Stage(self.player, self.stage)
         elif self.state_name == 'quiz':
             self.state = choice([MathsQuiz(), SpellingQuiz()])
         elif self.state_name == 'tilemap':
@@ -60,14 +60,13 @@ class Game:
                     
 
 def start_game():
-    game = Game(screen, User(current_user[0]))
+    game = Game(current_user[0])
     m.main_menu.disable()
-    stage = game.next_stage()
-    stage.turn_combat()
+    game.state = Stage(game.player, game.stage)
     while game.running:
         settings.clock.tick(settings.fps)
         
-        game.events()
+        game.state.events(manager)
 
-        state.draw()
+        game.state.draw(screen)
         pygame.display.flip()

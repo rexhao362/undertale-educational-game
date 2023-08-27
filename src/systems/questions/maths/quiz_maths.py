@@ -1,5 +1,4 @@
 from src.systems.questions.maths.maths_questions import choose_maths_question
-import src.manager as m
 import pygame
 import pygame_gui
 from src.systems.questions.quiz import Quiz
@@ -11,9 +10,9 @@ class MathsQuiz(Quiz):
         self.quiz = choose_maths_question()
         self.text = self.quiz['text']
         self.answer = self.quiz['answer']
-        self.guess = None
+        self.solution = None
         self.num_box = None
-        self.start_button = None
+        # self.start_button = None
 
     def draw(self, screen):
         font = pygame.font.Font('data/fonts/league_spartan.ttf', 24)
@@ -26,10 +25,9 @@ class MathsQuiz(Quiz):
                 initial_text=''))
 
         self.start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
-                                                    text='Start',
-                                                    manager=m.manager)
+                                                    text='Start')
 
-    def events(self):
+    def events(self, manager):
         for event in pygame.events.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -43,17 +41,17 @@ class MathsQuiz(Quiz):
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
                 if event.ui_element == self.num_box:
-                    self.guess = self.num_box.get_text()
+                    self.solution = self.num_box.get_text()
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.start_button:
                     self.check_answer()
 
-            m.manager.process_events(event)
+            manager.process_events(event)
 
     def check_answer(self):
         try:
-            if int(self.guess) == self.answer:
+            if int(self.solution) == self.answer:
                 pass
             else:
                 pass

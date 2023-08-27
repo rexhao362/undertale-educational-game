@@ -14,14 +14,7 @@ class User:
             }
         }
 
-    def correct_answer(self, subject):
-        self.scores[subject]['correct'] += 1
-        return 'That is the right answer!'
-
-    def wrong_answer(self, subject, answer):
-        self.scores[subject]['wrong'] += 1
-        return f'That is the wrong answer. The correct answer is {answer}'
-
+    
     def update_user(self):
         with open('save_file.json', 'r+') as f:
             data = json.load(f)

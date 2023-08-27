@@ -1,16 +1,25 @@
 import pygame
 
 class Quiz:
-    def __init__(self, screen, subject):
-        self.screen = screen
+    def __init__(self, subject):
         self.subject = subject
         self.guesses = 0
+        self.answer = None
 
     def draw_crosses(self):
         for i in range(self.guesses):
             cross = Crosses(50 + i * 30)
 
             self.guesses += 1
+
+    def correct_answer(self):
+        self.scores[self.subject]['correct'] += 1
+        return 'That is the right answer!'
+
+    def wrong_answer(self):
+        self.scores[self.subject]['wrong'] += 1
+        return f'That is the wrong answer. The correct answer is {self.answer}'
+
 
 class Crosses:
     def __init__(self, left):
