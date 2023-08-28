@@ -25,3 +25,6 @@ screen_values = (
 )
 screen = pygame.display.set_mode(screen_values)
 pygame.display.set_caption('Game')
+
+def transform_background(filename):
+        pygame.transform.scale(pygame.image.load(filename), screen_values)
