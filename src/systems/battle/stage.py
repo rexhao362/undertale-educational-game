@@ -1,6 +1,8 @@
 from src.systems.battle.enemy import create_enemy
+import src.settings as s
 import pygame
 import pygame_gui
+
 
 class Stage:
     def __init__(self, player, current_stage):
@@ -8,7 +10,8 @@ class Stage:
         self.stage = current_stage
         self.enemy = create_enemy()
         self.turn = 'player'
-        self.bg_image = pygame.image.load('assets/pictures/backgrounds/boss_battle_bg.png')
+        self.background = pygame.image.load(
+            'assets/pictures/backgrounds/boss_battle_bg.png')
         self.buttons = {}
 
     def victory(self):
@@ -38,7 +41,8 @@ class Stage:
             self.turn = 'player'
 
     def draw(self, screen, time_delta):
-        screen.blit(self.bg_image, (0, 0))
+        screen.fill('black')
+        screen.blit(self.background, (0, 0))
         self.enemy.draw(screen)
         if self.turn == 'player':
             self.draw_buttons()
@@ -46,11 +50,27 @@ class Stage:
             self.enemy.draw_attack(self.player, screen, time_delta)
 
     def draw_buttons(self):
-        self.buttons['attack'] = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
-                                                    text='FIGHT')
-        self.buttons['act']
+        buttons_list = ['fight', 'act']
 
-        self.buttons['block'] 
+        # Constants
+        RECT_WIDTH = 100
+        RECT_HEIGHT = 50
+        RECT_DISTANCE = 50
+
+        num_buttons = len(buttons_list)
+        # Calculate the x-coordinate for the first rectangle
+        total_rect_width = num_buttons * RECT_WIDTH + \
+            (num_buttons-1) * RECT_DISTANCE
+        left = (s.screen_values[0] - total_rect_width) // 2
+        top = (3 * s.screen_values[1]) // 4
+
+        # Draw the four rectangles
+        for button in buttons_list:
+            rect = pygame.Rect((left, top), (RECT_WIDTH, RECT_HEIGHT))
+            self.buttons[button] = pygame_gui.elements.UIButton(
+                relative_rect=rect,
+                text=button)
+            left += RECT_WIDTH + RECT_DISTANCE
 
     def events(self, manager):
         for event in pygame.events.get():
@@ -79,6 +99,9 @@ class Stage:
 
 
 def combat_button(text, left):
+    # Calculate the y-coordinate for the rectangles
+    top = (3 * SCREEN_HEIGHT) // 4
+
     button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
-                                                    text=text)
+                                          text=text)
     return button
