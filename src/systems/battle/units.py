@@ -10,6 +10,7 @@ class Units(Sprite):
         self.attack_power = attack
         self.defence = defence
         self.alive = True
+        self.healthbar = HealthBar()
         # self.image
         # self.rect = self.image.get_rect()
         # self.rect.center = (left, top)
@@ -40,12 +41,11 @@ class HealthBar():
         self.top = top
         self.width = width
         self.height = height
-        self.current_health = total_health
         self.total_health = total_health
 
-    def draw(self, surface):
-        ratio = self.current_health / self.total_health
-        pygame.draw.rect(surface, "red", (self.left,
+    def draw(self, screen, current_health):
+        ratio = current_health / self.total_health
+        pygame.draw.rect(screen, 'red', (self.left,
                          self.top, self.width, self.height))
-        pygame.draw.rect(surface, "green", (self.left,
+        pygame.draw.rect(screen, 'green', (self.left,
                          self.top, self.width * ratio, self.height))

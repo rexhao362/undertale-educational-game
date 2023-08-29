@@ -21,10 +21,11 @@ class Stage:
             self.player.user.update_user()
             self.game_won()
 
-    def game_over(self):
+    def game_over(self, screen):
         if not self.player.is_alive():
+            screen.fill('black')
             defeat_img = 'assets/pictures/game_over.png'
-            # self.screen.blit(defeat_img)
+            screen.blit(defeat_img, (0, 0))
 
     def game_won(self):
         if self.stage == 5:
@@ -32,17 +33,20 @@ class Stage:
 
     def turn_combat(self):
         if self.turn == 'player':
-            self.player.action(self.enemy)
+            while self.player.acting is True:
+                self.player.action(self.enemy)
             self.victory()
             self.turn = 'enemy'
         else:
             self.enemy.attack(self.player)
             self.game_over()
             self.turn = 'player'
+            self.player.acting = True
 
     def draw(self, screen, time_delta):
         screen.fill('black')
         screen.blit(self.background, (0, 0))
+        self.player.draw(screen)
         self.enemy.draw(screen)
         if self.turn == 'player':
             self.draw_buttons()
@@ -84,7 +88,12 @@ class Stage:
                 pass
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-                pass
+                if event.ui_element == self.buttons['fight']:
+                    self.player.attack(self.enemy)
+                elif event.ui_element == self.buttons['act']:
+                    pass
+                elif event.ui_element == self.buttons['items']:
+                    pass
 
             manager.process_events(event)
 
@@ -96,12 +105,3 @@ class Stage:
             self.turn == 'enemy'
         else:
             self.turn = 'enemy'
-
-
-def combat_button(text, left):
-    # Calculate the y-coordinate for the rectangles
-    top = (3 * SCREEN_HEIGHT) // 4
-
-    button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
-                                          text=text)
-    return button

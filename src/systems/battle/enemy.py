@@ -1,4 +1,4 @@
-from src.systems.battle.units import Units
+from src.systems.battle.units import Units, HealthBar
 import pygame
 from random import choice
 from os import listdir
@@ -10,9 +10,11 @@ class Enemy(Units):
         self.image = pygame.image.load(f'./assets/pictures/units/enemies/{self.name}.png')
         self.rect = self.image.get_rect()
         self.rect.center = (600, 200)
+        self.healthbar = HealthBar()
 
     def draw(self, screen):
         screen.blit(self.enemy)
+        self.healthbar.draw(screen, self.current_health)
 
     def draw_attack(self, screen):
         pass
