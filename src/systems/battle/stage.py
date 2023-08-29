@@ -50,7 +50,7 @@ class Stage:
             self.enemy.draw_attack(self.player, screen, time_delta)
 
     def draw_buttons(self):
-        buttons_list = ['fight', 'act']
+        buttons_list = ['fight', 'act', 'item']
 
         # Constants
         RECT_WIDTH = 100
