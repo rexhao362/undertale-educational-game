@@ -15,7 +15,8 @@ class Units(Sprite):
         # self.rect.center = (left, top)
 
     def attack(self, target):
-        target.current_health -= self.attack_power
+        target.current_health = max(
+            0, target.current_health - self.attack_power)
         if target.current_health <= 0:
             target.alive = False
 
@@ -24,6 +25,13 @@ class Units(Sprite):
 
     def is_alive(self):
         return self.alive
+
+    def modify_attribute(self, attribute, effect):
+        if attribute == 'health':
+            self.current_health = min(
+                self.total_health, self.current_health + self.effect)
+        elif attribute in ['attack_power', 'defence']:
+            self[attribute] = max(0, self[attribute] + effect)
 
 
 class HealthBar():

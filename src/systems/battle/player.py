@@ -8,6 +8,7 @@ class Player(Units):
         self.user = user
         self.mana = mana
         self.acting = True
+        self.items = {}
         
 
 
