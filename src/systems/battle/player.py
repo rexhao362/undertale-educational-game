@@ -13,13 +13,17 @@ class Player(Units):
         self.healthbar = HealthBar()
         self.boosted = False
         self.boosted_attr = {}
+        self.block = False
 
-
-    def action(self, target):
-        self.acting = False
 
     def block(self):
         self.defence += 10
+        self.block = True
+
+    def remove_block(self):
+        if self.block == True:
+            self.defence -= 10
+            self.block = False
 
     def draw(self, screen):
         self.healthbar.draw(screen, self.current_health)

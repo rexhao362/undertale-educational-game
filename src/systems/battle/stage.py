@@ -33,10 +33,7 @@ class Stage:
 
     def turn_combat(self):
         if self.turn == 'player':
-            while self.player.acting is True:
-                self.player.action(self.enemy)
             self.victory()
-            self.turn = 'enemy'
         else:
             self.enemy.attack(self.player)
             self.game_over()
@@ -76,6 +73,10 @@ class Stage:
                 text=button)
             left += RECT_WIDTH + RECT_DISTANCE
 
+    def draw_items(self):
+        for item in self.player.get_items():
+            pass
+
     def events(self, manager):
         for event in pygame.events.get():
             if event.type == pygame.QUIT:
@@ -94,6 +95,7 @@ class Stage:
                     pass
                 elif event.ui_element == self.buttons['items']:
                     pass
+                self.turn = 'enemy'
 
             manager.process_events(event)
 

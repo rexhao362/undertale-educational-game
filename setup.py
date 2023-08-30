@@ -1,6 +1,20 @@
+import json
 import os
-import src.systems.database.users as users
+
 
 filename = 'save_file.json'
 if filename not in os.listdir():
-    users.create_user('player')
+    with open(filename, 'w') as f:
+        data = {
+            'player': {
+                'maths': {
+                    'total correct': 0,
+                    'total wrong': 0
+                },
+                'spelling': {
+                    'total correct': 0,
+                    'total wrong': 0
+                }
+            }
+        }
+        json.dump(data, f)

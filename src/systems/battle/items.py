@@ -24,3 +24,6 @@ class Items(Sprite):
             'Attribute': self.attribute,
             'Effect': self.effect
         }
+
+    def draw(self):
+        pass
