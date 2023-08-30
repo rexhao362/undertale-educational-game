@@ -10,7 +10,7 @@ class Player(Units):
         self.mana = mana
         self.acting = True
         self.items = {}
-        self.healthbar = HealthBar()
+        self.healthbar = HealthBar(100, 900, 100, 10, self.total_health)
         self.boosted = False
         self.boosted_attr = {}
         self.block = False

@@ -6,7 +6,6 @@ import src.menus.main_menu as m
 pygame.init()
 
 
-
 def main():
     # Main game loop
     running = True
@@ -35,5 +34,5 @@ def main():
 
 
 if __name__ == '__main__':
+    pygame.init()
     main()
-

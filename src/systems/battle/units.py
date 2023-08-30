@@ -10,7 +10,7 @@ class Units(Sprite):
         self.attack_power = attack
         self.defence = defence
         self.alive = True
-        self.healthbar = HealthBar()
+        self.healthbar = None
         # self.image
         # self.rect = self.image.get_rect()
         # self.rect.center = (left, top)

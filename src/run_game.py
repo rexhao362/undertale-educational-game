@@ -1,9 +1,7 @@
-from random import choice
 from src.systems.battle.player import Player
 from src.systems.battle.stage import Stage
 import pygame
-import src.menus.main_menu as m
-from src.settings import settings, screen
+from src.settings import settings, screen, manager
 from src.systems.questions.maths.quiz_maths import MathsQuiz
 from systems.questions.spelling.spelling_quiz import SpellingQuiz
 from src.systems.database.users import User
@@ -12,6 +10,7 @@ from src.systems.database.users import User
 current_user = ['player']
 current_subject = ['maths']
 
+pygame.init()
 
 class Game:
     def __init__(self, username):
@@ -20,24 +19,15 @@ class Game:
         self.player = Player(self.user)
         self.stage = 0
         self.running = True
-        self.state_name = None
         self.state = None
+        self.previous_state = None
 
     def next_stage(self):
         self.stage += 1
-        return Stage(self.player, self.stage)
 
     def set_state(self, state):
+        self.previous_state = self.state
         self.state = state
-
-    def state_manager(self):
-        if self.state_name == 'stage':
-            self.stage += 1
-            self.state = Stage(self.player, self.stage)
-        elif self.state_name == 'quiz':
-            self.state = choice([MathsQuiz(), SpellingQuiz()])
-        elif self.state_name == 'tilemap':
-            pass
 
 
     def events(self):
@@ -51,19 +41,23 @@ class Game:
 
         # Event handling for a range of different key presses
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    m.main_menu.enable()
+                pass
+                # if event.key == pygame.K_ESCAPE:
+                #     m.main_menu.enable()
                     # Quit this function, then skip to loop of main-menu on line 221
                     
 
 def start_game():
     game = Game(current_user[0])
-    m.main_menu.disable()
     game.state = Stage(game.player, game.stage)
     while game.running:
         settings.clock.tick(settings.fps)
         
         game.state.events(manager)
-
-        game.state.draw(screen)
+        game.state.update()
+        game.state.draw(screen, settings.time_delta)
+        
         pygame.display.flip()
+
+if __name__  == 'main':
+    start_game()

@@ -2,7 +2,10 @@ from src.systems.battle.enemy import create_enemy
 import src.settings as s
 import pygame
 import pygame_gui
+import logging
 
+logger = logging.getLogger()
+logging.basicConfig()
 
 class Stage:
     def __init__(self, player, current_stage):
@@ -10,8 +13,9 @@ class Stage:
         self.stage = current_stage
         self.enemy = create_enemy()
         self.turn = 'player'
-        self.background = pygame.image.load(
+        self.bg_image = pygame.image.load(
             'assets/pictures/backgrounds/boss_battle_bg.png')
+        self.background = pygame.transform.scale(self.bg_image, s.screen_values)
         self.buttons = {}
 
     def victory(self):
@@ -78,7 +82,7 @@ class Stage:
             pass
 
     def events(self, manager):
-        for event in pygame.events.get():
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
 

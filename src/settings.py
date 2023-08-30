@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui 
-
+pygame.init()
 
 class Settings:
     """Class that stores game settings."""
@@ -24,6 +24,8 @@ screen_values = (
     settings.screen_height
 )
 screen = pygame.display.set_mode(screen_values)
+manager = pygame_gui.UIManager(screen_values)
+
 pygame.display.set_caption('Game')
 
 def transform_background(filename):

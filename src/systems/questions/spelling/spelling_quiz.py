@@ -27,7 +27,7 @@ class SpellingQuiz(Quiz):
             pass
 
     def events(self, manager):
-        for event in pygame.events.get():
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
 

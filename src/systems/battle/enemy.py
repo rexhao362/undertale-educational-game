@@ -10,10 +10,11 @@ class Enemy(Units):
         self.image = pygame.image.load(f'./assets/pictures/units/enemies/{self.name}.png')
         self.rect = self.image.get_rect()
         self.rect.center = (600, 200)
-        self.healthbar = HealthBar()
+        self.healthbar = HealthBar(100, 100, 100, 10, self.total_health)
+
 
     def draw(self, screen):
-        screen.blit(self.enemy)
+        screen.blit(self.image, self.rect)
         self.healthbar.draw(screen, self.current_health)
 
     def draw_attack(self, screen):
