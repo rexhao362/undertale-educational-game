@@ -14,6 +14,7 @@ class Player(Units):
         self.boosted = False
         self.boosted_attr = {}
         self.block = False
+        self.items = []
 
 
     def block(self):
@@ -36,6 +37,16 @@ class Player(Units):
             for attribute, base_value in self.boosted_attr.items():
                 self[attribute] = base_value
 
+    def get_items(self):
+        return self.items
+
+    def add_item(self, item):
+        self.items.push(item)
+
+    def remove_item(self, item): #use item
+        for i, object in enumerate(self.items):
+            if item.name == object.name:
+                return self.items.pop(i)
 
 
 
