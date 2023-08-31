@@ -4,10 +4,12 @@ import pygame
 import pygame_gui
 import logging
 
+from src.systems.state import State
+
 logger = logging.getLogger()
 logging.basicConfig()
 
-class Stage:
+class Stage(State):
     def __init__(self, state_manager, player, current_stage):
         self.state_manager = state_manager
         self.player = player

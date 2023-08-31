@@ -5,4 +5,8 @@ class Inventory:
     def draw(self, screen, time_delta, manager):
         pass
 
-    
+    def events(self, manager):
+        pass
+
+    def update(self):
+        pass

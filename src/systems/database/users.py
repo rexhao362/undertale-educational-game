@@ -3,7 +3,7 @@ import json
 class User:
     def __init__(self, name):
         self.name = name
-        self.scores = {
+        self.score = {
             'maths': {
                 'correct': 0,
                 'wrong': 0

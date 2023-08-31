@@ -1,6 +1,6 @@
 class StateManager:
-    def __init__(self, state):
-        self.current_state = state
+    def __init__(self):#, state):
+        self.current_state = None #state
         self.previous_state = None
 
     def next_state(self, new_state):

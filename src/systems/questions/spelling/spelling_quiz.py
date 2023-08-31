@@ -1,5 +1,5 @@
 from json import load
-import random
+from random import choice, randint
 import pygame
 import pygame_gui
 from src.systems.questions.quiz import Quiz
@@ -12,9 +12,9 @@ with open('data/word_list.json') as f:
 
 
 class SpellingQuiz(Quiz):
-    def __init__(self):
-        super().__init__(subject='spelling')
-        self.word = [random.choice(word_list)]
+    def __init__(self, user):
+        super().__init__(user, 'spelling')
+        self.word = [*choice(word_list)]
         self.masked_word = mask_word(self.word)
         self.solution = {}
         self.letters = None
@@ -28,6 +28,7 @@ class SpellingQuiz(Quiz):
 
     def events(self, manager):
         for event in pygame.event.get():
+            manager.process_events(event)
             if event.type == pygame.QUIT:
                 exit()
 
@@ -47,16 +48,16 @@ class SpellingQuiz(Quiz):
             #     if event.ui_element == start_button:
                 self.check_solution()
 
-            manager.process_events(event)
 
     def update(self):
         pass
 
-    def draw(self, screen):
+    def draw(self, screen, time_delta, manager):
+        screen.fill('black')
         text = 'Guess the Missing Letters'
-        font = pygame.font.SysFont('data/fonts/league_spartan.ttf', 24)
+        font = pygame.font.Font('data/fonts/league_spartan.ttf', 24)
         question = font.render(text, True, 'white')
-        screen.blit(question)
+        screen.blit(question, (200,100))
         self.letters = LetterBoxes(self.masked_word)
         self.letters.draw_boxes(screen)
 
@@ -64,23 +65,22 @@ class SpellingQuiz(Quiz):
 
 def mask_word(word):
     num_masks = mask_num(word)
-    masked_word = word
+    masked_word = word.copy()
     while num_masks > 0:
-        index = random.randint(0, len(word)-1)
+        index = randint(0, len(word)-1)
         if masked_word[index] != '' or not ' ':
             masked_word[index] = ''
             num_masks -= 1
     return masked_word
 
 
-
 if __name__ == 'main':
-    # pygame.init()
+    pygame.init()
     screen = pygame.display.set_mode((1200, 800))
     running = True
     state = SpellingQuiz()
     while running:
-        state.events()
+        state.events(manager)
         state.draw(screen)
 
         pygame.display.flip()

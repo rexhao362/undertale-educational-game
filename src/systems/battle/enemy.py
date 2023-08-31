@@ -14,7 +14,7 @@ class Enemy(Units):
 
 
     def draw(self, screen):
-        screen.blit(self.image, self.rect)
+        screen.blit(self.image, self.rect.center)
         self.healthbar.draw(screen, self.current_health)
 
     def draw_attack(self, screen):

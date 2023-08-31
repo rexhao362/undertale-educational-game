@@ -7,8 +7,8 @@ class LetterBoxes:
     def __init__(self, word):
         self.word = word
         self.num_boxes = len(self.word)
-        self.font = pygame.font.SysFont('data/fonts/league_spartan.ttf', 24)
-        self.font_colour = 'black'
+        self.font = pygame.font.Font('data/fonts/league_spartan.ttf', 28)
+        self.font_colour = 'white'
         self.box_size = 50
         self.box_height = 50
         self.box_spacing = 20
@@ -19,7 +19,7 @@ class LetterBoxes:
         # self.outline_colour
 
     def draw_boxes(self, screen):
-        (screen_width, screen_height) = screen.get_window_size()
+        (screen_width, screen_height) = (800, 600)
         box_x = (screen_width - (self.num_boxes *
                  (self.box_size + self.box_spacing))) // 2
         box_y = (screen_height - self.box_height) // 2
@@ -57,7 +57,7 @@ def mask_num(word):
 
 
 def create_input_box(box_x, box_y, box_size, box_height):
-    input_box = pygame_gui.elements.UITextEntryBox(relative_rect=(
+    input_box = pygame_gui.elements.ui_text_entry_line.UITextEntryLine(relative_rect=pygame.Rect(
         box_x, box_y, box_size, box_height), placeholder_text='*')
     input_box.set_text_length_limit(1)
     input_box.set_forbidden_characters('numbers')

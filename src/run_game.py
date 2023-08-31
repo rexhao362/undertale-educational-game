@@ -4,6 +4,7 @@ import pygame
 from src.settings import settings, screen, manager
 import src.systems.state_manager as state_manager
 from src.systems.database.users import User
+from systems.questions.spelling.spelling_quiz import SpellingQuiz
 
 
 current_user = ['player']
@@ -49,7 +50,8 @@ class Game:
 def start_game():
     game = Game(current_user[0])
     sm = state_manager.StateManager()
-    sm.current_state = Stage(game, game.player, game.stage)
+    # sm.current_state = Stage(game, game.player, game.stage)
+    sm.current_state = SpellingQuiz(User('player'))
     clock = pygame.time.Clock()
 
     while game.running:
@@ -59,8 +61,8 @@ def start_game():
         sm.current_state.update()
         sm.current_state.draw(screen, time_delta, manager)
         
-        manager.update(time_delta)
         manager.draw_ui(screen)
+        manager.update(time_delta)
 
         pygame.display.flip()
 
