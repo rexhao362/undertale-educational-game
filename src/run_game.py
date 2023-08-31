@@ -58,13 +58,17 @@ def start_game():
         time_delta = clock.tick(60)/1000.0
         
         sm.current_state.events(manager)
+
+        
         sm.current_state.update()
         sm.current_state.draw(screen, time_delta, manager)
         
-        manager.draw_ui(screen)
         manager.update(time_delta)
+        manager.draw_ui(screen)
 
         pygame.display.flip()
+    
+    pygame.quit()
 
 if __name__  == 'main':
     start_game()

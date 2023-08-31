@@ -20,11 +20,14 @@ class SpellingQuiz(Quiz):
         self.letters = None
 
     def check_solution(self):
+        print(0)
+        print(self.solution)
         for index, letter in self.solution.items():
             if letter == self.word[index]:
                 self.masked_word[index] = self.word[index]
+                print(1)
         if self.word == self.masked_word:
-            pass
+            print(2)
 
     def events(self, manager):
         for event in pygame.event.get():
@@ -36,12 +39,13 @@ class SpellingQuiz(Quiz):
                 pass
 
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.key.key_code("return"):
+                if event.key == pygame.K_RETURN:
                     self.check_solution()
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
-                for index, letter in self.letters.input_boxes.items():
-                    if event.ui_element == letter:
+                for index, text_box in self.letters.input_boxes.items(): 
+                    if event.ui_element == text_box:
+                        print(1)
                         self.solution[index] = event.text
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:

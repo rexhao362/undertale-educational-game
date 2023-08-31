@@ -60,7 +60,7 @@ def create_input_box(box_x, box_y, box_size, box_height):
     input_box = pygame_gui.elements.ui_text_entry_line.UITextEntryLine(relative_rect=pygame.Rect(
         box_x, box_y, box_size, box_height), placeholder_text='*')
     input_box.set_text_length_limit(1)
-    input_box.set_forbidden_characters('numbers')
+    input_box.set_allowed_characters('letters')
     return input_box
 
 
