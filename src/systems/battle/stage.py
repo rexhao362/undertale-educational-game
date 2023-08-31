@@ -47,7 +47,7 @@ class Stage:
             # self.player.acting = True
 
     def draw(self, screen, time_delta, manager):
-        screen.fill('white')
+        screen.fill('black')
         screen.blit(self.background, (0, 0))
         self.player.draw(screen)
         self.enemy.draw(screen)
