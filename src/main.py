@@ -10,7 +10,7 @@ def main():
     # Main game loop
     running = True
     while running:
-        settings.clock.tick(settings.fps)
+        settings.time_delta
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:

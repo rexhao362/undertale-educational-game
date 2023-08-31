@@ -8,7 +8,8 @@ logger = logging.getLogger()
 logging.basicConfig()
 
 class Stage:
-    def __init__(self, player, current_stage):
+    def __init__(self, state_manager, player, current_stage):
+        self.state_manager = state_manager
         self.player = player
         self.stage = current_stage
         self.enemy = create_enemy()
@@ -18,10 +19,11 @@ class Stage:
         self.background = pygame.transform.scale(self.bg_image, s.screen_values)
         self.buttons = {}
 
-    def victory(self):
+    def victory(self, screen):
         if not self.enemy.is_alive():
+            screen.fill('black')
             victory_img = 'assets/pictures/victory.png'
-            # self.screen.blit(victory_img)
+            screen.blit(victory_img)
             self.player.user.update_user()
             self.game_won()
 
@@ -37,25 +39,27 @@ class Stage:
 
     def turn_combat(self):
         if self.turn == 'player':
-            self.victory()
+            # self.victory()
+            sin = 1
         else:
             self.enemy.attack(self.player)
-            self.game_over()
             self.turn = 'player'
-            self.player.acting = True
+            # self.player.acting = True
 
-    def draw(self, screen, time_delta):
-        screen.fill('black')
+    def draw(self, screen, time_delta, manager):
+        screen.fill('white')
         screen.blit(self.background, (0, 0))
         self.player.draw(screen)
         self.enemy.draw(screen)
         if self.turn == 'player':
-            self.draw_buttons()
+            self.victory(screen)
+            self.draw_buttons(manager)
         else:
+            self.game_over(screen)
             self.enemy.draw_attack(self.player, screen, time_delta)
 
-    def draw_buttons(self):
-        buttons_list = ['fight', 'act', 'item']
+    def draw_buttons(self, manager):
+        buttons_list = ['fight', 'act', 'items']
 
         # Constants
         RECT_WIDTH = 100
@@ -72,9 +76,12 @@ class Stage:
         # Draw the four rectangles
         for button in buttons_list:
             rect = pygame.Rect((left, top), (RECT_WIDTH, RECT_HEIGHT))
+            
             self.buttons[button] = pygame_gui.elements.UIButton(
                 relative_rect=rect,
-                text=button)
+                text=button,
+                manager=manager)
+            
             left += RECT_WIDTH + RECT_DISTANCE
 
     def draw_items(self):
@@ -105,9 +112,3 @@ class Stage:
 
     def update(self):
         self.turn_combat()
-
-    def change_turn(self):
-        if self.turn == 'player':
-            self.turn == 'enemy'
-        else:
-            self.turn = 'enemy'

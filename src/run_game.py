@@ -49,14 +49,18 @@ class Game:
 
 def start_game():
     game = Game(current_user[0])
-    game.state = Stage(game.player, game.stage)
+    game.state = Stage(game, game.player, game.stage)
+
     while game.running:
-        settings.clock.tick(settings.fps)
+        settings.time_delta
         
         game.state.events(manager)
         game.state.update()
-        game.state.draw(screen, settings.time_delta)
+        game.state.draw(screen, settings.time_delta, manager)
         
+        manager.update(settings.time_delta)
+        manager.draw_ui(screen)
+
         pygame.display.flip()
 
 if __name__  == 'main':
