@@ -4,14 +4,15 @@ import pygame
 import pygame_gui
 import logging
 
-from src.systems.state import State
+import src.systems.state as state
 
 logger = logging.getLogger()
 logging.basicConfig()
 
-class Stage(State):
+class Stage(state.State):
     def __init__(self, state_manager, player, current_stage):
-        self.state_manager = state_manager
+        super().__init__()
+        self.sm = state_manager
         self.player = player
         self.stage = current_stage
         self.enemy = create_enemy()
@@ -24,16 +25,18 @@ class Stage(State):
     def victory(self, screen):
         if not self.enemy.is_alive():
             screen.fill('black')
-            victory_img = 'assets/pictures/victory.png'
-            screen.blit(victory_img)
+            # victory_img = 'assets/pictures/victory.png'
+            # victory_bg = pygame.image.load(victory_img)
+            # screen.blit(victory_bg, (0, 0))
             self.player.user.update_user()
             self.game_won()
 
     def game_over(self, screen):
         if not self.player.is_alive():
             screen.fill('black')
-            defeat_img = 'assets/pictures/game_over.png'
-            screen.blit(defeat_img, (0, 0))
+            # defeat_img = 'assets/pictures/game_over.png'
+            # defeat_bg = pygame.image.load(defeat_img)
+            # screen.blit(defeat_bg, (0, 0))
 
     def game_won(self):
         if self.stage == 5:
@@ -42,7 +45,7 @@ class Stage(State):
     def turn_combat(self):
         if self.turn == 'player':
             # self.victory()
-            sin = 1
+            pass
         else:
             self.enemy.attack(self.player)
             self.turn = 'player'
@@ -58,7 +61,7 @@ class Stage(State):
             self.draw_buttons(manager)
         else:
             self.game_over(screen)
-            self.enemy.draw_attack(self.player, screen, time_delta)
+            self.enemy.draw_attack(screen, time_delta)
 
     def draw_buttons(self, manager):
         buttons_list = ['fight', 'act', 'items']

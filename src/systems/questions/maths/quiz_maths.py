@@ -5,14 +5,14 @@ from src.systems.questions.quiz import Quiz
 
 
 class MathsQuiz(Quiz):
-    def __init__(self):
-        super().__init__(subject='maths')
+    def __init__(self, state_manager, user):
+        super().__init__(state_manager, user, 'maths')
         self.quiz = choose_maths_question()
         self.text = self.quiz['text']
         self.answer = self.quiz['answer']
         self.solution = None
         self.num_box = None
-        # self.start_button = None
+        self.start_button = None
 
     def draw(self, screen, time_delta):
         font = pygame.font.Font('data/fonts/league_spartan.ttf', 24)

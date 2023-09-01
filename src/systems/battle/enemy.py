@@ -17,7 +17,7 @@ class Enemy(Units):
         screen.blit(self.image, self.rect.center)
         self.healthbar.draw(screen, self.current_health)
 
-    def draw_attack(self, screen):
+    def draw_attack(self, screen, time_delta):
         pass
 
 enemy_pictures = listdir(f'assets/pictures/units/enemies')

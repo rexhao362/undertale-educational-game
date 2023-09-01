@@ -1,7 +1,6 @@
 import pygame
 import pygame_gui
-
-
+import src.settings as s
 
 class LetterBoxes:
     def __init__(self, word):
@@ -13,21 +12,18 @@ class LetterBoxes:
         self.box_height = 50
         self.box_spacing = 20
         self.input_boxes = {}
-        # self.active_box = 0
-        # self.active_box_colour
-        # self.input_box_colour
-        # self.outline_colour
 
-    def draw_boxes(self, screen):
-        (screen_width, screen_height) = (800, 600)
+    def draw_boxes(self, screen, manager):
+        (screen_width, screen_height) = s.screen_values
         box_x = (screen_width - (self.num_boxes *
                  (self.box_size + self.box_spacing))) // 2
         box_y = (screen_height - self.box_height) // 2
 
         for i, letter in enumerate(self.word):
             if letter == '':
-                self.input_boxes[i] = create_input_box(
-                    box_x, box_y, self.box_size, self.box_height)
+                box_vars = box_x, box_y, self.box_size, self.box_height
+                self.input_boxes[i] = create_input_box(*box_vars
+                    , manager)
                 # box_colour = self.active_box_colour if i == self.active_box else self.input_box_colour
                 # pygame.draw.rect(screen, box_colour, box_rect)
                 # pygame.draw.rect(screen, self.outline_colour, box_rect, 2)
@@ -55,12 +51,9 @@ def mask_num(word):
         return 3
 
 
-
-def create_input_box(box_x, box_y, box_size, box_height):
+def create_input_box(box_x, box_y, box_size, box_height, manager):
     input_box = pygame_gui.elements.ui_text_entry_line.UITextEntryLine(relative_rect=pygame.Rect(
-        box_x, box_y, box_size, box_height), placeholder_text='*')
+        box_x, box_y, box_size, box_height), manager=manager, placeholder_text='*')
     input_box.set_text_length_limit(1)
     input_box.set_allowed_characters('letters')
     return input_box
-
-

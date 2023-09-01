@@ -25,7 +25,7 @@ def create_maths_question():
 
 def create_fraction_question():
     fractions = {
-        1/2: 0.5,
+        '1/2': 0.5,
         '1/4': 0.25,
         '1/3': 0.33,
         '3/4': 0.75,
@@ -49,7 +49,7 @@ def create_rounding_question():
 def choose_maths_question():
     questions_list = [
         create_maths_question,
-        create_fraction_question,
+        # create_fraction_question,
         create_rounding_question
     ]
 

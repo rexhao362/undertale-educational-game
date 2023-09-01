@@ -12,26 +12,27 @@ with open('data/word_list.json') as f:
 
 
 class SpellingQuiz(Quiz):
-    def __init__(self, user):
-        super().__init__(user, 'spelling')
+    def __init__(self, state_manager, user):
+        super().__init__(state_manager, user, 'spelling')
         self.word = [*choice(word_list)]
         self.masked_word = mask_word(self.word)
+        self.answer = ''.join(self.word)
         self.solution = {}
         self.letters = None
 
     def check_solution(self):
-        print(0)
-        print(self.solution)
         for index, letter in self.solution.items():
             if letter == self.word[index]:
                 self.masked_word[index] = self.word[index]
-                print(1)
+            else:
+                self.wrong_answer()
         if self.word == self.masked_word:
-            print(2)
+            self.sm.set_success(True)
+            self.sm.back_state()
+        
 
     def events(self, manager):
         for event in pygame.event.get():
-            manager.process_events(event)
             if event.type == pygame.QUIT:
                 exit()
 
@@ -40,18 +41,20 @@ class SpellingQuiz(Quiz):
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    self.check_solution()
+                    # self.check_solution()
+                    print(self.solution)
+                    print(self.letters.input_boxes.keys())
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
                 for index, text_box in self.letters.input_boxes.items(): 
                     if event.ui_element == text_box:
-                        print(1)
                         self.solution[index] = event.text
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
             #     if event.ui_element == start_button:
                 self.check_solution()
 
+            manager.process_events(event)
 
     def update(self):
         pass
@@ -63,7 +66,7 @@ class SpellingQuiz(Quiz):
         question = font.render(text, True, 'white')
         screen.blit(question, (200,100))
         self.letters = LetterBoxes(self.masked_word)
-        self.letters.draw_boxes(screen)
+        self.letters.draw_boxes(screen, manager)
 
 
 

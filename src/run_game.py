@@ -19,15 +19,9 @@ class Game:
         self.player = Player(self.user)
         self.stage = 0
         self.running = True
-        self.state = None
-        self.previous_state = None
 
     def next_stage(self):
         self.stage += 1
-
-    def set_state(self, state):
-        self.previous_state = self.state
-        self.state = state
 
 
     def events(self):
@@ -44,26 +38,25 @@ class Game:
                 pass
                 # if event.key == pygame.K_ESCAPE:
                 #     m.main_menu.enable()
-                    # Quit this function, then skip to loop of main-menu on line 221
-                    
+
 
 def start_game():
     game = Game(current_user[0])
     sm = state_manager.StateManager()
-    # sm.current_state = Stage(game, game.player, game.stage)
-    sm.current_state = SpellingQuiz(User('player'))
+    # sm.state = Stage(sm, game.player, game.stage)
+    sm.state = SpellingQuiz(sm, game.user)
     clock = pygame.time.Clock()
 
     while game.running:
         time_delta = clock.tick(60)/1000.0
         
-        sm.current_state.events(manager)
+        sm.state.events(manager)
 
-        
-        sm.current_state.update()
-        sm.current_state.draw(screen, time_delta, manager)
-        
         manager.update(time_delta)
+        
+        sm.state.draw(screen, time_delta, manager)
+        sm.state.update()
+        
         manager.draw_ui(screen)
 
         pygame.display.flip()

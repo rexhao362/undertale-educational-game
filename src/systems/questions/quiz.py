@@ -2,7 +2,8 @@ import pygame
 from src.systems.state import State
 
 class Quiz(State):
-    def __init__(self, user, subject):
+    def __init__(self, state_manager, user, subject):
+        self.sm = state_manager
         self.user = user
         self.subject = subject
         self.guesses = 0
@@ -16,13 +17,21 @@ class Quiz(State):
 
     def correct_answer(self):
         self.user.score[self.subject]['correct'] += 1
-        return 'That is the right answer!'
+        text = 'That is the right answer!'
+        self.sm.set_success(True)#TODO
+        self.sm.back_state()
 
-    def wrong_answer(self):
+    def wrong_answer(self, screen):
+        font = pygame.font.Font()
+        text = ''
+        self.guesses += 1
         self.draw_crosses()
+        if self.guesses > 0 and self.guesses < 3:
+            text = 'That was wrong. Try again'
         if self.guesses == 3:
             self.user.score[self.subject]['wrong'] += 1
-            return f'That is the wrong answer. The correct answer is {self.answer}'
+            text =  f'That is the wrong answer. The correct answer is {self.answer}'
+            self.sm.back_state()
 
 
 class Crosses:
