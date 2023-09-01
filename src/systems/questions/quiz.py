@@ -6,31 +6,30 @@ class Quiz(State):
         self.sm = state_manager
         self.user = user
         self.subject = subject
-        self.guesses = 0
+        self.chances = 0
         self.answer = None
 
     def draw_crosses(self, screen):
-        for i in range(self.guesses):
+        for i in range(self.chances):
             cross = Crosses(50 + i * 30)
             screen.blit(cross.image, cross.rect)
-            self.guesses += 1
 
     def correct_answer(self):
         self.user.score[self.subject]['correct'] += 1
-        text = 'That is the right answer!'
+        text = f'Correct! {self.answer} is the right answer!'
         self.sm.set_success(True)#TODO
         self.sm.back_state()
 
-    def wrong_answer(self, screen):
-        font = pygame.font.Font()
+    def wrong_answer(self):
+        # font = pygame.font.Font()
         text = ''
-        self.guesses += 1
-        self.draw_crosses()
-        if self.guesses > 0 and self.guesses < 3:
+        self.chances += 1
+        if self.chances > 0 and self.chances < 3:
             text = 'That was wrong. Try again'
-        if self.guesses == 3:
+        elif self.chances == 3:
             self.user.score[self.subject]['wrong'] += 1
             text =  f'That is the wrong answer. The correct answer is {self.answer}'
+            self.sm.set_success(False)
             self.sm.back_state()
 
 

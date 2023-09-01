@@ -51,19 +51,19 @@ class Stage(state.State):
             self.turn = 'player'
             # self.player.acting = True
 
-    def draw(self, screen, time_delta, manager):
+    def draw(self, screen, time_delta,):
         screen.fill('black')
         screen.blit(self.background, (0, 0))
         self.player.draw(screen)
         self.enemy.draw(screen)
         if self.turn == 'player':
             self.victory(screen)
-            self.draw_buttons(manager)
+            self.draw_buttons()
         else:
             self.game_over(screen)
             self.enemy.draw_attack(screen, time_delta)
 
-    def draw_buttons(self, manager):
+    def draw_buttons(self,):
         buttons_list = ['fight', 'act', 'items']
 
         # Constants
@@ -84,8 +84,7 @@ class Stage(state.State):
             
             self.buttons[button] = pygame_gui.elements.UIButton(
                 relative_rect=rect,
-                text=button,
-                manager=manager)
+                text=button)
             
             left += RECT_WIDTH + RECT_DISTANCE
 

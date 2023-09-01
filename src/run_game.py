@@ -1,9 +1,11 @@
 from src.systems.battle.player import Player
 from src.systems.battle.stage import Stage
+import src.menus.main_menu as m
 import pygame
 from src.settings import settings, screen, manager
 import src.systems.state_manager as state_manager
 from src.systems.database.users import User
+from systems.questions.maths.quiz_maths import MathsQuiz
 from systems.questions.spelling.spelling_quiz import SpellingQuiz
 
 
@@ -43,7 +45,7 @@ class Game:
 def start_game():
     game = Game(current_user[0])
     sm = state_manager.StateManager()
-    # sm.state = Stage(sm, game.player, game.stage)
+    sm.previous_state = Stage(sm, game.player, game.stage)
     sm.state = SpellingQuiz(sm, game.user)
     clock = pygame.time.Clock()
 
@@ -53,8 +55,7 @@ def start_game():
         sm.state.events(manager)
 
         manager.update(time_delta)
-        
-        sm.state.draw(screen, time_delta, manager)
+        sm.state.draw(screen, time_delta)
         sm.state.update()
         
         manager.draw_ui(screen)

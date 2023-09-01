@@ -3,7 +3,7 @@ class Inventory(State):
         super.__init__()
         self.items = []
 
-    def draw(self, screen, time_delta, manager):
+    def draw(self, screen, time_delta):
         pass
 
     def events(self, manager):

@@ -3,7 +3,7 @@ class State:
         self.sm = None
         self.reward = None
 
-    def draw(self, screen, time_delta, manager):
+    def draw(self, screen, time_delta):
         pass
 
     def update(self):

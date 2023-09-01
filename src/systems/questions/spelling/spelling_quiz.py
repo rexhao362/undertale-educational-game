@@ -18,18 +18,23 @@ class SpellingQuiz(Quiz):
         self.masked_word = mask_word(self.word)
         self.answer = ''.join(self.word)
         self.solution = {}
-        self.letters = None
+        self.letters = LetterBoxes(self.masked_word)
+        self.chances
 
     def check_solution(self):
         for index, letter in self.solution.items():
-            if letter == self.word[index]:
-                self.masked_word[index] = self.word[index]
-            else:
-                self.wrong_answer()
+            if letter != None:
+                if letter == self.word[index]:
+                    self.masked_word[index] = self.word[index]
+                    self.letters.delete_input_box(index)
+                    self.solution[index] = None
+                else:
+                    self.wrong_answer()
         if self.word == self.masked_word:
+            self.correct_answer()
             self.sm.set_success(True)
             self.sm.back_state()
-        
+        self.letters.redraw = True
 
     def events(self, manager):
         for event in pygame.event.get():
@@ -41,9 +46,9 @@ class SpellingQuiz(Quiz):
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    # self.check_solution()
-                    print(self.solution)
-                    print(self.letters.input_boxes.keys())
+                    self.check_solution()
+                    manager.clear_and_reset()
+                    
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
                 for index, text_box in self.letters.input_boxes.items(): 
@@ -53,20 +58,24 @@ class SpellingQuiz(Quiz):
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
             #     if event.ui_element == start_button:
                 self.check_solution()
+                manager.clear_and_reset()
 
             manager.process_events(event)
 
     def update(self):
         pass
 
-    def draw(self, screen, time_delta, manager):
+    def draw(self, screen, time_delta):
         screen.fill('black')
         text = 'Guess the Missing Letters'
         font = pygame.font.Font('data/fonts/league_spartan.ttf', 24)
         question = font.render(text, True, 'white')
         screen.blit(question, (200,100))
-        self.letters = LetterBoxes(self.masked_word)
-        self.letters.draw_boxes(screen, manager)
+        self.letters.draw_boxes(screen)
+        self.draw_crosses(screen)
+
+    def delete_solution(self, index):
+        del self.solution[index]
 
 
 

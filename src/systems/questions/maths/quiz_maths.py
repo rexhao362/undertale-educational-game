@@ -11,18 +11,14 @@ class MathsQuiz(Quiz):
         self.text = self.quiz['text']
         self.answer = self.quiz['answer']
         self.solution = None
-        self.num_box = None
+        self.num_box = create_num_box()
         self.start_button = None
 
     def draw(self, screen, time_delta):
+        screen.fill('black')
         font = pygame.font.Font('data/fonts/league_spartan.ttf', 24)
         question = font.render(self.text, True, 'white')
         screen.blit(question, (0, 0))
-
-        self.num_box = pygame_gui.elements.UITextEntryBox(
-            relative_rect=pygame.Rect(
-                (0, 0), 50,
-                initial_text=''))
 
         self.start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
                                                     text='Start')
@@ -41,11 +37,10 @@ class MathsQuiz(Quiz):
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
                 if event.ui_element == self.num_box:
-                    self.solution = self.num_box.get_text()
+                    self.solution = event.text
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == self.start_button:
-                    self.check_answer()
+                self.check_answer()
 
             manager.process_events(event)
 
@@ -57,3 +52,10 @@ class MathsQuiz(Quiz):
                 pass
         except ValueError as e:
             pass
+
+def create_num_box():
+        num_box =  pygame_gui.elements.ui_text_entry_line.UITextEntryLine(
+            relative_rect=pygame.Rect(
+                0, 0, 50, 50))
+        num_box.set_allowed_characters('number')
+        return num_box
