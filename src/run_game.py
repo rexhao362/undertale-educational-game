@@ -1,5 +1,5 @@
 from src.systems.battle.player import Player
-from src.systems.battle.stage import Stage
+from systems.battle.battle import Stage
 import src.menus.main_menu as m
 import pygame
 from src.settings import settings, screen, manager

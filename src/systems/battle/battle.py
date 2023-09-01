@@ -9,7 +9,8 @@ import src.systems.state as state
 logger = logging.getLogger()
 logging.basicConfig()
 
-class Stage(state.State):
+
+class Battle(state.State):
     def __init__(self, state_manager, player, current_stage):
         super().__init__()
         self.sm = state_manager
@@ -17,9 +18,13 @@ class Stage(state.State):
         self.stage = current_stage
         self.enemy = create_enemy()
         self.turn = 'player'
+        self.scene = {'normal': ['fight', 'act', 'items'],
+                      'act': [],
+                      'items': []}
         self.bg_image = pygame.image.load(
             'assets/pictures/backgrounds/boss_battle_bg.png')
-        self.background = pygame.transform.scale(self.bg_image, s.screen_values)
+        self.background = pygame.transform.scale(
+            self.bg_image, s.screen_values)
         self.buttons = {}
 
     def victory(self, screen):
@@ -81,16 +86,13 @@ class Stage(state.State):
         # Draw the four rectangles
         for button in buttons_list:
             rect = pygame.Rect((left, top), (RECT_WIDTH, RECT_HEIGHT))
-            
+
             self.buttons[button] = pygame_gui.elements.UIButton(
                 relative_rect=rect,
                 text=button)
-            
+
             left += RECT_WIDTH + RECT_DISTANCE
 
-    def draw_items(self):
-        for item in self.player.get_items():
-            pass
 
     def events(self, manager):
         for event in pygame.event.get():
