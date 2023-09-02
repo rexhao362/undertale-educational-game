@@ -11,13 +11,13 @@ logging.basicConfig()
 
 
 class Combat(state.State):
-    def __init__(self, state_manager):
+    def __init__(self, state_manager, **kwargs):
         super().__init__(state_manager)
         self.player = self.sm.player
         self.stage = self.sm.stage
-        self.enemy = create_enemy()
-        self.turn = 'player'
-        self.num_turns = 1
+        self.enemy = kwargs.get('enemy', create_enemy())
+        self.turn = kwargs.get('turn','player')
+        self.num_turns = kwargs.get('num_turns',1)
         self.scene = {'normal': ['fight', 'act', 'items'],
                       'act': ['poison'],
                       'items': []}
@@ -56,6 +56,7 @@ class Combat(state.State):
             pass
         else:
             self.enemy.attack(self.player)
+            self.num_turns += 1
             self.turn = 'player'
             # self.player.acting = True
 
@@ -82,7 +83,7 @@ class Combat(state.State):
                 pass
 
             elif event.type == pygame.KEYDOWN:
-                pass
+                self.sm.next_state('quiz')
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.buttons['fight']:
@@ -97,6 +98,11 @@ class Combat(state.State):
 
     def update(self):
         self.turn_combat()
+
+    def store_state(self):
+        self.sm.previous_state = {
+            'name': 'combat', 'enemy': self.enemy, 'turn': self.turn, 'num_turns': self.num_turns, 'reward': self.reward
+        }
 
 def create_buttons(buttons_list):
     # Constants

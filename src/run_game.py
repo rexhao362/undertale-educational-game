@@ -40,7 +40,7 @@ class Game:
 def start_game():
     game = Game(current_user[0])
     sm = state_manager.StateManager(current_user[0])
-    sm.next_state('quiz')
+    sm.set_state('combat')
     clock = pygame.time.Clock()
 
     while game.running:

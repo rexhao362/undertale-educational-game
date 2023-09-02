@@ -1,18 +1,17 @@
 import pygame
 from random import choice
-from copy import deepcopy
 from systems.battle.combat import Combat
 from systems.battle.player import Player
 from systems.database.users import User
 from systems.map.inventory import Inventory
 from systems.questions.maths.quiz_maths import MathsQuiz
-
 from systems.questions.spelling.spelling_quiz import SpellingQuiz
 
 
 class StateManager:
-    def __init__(self, username):  # , state):
+    def __init__(self, username):
         self.state = None
+        self.state_name = None
         self.stage = 1
         self.previous_state = None
         self.success = None
@@ -20,7 +19,7 @@ class StateManager:
         self.inventory = Inventory(self)
         self.user = User(username)
         self.player = Player(self.user)
-        # self.state_dict = set_state_dict(self)
+
 
     def run(self, screen, manager):
         clock = pygame.time.Clock()
@@ -42,25 +41,23 @@ class StateManager:
 
         pygame.quit()
 
-    def next_state(self, new_state):
-        self.previous_state = deepcopy(self.state)
-        # self.state = self.state_dict[new_state]
+    def set_state(self, new_state):
         # if new_state == 'map':
         #     self.state = Map(self)
         if new_state == 'combat':
             self.state = Combat(self)
         elif new_state == 'quiz':
             selection = choice(['spelling', 'maths'])
-            # if selection == 'spelling:7
             self.state = SpellingQuiz(
                 self) if selection == 'spelling' else MathsQuiz(self)
         elif new_state == 'inventory':
             self.state = self.inventory
 
-        
-    def back_state(self):
-        self.state = deepcopy(self.previous_state)
-
+    def reload_state(self):
+        if self.previous_state['name'] == 'combat':
+            self.state = Combat(self, **self.previous_state)
+    
+        self.state.reward_check()
 
     def next_stage(self):
         self.stage += 1
@@ -70,12 +67,3 @@ class StateManager:
 
     def get_success(self):
         return self.success
-
-
-def set_state_dict(state_manager):
-    return {
-        'map': '',
-        'combat': Combat(state_manager),
-        'quiz': choice([SpellingQuiz(state_manager), MathsQuiz(state_manager)]),
-        'inventory': state_manager.inventory
-    }
