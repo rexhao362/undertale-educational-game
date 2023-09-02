@@ -1,5 +1,6 @@
 import json
 
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -14,7 +15,12 @@ class User:
             }
         }
 
-    
+    def correct_answer(self, subject):
+        self.score[subject]['correct'] += 1
+
+    def wrong_answer(self, subject):
+        self.score[subject]['wrong'] += 1
+
     def update_user(self):
         with open('save_file.json', 'r+') as f:
             data = json.load(f)
@@ -36,7 +42,7 @@ def create_user(new_user):
                 'maths': {
                     'total correct': 0,
                     'total wrong': 0
-                }, 
+                },
                 'spelling': {
                     'total correct': 0,
                     'total wrong': 0

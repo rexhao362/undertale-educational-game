@@ -1,16 +1,13 @@
 from src.systems.battle.player import Player
-from systems.battle.battle import Stage
-import src.menus.main_menu as m
+from systems.battle.combat import Combat
 import pygame
-from src.settings import settings, screen, manager
-import src.systems.state_manager as state_manager
+from src.settings import settings, screen
+from src.manager import manager
+import state_manager as state_manager
 from src.systems.database.users import User
-from systems.questions.maths.quiz_maths import MathsQuiz
-from systems.questions.spelling.spelling_quiz import SpellingQuiz
 
 
 current_user = ['player']
-current_subject = ['maths']
 
 pygame.init()
 
@@ -22,8 +19,6 @@ class Game:
         self.stage = 0
         self.running = True
 
-    def next_stage(self):
-        self.stage += 1
 
 
     def events(self):
@@ -44,9 +39,8 @@ class Game:
 
 def start_game():
     game = Game(current_user[0])
-    sm = state_manager.StateManager()
-    sm.previous_state = Stage(sm, game.player, game.stage)
-    sm.state = SpellingQuiz(sm, game.user)
+    sm = state_manager.StateManager(current_user[0])
+    sm.next_state('quiz')
     clock = pygame.time.Clock()
 
     while game.running:

@@ -1,6 +1,6 @@
 class State:
-    def __init__(self):
-        self.sm = None
+    def __init__(self, state_manager):
+        self.sm = state_manager
         self.reward = None
 
     def draw(self, screen, time_delta):

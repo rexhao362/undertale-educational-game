@@ -1,23 +1,30 @@
 import pygame
 from src.systems.state import State
 
+
 class Quiz(State):
-    def __init__(self, state_manager, user, subject):
+    def __init__(self, state_manager, subject):
         self.sm = state_manager
-        self.user = user
+        self.user = self.sm.user
         self.subject = subject
         self.chances = 0
         self.answer = None
 
     def draw_crosses(self, screen):
+        cross = pygame.image.load('assets/pictures/x.png').convert_alpha()
+        image_rect = cross.get_rect()
+        image_width = image_rect.width
+        pos_x = 100
+        pos_y = 100
+        spacing = 20
         for i in range(self.chances):
-            cross = Crosses(50 + i * 30)
-            screen.blit(cross.image, cross.rect)
+            screen.blit(cross, (pos_x, pos_y))
+            pos_x += image_width + spacing
 
     def correct_answer(self):
-        self.user.score[self.subject]['correct'] += 1
+        self.user.correct_answer(self.subject)
         text = f'Correct! {self.answer} is the right answer!'
-        self.sm.set_success(True)#TODO
+        self.sm.set_success(True)  # TODO
         self.sm.back_state()
 
     def wrong_answer(self):
@@ -27,16 +34,7 @@ class Quiz(State):
         if self.chances > 0 and self.chances < 3:
             text = 'That was wrong. Try again'
         elif self.chances == 3:
-            self.user.score[self.subject]['wrong'] += 1
-            text =  f'That is the wrong answer. The correct answer is {self.answer}'
+            self.user.wrong_answer(self.subject)
+            text = f'That is the wrong answer. The correct answer is {self.answer}'
             self.sm.set_success(False)
             self.sm.back_state()
-
-
-class Crosses:
-    def __init__(self, left):
-        self.left_pos = left
-        self.top_pos = 56
-        self.image = pygame.image.load('assets/pictures/x.png').convert_alpha()
-        self.rect = self.image.get_rect()
-        

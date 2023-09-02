@@ -1,7 +1,6 @@
 import pygame
-import pygame_gui 
-pygame.init()
 
+pygame.init()
 class Settings:
     """Class that stores game settings."""
     def __init__(self):
@@ -11,7 +10,6 @@ class Settings:
         self.screen_height = 600
         self.clock = pygame.time.Clock()
         self.time_delta = self.clock.tick(60)/1000.0
-        # self.bg_colour = (0, 0, 0)
     
     def set_resolution(self, value, width_height):
         self.screen_width = width
@@ -23,7 +21,6 @@ screen_values = (
     settings.screen_height
 )
 screen = pygame.display.set_mode(screen_values)
-manager = pygame_gui.UIManager(screen_values)
 
 pygame.display.set_caption('Game')
 

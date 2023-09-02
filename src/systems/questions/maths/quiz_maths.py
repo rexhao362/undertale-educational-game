@@ -5,8 +5,8 @@ from src.systems.questions.quiz import Quiz
 
 
 class MathsQuiz(Quiz):
-    def __init__(self, state_manager, user):
-        super().__init__(state_manager, user, 'maths')
+    def __init__(self, state_manager):
+        super().__init__(state_manager, 'maths')
         self.quiz = choose_maths_question()
         self.text = self.quiz['text']
         self.answer = self.quiz['answer']
@@ -16,7 +16,7 @@ class MathsQuiz(Quiz):
 
     def draw(self, screen, time_delta):
         screen.fill('black')
-        font = pygame.font.Font('data/fonts/league_spartan.ttf', 24)
+        font = pygame.font.Font('data/fonts/league_spartan.ttf', 36)
         question = font.render(self.text, True, 'white')
         screen.blit(question, (0, 0))
         self.draw_crosses(screen)
@@ -30,7 +30,7 @@ class MathsQuiz(Quiz):
                 pass
 
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.key.key_code("return"):
+                if event.key == pygame.K_RETURN:
                     self.check_answer()
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
@@ -55,11 +55,11 @@ class MathsQuiz(Quiz):
 def create_num_box():
     num_box = pygame_gui.elements.ui_text_entry_line.UITextEntryLine(
         relative_rect=pygame.Rect(
-            0, 0, 50, 50))
-    num_box.set_allowed_characters('number')
+            (500, 300), (100, 50)))
+    num_box.set_allowed_characters('numbers')
     return num_box
 
 
 def create_start_box():
-    return pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
+    return pygame_gui.elements.UIButton(relative_rect=pygame.Rect((-100, -200), (100, 50)),
                                         text='Start')

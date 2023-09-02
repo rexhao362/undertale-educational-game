@@ -1,5 +1,6 @@
 from pygame.sprite import Sprite
 import pygame
+import random
 
 
 class Units(Sprite):
@@ -16,8 +17,11 @@ class Units(Sprite):
         # self.rect.center = (left, top)
 
     def attack(self, target):
+        critical_chance = random.randint(1, 100)
+        critical_hit = 5 if critical_chance > 95 else 0
+
         target.current_health = max(
-            0, target.current_health - self.attack_power)
+            0, target.current_health - self.attack_power - critical_hit)
         if target.current_health <= 0:
             target.alive = False
 

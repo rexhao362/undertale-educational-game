@@ -12,14 +12,14 @@ with open('data/word_list.json') as f:
 
 
 class SpellingQuiz(Quiz):
-    def __init__(self, state_manager, user):
-        super().__init__(state_manager, user, 'spelling')
+    def __init__(self, state_manager):
+        super().__init__(state_manager, 'spelling')
         self.word = [*choice(word_list)]
         self.masked_word = mask_word(self.word)
         self.answer = ''.join(self.word)
         self.solution = {}
         self.letters = LetterBoxes(self.masked_word)
-        self.chances
+        self.chances = 0
 
     def check_solution(self):
         for index, letter in self.solution.items():

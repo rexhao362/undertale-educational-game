@@ -4,8 +4,12 @@ from src.menus.users_menu import set_current_user
 from src.settings import settings
 from src.menus.options import options_menu
 from src.systems.database.users import get_users_names
-from src.systems.questions.topic import set_current_subject
 from src.systems.database.donut_graph import donut_graph_draw
+
+current_subject = ['maths']
+
+def set_current_subject(value, subject):
+    current_subject[0] = subject
 
 
 """Initialises menu"""

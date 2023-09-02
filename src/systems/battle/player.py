@@ -4,12 +4,11 @@ import pygame
 
 
 class Player(Units):
-    def __init__(self, user, mana=100, health=100, attack=10, defence=10):
+    def __init__(self, state_manager, mana=100, health=100, attack=20, defence=10):
         super().__init__(health, attack, defence)
-        self.user = user
+        self.sm = state_manager
         self.mana = mana
         self.acting = True
-        self.items = {}
         self.healthbar = HealthBar(100, 900, 100, 10, self.total_health)
         self.boosted = False
         self.boosted_attr = {}
@@ -25,6 +24,9 @@ class Player(Units):
         if self.block == True:
             self.defence -= 10
             self.block = False
+
+    def post_game_heal(self):
+        self.current_health += 50
 
     def draw(self, screen):
         self.healthbar.draw(screen, self.current_health)
