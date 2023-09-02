@@ -15,7 +15,6 @@ class MathsQuiz(Quiz):
         self.start_button = create_start_box()
 
     def draw(self, screen, time_delta):
-        screen.fill('black')
         font = pygame.font.Font('data/fonts/league_spartan.ttf', 36)
         question = font.render(self.text, True, 'white')
         screen.blit(question, (0, 0))

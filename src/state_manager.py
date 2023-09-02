@@ -1,5 +1,6 @@
 import pygame
 from random import choice
+from copy import deepcopy
 from systems.battle.combat import Combat
 from systems.battle.player import Player
 from systems.database.users import User
@@ -19,23 +20,19 @@ class StateManager:
         self.inventory = Inventory(self)
         self.user = User(username)
         self.player = Player(self.user)
-        # self.state_dict = {
-        #     'map': '',
-        #     'combat': Combat(self),
-        #     'quiz': choice([SpellingQuiz(self), MathsQuiz(self)]),
-        #     'inventory': self.inventory
-        # }
+        # self.state_dict = set_state_dict(self)
 
     def run(self, screen, manager):
-        self.state.events()
         clock = pygame.time.Clock()
 
         while self.running:
             time_delta = clock.tick(60)/1000.0
+            screen.fill('black')
 
             self.state.events(manager)
 
             manager.update(time_delta)
+
             self.state.draw(screen, time_delta)
             self.state.update()
 
@@ -46,7 +43,7 @@ class StateManager:
         pygame.quit()
 
     def next_state(self, new_state):
-        self.previous_state = self.state
+        self.previous_state = deepcopy(self.state)
         # self.state = self.state_dict[new_state]
         # if new_state == 'map':
         #     self.state = Map(self)
@@ -60,8 +57,10 @@ class StateManager:
         elif new_state == 'inventory':
             self.state = self.inventory
 
+        
     def back_state(self):
-        self.state = self.previous_state
+        self.state = deepcopy(self.previous_state)
+
 
     def next_stage(self):
         self.stage += 1
@@ -71,3 +70,12 @@ class StateManager:
 
     def get_success(self):
         return self.success
+
+
+def set_state_dict(state_manager):
+    return {
+        'map': '',
+        'combat': Combat(state_manager),
+        'quiz': choice([SpellingQuiz(state_manager), MathsQuiz(state_manager)]),
+        'inventory': state_manager.inventory
+    }

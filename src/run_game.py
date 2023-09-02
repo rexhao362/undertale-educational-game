@@ -45,7 +45,7 @@ def start_game():
 
     while game.running:
         time_delta = clock.tick(60)/1000.0
-        
+        screen.fill('black')
         sm.state.events(manager)
 
         manager.update(time_delta)

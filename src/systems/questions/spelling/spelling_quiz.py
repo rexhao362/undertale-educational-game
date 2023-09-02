@@ -92,9 +92,11 @@ def mask_word(word):
 
 if __name__ == 'main':
     pygame.init()
+    from src.state_manager import StateManager
     screen = pygame.display.set_mode((1200, 800))
     running = True
-    state = SpellingQuiz()
+    sm = StateManager('player')
+    sm.next_state('quiz')
     while running:
         state.events(manager)
         state.draw(screen)

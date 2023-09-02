@@ -8,6 +8,7 @@ class Quiz(State):
         self.user = self.sm.user
         self.subject = subject
         self.chances = 0
+        self.max_chances = 3
         self.answer = None
 
     def draw_crosses(self, screen):
@@ -16,7 +17,7 @@ class Quiz(State):
         image_width = image_rect.width
         pos_x = 100
         pos_y = 100
-        spacing = 20
+        spacing = 10
         for i in range(self.chances):
             screen.blit(cross, (pos_x, pos_y))
             pos_x += image_width + spacing
@@ -31,9 +32,9 @@ class Quiz(State):
         # font = pygame.font.Font()
         text = ''
         self.chances += 1
-        if self.chances > 0 and self.chances < 3:
+        if self.chances > 0 and self.chances < self.max_chances:
             text = 'That was wrong. Try again'
-        elif self.chances == 3:
+        elif self.chances == self.max_chances:
             self.user.wrong_answer(self.subject)
             text = f'That is the wrong answer. The correct answer is {self.answer}'
             self.sm.set_success(False)
