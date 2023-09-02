@@ -1,5 +1,6 @@
-from src.main import screen
-from src.run_game import current_user, current_subject
+from src.settings import screen
+from src.run_game import current_user
+import src.menus.parents_menu as p
 from json import load
 import pygame
 import matplotlib.backends.backend_agg as agg
@@ -32,9 +33,8 @@ def create_graph(user, subject):
 
     return figure
 
-
 def donut_graph_draw():
-    figure = create_graph(current_user[0], current_subject[0])
+    figure = create_graph(current_user[0], p.current_subject[0])
     canvas = agg.FigureCanvasAgg(figure)
     canvas.draw()
     renderer = canvas.get_renderer()
@@ -43,4 +43,21 @@ def donut_graph_draw():
     size = canvas.get_width_height()
 
     surface = pygame.image.fromstring(raw_data, size, "RGB")
-    screen.blit(surface, (600, 400))
+
+    # Main loop
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        # Clear the screen
+        screen.fill('black')
+
+        # Blit the Matplotlib plot onto the Pygame screen
+        screen.blit(surface, (0, 0))
+
+        # Update the display
+        pygame.display.flip()
+
+
