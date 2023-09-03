@@ -16,8 +16,8 @@ class Combat(state.State):
         self.player = self.sm.player
         self.stage = self.sm.stage
         self.enemy = kwargs.get('enemy', create_enemy())
-        self.turn = kwargs.get('turn','player')
-        self.num_turns = kwargs.get('num_turns',1)
+        self.turn = kwargs.get('turn', 'player')
+        self.num_turns = kwargs.get('num_turns', 0)
         self.scene = {'normal': ['fight', 'act', 'items'],
                       'act': ['poison'],
                       'items': []}
@@ -71,9 +71,6 @@ class Combat(state.State):
             self.game_over(screen)
             self.enemy.draw_attack(screen, time_delta)
 
-
-
-
     def events(self, manager):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -104,6 +101,7 @@ class Combat(state.State):
             'name': 'combat', 'enemy': self.enemy, 'turn': self.turn, 'num_turns': self.num_turns, 'reward': self.reward
         }
 
+
 def create_buttons(buttons_list):
     # Constants
     RECT_WIDTH = 100
@@ -127,5 +125,5 @@ def create_buttons(buttons_list):
             text=button)
 
         left += RECT_WIDTH + RECT_DISTANCE
-    
+
     return buttons_dict

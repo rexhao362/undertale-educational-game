@@ -14,7 +14,8 @@ class SpriteSheet(Sprite):
         self.sprites = self.load_sprites()
         self.time = 0
         self.animation_speed = 0.2
-        self.velocity = pygame.Vector2(0, 0)
+        self.move_x = 0
+        self.move_y = 0
         self.index = 0
         self.image = self.sprites[self.index]
         self.rect = self.image.get_rect()
@@ -42,6 +43,14 @@ class SpriteSheet(Sprite):
             self.index = (self.index + 1) % len(self.sprites)
             self.image = self.sprites[self.index]
             self.time = 0
+
+    def move(self, x, y):
+        self.move_x += x
+        self.move_y += y
+
+    def update_position(self):
+        self.rect.x += self.move_x
+        self.rect.y += self.move_y
 
 if __name__ == '__main__':
     pygame.init()

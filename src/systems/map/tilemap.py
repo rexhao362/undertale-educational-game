@@ -4,6 +4,7 @@ from pytmx.util_pygame import load_pygame
 import pygame
 from pygame.sprite import Group
 
+
 class TileMap(State):
     def __init__(self, state_manager, **kwargs):
         super().__init__(state_manager)
@@ -11,10 +12,13 @@ class TileMap(State):
         self.filename = f'assets/tilemaps/level_{self.stage}.tmx'
         self.map = load_pygame(self.filename)
         self.current_sprite = frisk_walk['up']
-        
+        self.current_sprite.rect.x = 450
+        self.current_sprite.rect.y = 700
+        self.steps = 0.1
+
     def draw_frisk(self, screen, time_delta):
-        sprites = Group(self.current_sprite)
         self.current_sprite.animate(time_delta)
+        sprites = Group(self.current_sprite)
         sprites.draw(screen)
 
     def draw_tilemap(self, screen):
@@ -22,14 +26,16 @@ class TileMap(State):
             for x, y, gid in layer:
                 tile = self.map.get_tile_image_by_gid(gid)
                 if tile != None:
-                    screen.blit(tile, (x * self.map.tilewidth, y * self.map.tileheight))
+                    screen.blit(tile, (x * self.map.tilewidth,
+                                y * self.map.tileheight))
 
     def draw(self, screen, time_delta):
         self.draw_tilemap(screen)
         self.draw_frisk(screen, time_delta)
+        print(self.current_sprite.rect)
 
     def update(self):
-        pass
+        self.current_sprite.update_position()
 
     def events(self, manager):
         for event in pygame.event.get():
@@ -40,14 +46,32 @@ class TileMap(State):
                 pass
 
             elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:
-                        self.current_sprite = frisk_walk['up']
-                    elif event.key == pygame.K_DOWN:
-                        self.current_sprite = frisk_walk['down']
-                    elif event.key == pygame.K_LEFT:
-                        self.current_sprite = frisk_walk['left']
-                    elif event.key == pygame.K_RIGHT:
-                        self.current_sprite = frisk_walk['right']
+                if event.key == pygame.K_UP or event.key == pygame.K_w:
+                    self.current_sprite = frisk_walk['up']
+                    self.current_sprite.move(0, self.steps)
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                    self.current_sprite.move(0, -self.steps)
+                    self.current_sprite = frisk_walk['down']
+                elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                    self.current_sprite.move(-self.steps, 0)
+                    self.current_sprite = frisk_walk['left']
+                elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                    self.current_sprite.move(self.steps, 0)
+                    self.current_sprite = frisk_walk['right']
+
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_UP or event.key == pygame.K_w:
+                    self.current_sprite = frisk_walk['up']
+                    self.current_sprite.move(0, -self.steps)
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                    self.current_sprite.move(0, self.steps)
+                    self.current_sprite = frisk_walk['down']
+                elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                    self.current_sprite.move(self.steps, 0)
+                    self.current_sprite = frisk_walk['left']
+                elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                    self.current_sprite.move(-self.steps, 0)
+                    self.current_sprite = frisk_walk['right']
 
             manager.process_events(event)
 
@@ -68,9 +92,10 @@ class TileMap(State):
     def store_state(self):
         pass
 
+
 frisk_walk = {
-        'up': SpriteSheet('up', 19, 29, 5, 4),
-        'left': SpriteSheet('left', 17, 29, 5, 2),
-        'right': SpriteSheet('right', 17, 29, 5, 2),
-        'down': SpriteSheet('down', 17, 29, 5, 4)
-    }
+    'up': SpriteSheet('up', 19, 29, 5, 4),
+    'left': SpriteSheet('left', 17, 29, 5, 2),
+    'right': SpriteSheet('right', 17, 29, 5, 2),
+    'down': SpriteSheet('down', 17, 29, 5, 4)
+}
