@@ -4,6 +4,7 @@ from systems.battle.combat import Combat
 from systems.battle.player import Player
 from systems.database.users import User
 from systems.map.inventory import Inventory
+from systems.map.tilemap import TileMap
 from systems.questions.maths.quiz_maths import MathsQuiz
 from systems.questions.spelling.spelling_quiz import SpellingQuiz
 
@@ -11,8 +12,7 @@ from systems.questions.spelling.spelling_quiz import SpellingQuiz
 class StateManager:
     def __init__(self, username):
         self.state = None
-        self.state_name = None
-        self.stage = 1
+        self.stage = 0
         self.previous_state = None
         self.success = None
         self.running = True
@@ -42,9 +42,10 @@ class StateManager:
         pygame.quit()
 
     def set_state(self, new_state):
-        # if new_state == 'map':
-        #     self.state = Map(self)
-        if new_state == 'combat':
+        if new_state == 'tilemap':
+            self.stage += 1
+            self.state = TileMap(self)
+        elif new_state == 'combat':
             self.state = Combat(self)
         elif new_state == 'quiz':
             selection = choice(['spelling', 'maths'])

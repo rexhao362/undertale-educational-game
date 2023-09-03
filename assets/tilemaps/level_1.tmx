@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="30" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="1">
- <tileset firstgid="1" source="TX Tileset Grass.tsx"/>
- <tileset firstgid="65" source="TX Struct.tsx"/>
- <tileset firstgid="321" source="TX Plant.tsx"/>
- <tileset firstgid="577" source="TX Shadow Plant.tsx"/>
- <tileset firstgid="833" source="TX Shadow.tsx"/>
- <tileset firstgid="1089" source="TX Props.tsx"/>
- <tileset firstgid="1345" source="TX Tileset Wall.tsx"/>
- <tileset firstgid="1601" source="TX Tileset Stone Ground.tsx"/>
- <tileset firstgid="1665" source="TX Struct.tsx"/>
+ <tileset firstgid="1" source="tilesets/TX Tileset Grass.tsx"/>
+ <tileset firstgid="65" source="tilesets/TX Struct.tsx"/>
+ <tileset firstgid="321" source="tilesets/TX Plant.tsx"/>
+ <tileset firstgid="577" source="tilesets/TX Shadow Plant.tsx"/>
+ <tileset firstgid="833" source="tilesets/TX Shadow.tsx"/>
+ <tileset firstgid="1089" source="tilesets/TX Props.tsx"/>
+ <tileset firstgid="1345" source="tilesets/TX Tileset Wall.tsx"/>
+ <tileset firstgid="1601" source="tilesets/TX Tileset Stone Ground.tsx"/>
  <layer id="1" name="Tile Layer 1" width="30" height="24">
   <data encoding="csv">
 1,2,3,4,1,2,3,4,1,2,3,4,1,35,41,41,41,41,36,4,1,2,3,4,1,2,3,4,1,2,
@@ -125,7 +124,7 @@
   <data encoding="csv">
 0,0,0,0,0,0,0,0,1614,1613,1613,1613,1613,1613,1613,1613,1613,1613,1613,1613,1613,1613,1616,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,1617,1618,1619,1614,1614,1615,1616,1615,1615,1615,1615,1615,1615,1615,1615,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1701,1702,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,101,102,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,101,102,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,117,118,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -152,8 +151,8 @@
  <layer id="7" name="Tile Layer 6" width="30" height="24">
   <data encoding="csv">
 0,0,0,0,0,0,0,1377,1378,1379,1426,1427,1428,1429,1430,1430,0,0,0,0,0,1379,1380,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,1393,1394,1395,1447,1443,1444,1442,1443,1742,1743,1445,1445,1445,1447,1395,1396,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,1409,1410,1411,1463,1459,1460,1458,1459,1758,1759,1461,1461,1461,1463,1411,1412,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,1393,1394,1395,1447,1443,1444,1442,1443,142,143,1445,1445,1445,1447,1395,1396,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,1409,1410,1411,1463,1459,1460,1458,1459,158,159,1461,1461,1461,1463,1411,1412,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,1473,1474,1475,1476,1477,1478,1478,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

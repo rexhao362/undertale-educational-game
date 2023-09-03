@@ -11,39 +11,16 @@ current_user = ['player']
 
 pygame.init()
 
-class Game:
-    def __init__(self, username):
-        # self.screen = screen
-        self.user = User(username)
-        self.player = Player(self.user)
-        self.stage = 0
-        self.running = True
 
-
-
-    def events(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
-                exit()
-
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                pass
-
-        # Event handling for a range of different key presses
-            elif event.type == pygame.KEYDOWN:
-                pass
-                # if event.key == pygame.K_ESCAPE:
-                #     m.main_menu.enable()
 
 
 def start_game():
-    game = Game(current_user[0])
+    # game = Game(current_user[0])
     sm = state_manager.StateManager(current_user[0])
-    sm.set_state('combat')
+    sm.set_state('tilemap')
     clock = pygame.time.Clock()
 
-    while game.running:
+    while sm.running:
         time_delta = clock.tick(60)/1000.0
         screen.fill('black')
         sm.state.events(manager)
