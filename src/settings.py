@@ -6,8 +6,8 @@ class Settings:
     def __init__(self):
         """Initialize the game's settings."""
         # Screen settings
-        self.screen_width = 1200
-        self.screen_height = 700
+        self.screen_width = 960
+        self.screen_height = 738
         self.clock = pygame.time.Clock()
         self.time_delta = self.clock.tick(60)/1000.0
     

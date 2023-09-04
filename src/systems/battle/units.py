@@ -7,7 +7,7 @@ class Units(Sprite):
     def __init__(self, name, health, attack, defence):
         super().__init__()
         self.name = name
-        self.total_health = health
+        self.health_capacity = health
         self.current_health = health
         self.attack_power = attack
         self.defence = defence
@@ -27,12 +27,11 @@ class Units(Sprite):
             0, target.current_health - damage)
         if target.current_health <= 0:
             target.alive = False
-        
+
         if critical_hit > 0:
             self.text = f'{target.name} was critically hit for {damage}'
         else:
-            self.text = f'{self.name} has attacked target.name for {damage}' 
-
+            self.text = f'{self.name} has attacked target.name for {damage}'
 
     def draw(self, screen, time_delta):
         screen.blit(self.image, self.rect)
@@ -43,8 +42,8 @@ class Units(Sprite):
     def modify_attribute(self, attribute, effect):
         if attribute == 'health':
             self.current_health = min(
-                self.total_health, self.current_health + self.effect)
-        elif attribute in ['attack_power', 'defence']:
+                self.health_capacity, self.current_health + self.effect)
+        elif attribute in ['attack_power', 'defence', 'mana']:
             self[attribute] = max(0, self[attribute] + effect)
 
     def set_status(self, affliction):
@@ -56,19 +55,18 @@ class Units(Sprite):
             damage = random.randint(1, 7)
             self.current_health -= damage
             self.text += f"Poison has done {damage} to {self.name}'s health"
-        
 
 
 class HealthBar():
-    def __init__(self, left, top, width, height, total_health):
+    def __init__(self, left, top, width, height, health_capacity):
         self.left = left
         self.top = top
         self.width = width
         self.height = height
-        self.total_health = total_health
+        self.health_capacity = health_capacity
 
     def draw(self, screen, current_health):
-        ratio = current_health / self.total_health
+        ratio = current_health / self.health_capacity
         pygame.draw.rect(screen, 'red', (self.left,
                          self.top, self.width, self.height))
         pygame.draw.rect(screen, 'green', (self.left,

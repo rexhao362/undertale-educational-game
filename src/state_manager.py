@@ -60,9 +60,6 @@ class StateManager:
     
         self.state.reward_check()
 
-    def next_stage(self):
-        self.stage += 1
-
     def set_success(self, bool):
         self.success = bool
 

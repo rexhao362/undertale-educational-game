@@ -1,21 +1,21 @@
 from src.systems.battle.units import Units, HealthBar
 import pygame
+import pygame_gui
 from random import choice
 from os import listdir
 
 class Enemy(Units):
-    def __init__(self, name, health=100, attack=20, defence=0):
-        super().__init__(health, attack, defence)
-        self.name = name
+    def __init__(self, name, health=100, attack=10, defence=0):
+        super().__init__(name, health, attack, defence)
         self.image = pygame.image.load(f'./assets/pictures/units/enemies/{self.name}.png')
         self.rect = self.image.get_rect()
-        self.rect.center = (600, 200)
-        self.healthbar = HealthBar(100, 100, 100, 10, self.total_health)
+        self.rect.center = (430, 200)
+        self.healthbar = pygame_gui.elements.UIScreenSpaceHealthBar(relative_rect=pygame.Rect(100, 500, 150, 30), sprite_to_monitor=self)
 
 
     def draw(self, screen):
         screen.blit(self.image, self.rect.center)
-        self.healthbar.draw(screen, self.current_health)
+        # self.healthbar.draw(screen, self.current_health)
 
     def draw_attack(self, screen, time_delta):
         pass

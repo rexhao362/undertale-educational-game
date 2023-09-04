@@ -27,8 +27,8 @@ class Combat(state.State):
             self.bg_image, s.screen_values)
         self.buttons = create_buttons(self.scene['normal'])
         self.text = ''
-        self.text_box = self.create_text_box()
         self.text_changed = False
+        self.text_box = self.create_text_box()
 
     def victory(self, screen):
         if not self.enemy.is_alive():
@@ -66,9 +66,9 @@ class Combat(state.State):
             self.turn = 'player'
             # self.player.acting = True
 
-    def draw(self, screen, time_delta,):
+    def draw(self, screen, time_delta):
         screen.blit(self.background, (0, 0))
-        self.player.draw(screen)
+        # self.player.draw(screen)
         self.enemy.draw(screen)
         if self.turn == 'player':
             self.victory(screen)
