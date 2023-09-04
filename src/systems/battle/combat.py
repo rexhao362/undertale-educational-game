@@ -26,6 +26,9 @@ class Combat(state.State):
         self.background = pygame.transform.scale(
             self.bg_image, s.screen_values)
         self.buttons = create_buttons(self.scene['normal'])
+        self.text = ''
+        self.text_box = self.create_text_box()
+        self.text_changed = False
 
     def victory(self, screen):
         if not self.enemy.is_alive():
@@ -53,15 +56,17 @@ class Combat(state.State):
     def turn_combat(self):
         if self.turn == 'player':
             # self.victory()
-            pass
+            self.player.affliction()
         else:
             self.enemy.attack(self.player)
+            self.enemy.affliction()
+            self.set_text(self.enemy.text)
+            self.create_text_box()
             self.num_turns += 1
             self.turn = 'player'
             # self.player.acting = True
 
     def draw(self, screen, time_delta,):
-        screen.fill('black')
         screen.blit(self.background, (0, 0))
         self.player.draw(screen)
         self.enemy.draw(screen)
@@ -100,6 +105,18 @@ class Combat(state.State):
         self.sm.previous_state = {
             'name': 'combat', 'enemy': self.enemy, 'turn': self.turn, 'num_turns': self.num_turns, 'reward': self.reward
         }
+
+    def create_text_box(self):
+        if self.text_changed == True:
+            text_box = pygame_gui.elements.ui_text_box.UITextBox(
+                html_text=self.text, relative_rect=pygame.Rect(400, 200, 100, 600))
+            text_box.set_active_effect('TEXT_EFFECT_TYPING_APPEAR')
+            self.text_changed = False
+            return text_box
+
+    def set_text(self, text):
+        self.text = text
+        self.text_changed = True
 
 
 def create_buttons(buttons_list):
