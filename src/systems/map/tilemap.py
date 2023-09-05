@@ -1,5 +1,5 @@
 from systems.state import State
-from src.systems.map.sprite_sheet import SpriteSheet
+from src.systems.map.frisk_walking import FriskWalk
 from pytmx.util_pygame import load_pygame
 import pygame
 from pygame.sprite import Group
@@ -94,8 +94,8 @@ class TileMap(State):
 
 
 frisk_walk = {
-    'up': SpriteSheet('up', 19, 29, 5, 4),
-    'left': SpriteSheet('left', 17, 29, 5, 2),
-    'right': SpriteSheet('right', 17, 29, 5, 2),
-    'down': SpriteSheet('down', 17, 29, 5, 4)
+    'up': FriskWalk('up', 19, 4),
+    'left': FriskWalk('left', 17, 2),
+    'right': FriskWalk('right', 17, 2),
+    'down': FriskWalk('down', 19, 4)
 }

@@ -27,14 +27,14 @@ class Combat(state.State):
         self.buttons_items = create_buttons(self.scene['items'])
         disable_hide_buttons(self.buttons_act)
         disable_hide_buttons(self.buttons_items)
-        self.text = ''
+        self.message_queue = []
         self.text_changed = False
         self.text_box = None
 
     def victory(self):
         if not self.enemy.is_alive():
             self.player.post_game_heal()
-            self.sm.set_state('postgame')
+            self.sm.set_state('postgame', manager)
 
     def game_over(self):
         if not self.player.is_alive():
@@ -46,25 +46,22 @@ class Combat(state.State):
                 self.sm.set_state('quiz')
             else:
                 self.sm.game_over = True
-                self.sm.set_state('postgame')
-
+                self.sm.set_state('postgame', manager)
 
     def turn_combat(self):
         if self.turn == 'player':
-            enable_show_buttons(self.buttons_normal)
             self.victory()
             self.player.affliction()
             self.player.remove_block()
-            self.set_text_box(self.player.text)
-            self.create_text_box()
+            self.set_text_box(self.player.text_entry)
         else:
             disable_hide_buttons(self.buttons_normal)
             self.game_over()
             self.enemy.affliction()
             self.enemy.attack(self.player)
-            self.set_text_box(self.enemy.text)
-            self.create_text_box()
+            self.set_text_box(self.enemy.text_entry)
             self.num_turns += 1
+            enable_show_buttons(self.buttons_normal)
             self.turn = 'player'
 
     def draw(self, screen, time_delta):
@@ -73,13 +70,13 @@ class Combat(state.State):
         self.player.draw(screen)
         self.enemy.draw(screen)
 
-    def events(self, manager):
+    def events(self, manager, screen, time_delta):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                pass
+                self.create_text_box()
 
             elif event.type == pygame.KEYDOWN:
                 pass
@@ -87,9 +84,9 @@ class Combat(state.State):
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.buttons_normal['fight']:
                     self.player.attack(self.enemy)
+                    self.player.draw_attack(screen, time_delta)
                     self.turn = 'enemy'
                 elif event.ui_element == self.buttons_normal['act']:
-                    disable_hide_buttons(self.buttons_normal)
                     enable_show_buttons(self.buttons_act)
                 elif event.ui_element == self.buttons_normal['items']:
                     disable_hide_buttons(self.buttons_normal)
@@ -98,8 +95,9 @@ class Combat(state.State):
                     self.player.set_block()
                     self.turn = 'enemy'
                 elif event.ui_element == self.buttons_act['poison']:
-                    self.enemy.set_status('poison')
+                    self.reward = self.enemy.set_status('poison')
                     disable_hide_buttons(self.buttons_act)
+                    self.sm.set_state('quiz', manager)
 
             manager.process_events(event)
 
@@ -116,24 +114,18 @@ class Combat(state.State):
         }
 
     def create_text_box(self):
-        if self.text_changed == True:
+        # if self.text_changed == True:
+        if len(self.message_queue) > 0:
             text_box = pygame_gui.elements.ui_text_box.UITextBox(
-                html_text=self.text, relative_rect=pygame.Rect(200, 600, 400, 200))
+                html_text=self.message_queue.pop(0), relative_rect=pygame.Rect(200, 500, 400, 200))
             text_box.set_active_effect('TEXT_EFFECT_TYPING_APPEAR')
             self.text_changed = False
 
     def set_text_box(self, text):
-        self.text = text
-        self.text_changed = True
-
-    def buttons_on(self):
-        if self.display_buttons == True:
-            self.buttons = create_buttons(self.scene['normal'])
-            self.display_buttons = False
-
-    def buttons_off(self):
-        self.buttons = None
-        self.display_buttons = True
+        if text != None:
+            self.message_queue.append(text)
+            text = None
+            self.text_changed = True
 
 
 def create_buttons(buttons_list):
@@ -163,17 +155,11 @@ def create_buttons(buttons_list):
     return buttons_dict
 
 
-def ui_buttons_off(buttons):
-    for button in buttons.values():
-        button.disable()
-def ui_buttons_on(buttons):
-    for button in buttons.values():
-        button.enable()
-
 def disable_hide_buttons(buttons):
     for button in buttons.values():
         button.disable()
         button.hide()
+
 
 def enable_show_buttons(buttons):
     for button in buttons.values():

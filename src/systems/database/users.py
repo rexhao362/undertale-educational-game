@@ -4,7 +4,7 @@ import json
 class User:
     def __init__(self, name):
         self.name = name
-        self.score = {
+        self.scores = {
             'maths': {
                 'correct': 0,
                 'wrong': 0
@@ -16,10 +16,10 @@ class User:
         }
 
     def correct_answer(self, subject):
-        self.score[subject]['correct'] += 1
+        self.scores[subject]['correct'] += 1
 
     def wrong_answer(self, subject):
-        self.score[subject]['wrong'] += 1
+        self.scores[subject]['wrong'] += 1
 
     def update_user(self):
         with open('save_file.json', 'r+') as f:

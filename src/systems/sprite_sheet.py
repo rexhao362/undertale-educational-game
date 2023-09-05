@@ -3,10 +3,9 @@ from pygame.sprite import Sprite, Group
 
 
 class SpriteSheet(Sprite):
-    def __init__(self, direction, width, height, spacing, num_sprites):
+    def __init__(self, sheet, width, height, spacing, num_sprites):
         super().__init__()
-        self.sheet = pygame.image.load(
-            f'assets/pictures/spritesheets/frisk_{direction}.png')
+        self.sheet = pygame.image.load(sheet)
         self.width = width
         self.height = height
         self.spacing = spacing
@@ -14,11 +13,10 @@ class SpriteSheet(Sprite):
         self.sprites = self.load_sprites()
         self.time = 0
         self.animation_speed = 0.2
-        self.move_x = 0
-        self.move_y = 0
         self.index = 0
         self.image = self.sprites[self.index]
         self.rect = self.image.get_rect()
+        self.fin = False
 
     def get_image(self, x):
         rect = pygame.Rect(x, 0, self.width, self.height)
@@ -43,14 +41,17 @@ class SpriteSheet(Sprite):
             self.index = (self.index + 1) % len(self.sprites)
             self.image = self.sprites[self.index]
             self.time = 0
+        
 
-    def move(self, x, y):
-        self.move_x += x
-        self.move_y += y
+    def play(self, screen, time_delta, rect):
+        self.animate(time_delta)
+        self.rect.center = rect
+        screen.blit(self.image, self.rect)
 
-    def update_position(self):
-        self.rect.x += self.move_x
-        self.rect.y += self.move_y
+        if self.index >= self.num_sprites - 1:
+            self.fin = True
+
+
 
 if __name__ == '__main__':
     pygame.init()

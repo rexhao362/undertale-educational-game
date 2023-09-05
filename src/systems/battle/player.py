@@ -1,6 +1,6 @@
 from src.systems.battle.units import HealthBar, Units
-import pygame
-import pygame_gui
+from src.systems.sprite_sheet import SpriteSheet
+from pygame.sprite import Sprite, Group
 
 
 class Player(Units):
@@ -8,18 +8,16 @@ class Player(Units):
         super().__init__(name, health, attack, defence)
         self.mana = mana
         self.acting = True
-        self.healthbar = pygame_gui.elements.UIScreenSpaceHealthBar(
-            relative_rect=pygame.Rect(200, 500, 200, 30), sprite_to_monitor=self)
+        self.healthbar = HealthBar(300, 450, 200, 20, self.health_capacity)
         self.boosted = False
         self.boosted_attr = {}
         self.set_ = False
         self.items = []
+        self.fight_animation = SpriteSheet(
+            'assets/pictures/spritesheets/attack.png', 99, 152, 3, 6)
 
     def draw(self, screen):
-        text = f'{self.name}    {self.current_health}/{self.health_capacity}'
-        font = pygame.font.Font('data/fonts/league_spartan.ttf', 20)
-        player = font.render(text, True, 'white')
-        screen.blit(player, (100, 500))
+        self.healthbar.draw(screen, self.current_health)
 
     def set_block(self):
         self.defence += 5
@@ -33,10 +31,11 @@ class Player(Units):
     def post_game_heal(self):
         self.modify_attribute('health', 50)
 
-
     def reset_boosted(self):
         if self.boosted == True:
             for attribute, base_value in self.boosted_attr.items():
                 self[attribute] = base_value
 
-
+    def draw_attack(self, screen, time_delta):
+        if self.fight_animation.fin == False:
+            self.fight_animation.play( screen, time_delta, (400,300))

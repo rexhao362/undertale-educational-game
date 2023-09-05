@@ -35,8 +35,8 @@ class StateManager:
 
             manager.update(time_delta)
 
-            self.state.draw(screen, time_delta)
             self.state.update()
+            self.state.draw(screen, time_delta)
 
             manager.draw_ui(screen)
 
@@ -44,13 +44,15 @@ class StateManager:
 
         pygame.quit()
 
-    def set_state(self, new_state):
+    def set_state(self, new_state, manager):
+        manager.clear_and_reset()
         if new_state == 'tilemap':
             self.stage += 1
             self.state = TileMap(self)
         elif new_state == 'combat':
             self.state = Combat(self)
         elif new_state == 'quiz':
+            self.state.store_state()
             selection = choice(['spelling', 'maths'])
             self.state = SpellingQuiz(
                 self) if selection == 'spelling' else MathsQuiz(self)
@@ -58,6 +60,7 @@ class StateManager:
             self.state = self.inventory
         elif new_state == 'postgame':
             self.state = PostGame(self)
+
 
     def reload_state(self):
         if self.previous_state['name'] == 'combat':

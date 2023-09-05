@@ -14,7 +14,7 @@ class Units(Sprite):
         self.alive = True
         self.healthbar = None
         self.status = None
-        self.text = ''
+        self.text_entry = None
 
     def attack(self, target):
         critical_chance = randint(1, 100)
@@ -26,9 +26,9 @@ class Units(Sprite):
             target.alive = False
 
         if critical_hit > 0:
-            self.text = f'{target.name} was critically hit for {damage}'
+            self.text_entry = f'{target.name} was critically hit for {damage}'
         else:
-            self.text = f'{self.name} has attacked {target.name} for {damage}'
+            self.text_entry = f'{self.name} has attacked {target.name} for {damage}'
 
     def draw(self, screen, time_delta):
         pass
@@ -39,7 +39,7 @@ class Units(Sprite):
     def modify_attribute(self, attribute, effect):
         if attribute == 'health':
             self.current_health = min(
-                self.health_capacity, self.current_health + self.effect)
+                self.health_capacity, self.current_health + effect)
         elif attribute in ['attack_power', 'defence']:
             self[attribute] = max(0, self[attribute] + effect)
 
@@ -49,9 +49,15 @@ class Units(Sprite):
 
     def affliction(self):
         if self.status == 'poison':
-            damage = random.randint(1, 7)
+            damage = randint(1, 7)
             self.current_health -= damage
-            self.text += f"Poison has done {damage} to {self.name}'s health"
+            self.text_entry += f"Poison has done {damage} to {self.name}'s health"
+
+    def draw_status(self, x, y, screen):
+        text = f'{self.name}    {self.current_health}/{self.health_capacity}'
+        font = pygame.font.Font('data/fonts/league_spartan.ttf', 20)
+        player = font.render(text, True, 'white')
+        screen.blit(player, (x, y))
 
 
 class HealthBar():

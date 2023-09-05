@@ -33,7 +33,7 @@ class SpellingQuiz(Quiz):
         if self.word == self.masked_word:
             self.correct_answer()
             self.sm.set_success(True)
-            self.sm.back_state()
+            self.sm.reload_state()
         self.letters.redraw = True
 
     def events(self, manager):

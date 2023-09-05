@@ -26,7 +26,7 @@ class Quiz(State):
         self.user.correct_answer(self.subject)
         text = f'Correct! {self.answer} is the right answer!'
         self.sm.set_success(True)  # TODO
-        self.sm.back_state()
+        self.sm.reload_state()
 
     def wrong_answer(self):
         # font = pygame.font.Font()
@@ -38,4 +38,4 @@ class Quiz(State):
             self.user.wrong_answer(self.subject)
             text = f'That is the wrong answer. The correct answer is {self.answer}'
             self.sm.set_success(False)
-            self.sm.back_state()
+            self.sm.reload_state()
