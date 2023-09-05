@@ -1,13 +1,15 @@
-from systems.state import State
+import src.systems.state as state
 import pygame
 
-class PostGame(State.State):
+class PostGame(state.State):
     def __init__(self, state_manager):
         super().__init__(state_manager)
+        self.sm.user.update_user()
+
 
     def draw(self, screen, time_delta):
-        if self.sm.win == True:
-            if self.stage == 5:
+        if self.sm.game_over == False:
+            if self.sm.stage > 5:
                 pass
             else:
                 pass

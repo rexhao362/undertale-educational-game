@@ -1,12 +1,13 @@
 import pygame
 from random import choice
-from systems.battle.combat import Combat
-from systems.battle.player import Player
-from systems.database.users import User
-from systems.map.inventory import Inventory
-from systems.map.tilemap import TileMap
-from systems.questions.maths.quiz_maths import MathsQuiz
-from systems.questions.spelling.spelling_quiz import SpellingQuiz
+from src.systems.battle.combat import Combat
+from src.systems.battle.player import Player
+from src.systems.battle.postgame import PostGame
+from src.systems.database.users import User
+from src.systems.map.inventory import Inventory
+from src.systems.map.tilemap import TileMap
+from src.systems.questions.maths.quiz_maths import MathsQuiz
+from src.systems.questions.spelling.spelling_quiz import SpellingQuiz
 
 
 class StateManager:
@@ -18,7 +19,9 @@ class StateManager:
         self.running = True
         self.inventory = Inventory(self)
         self.user = User(username)
-        self.player = Player(self.user)
+        self.player = Player(username)
+        self.game_over = False
+        self.cont_game = True 
 
 
     def run(self, screen, manager):
@@ -53,6 +56,8 @@ class StateManager:
                 self) if selection == 'spelling' else MathsQuiz(self)
         elif new_state == 'inventory':
             self.state = self.inventory
+        elif new_state == 'postgame':
+            self.state = PostGame(self)
 
     def reload_state(self):
         if self.previous_state['name'] == 'combat':

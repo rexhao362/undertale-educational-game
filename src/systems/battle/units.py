@@ -1,6 +1,6 @@
 from pygame.sprite import Sprite
 import pygame
-import random
+from random import randint
 
 
 class Units(Sprite):
@@ -14,15 +14,12 @@ class Units(Sprite):
         self.alive = True
         self.healthbar = None
         self.status = None
-        self.text = None
-        # self.image
-        # self.rect = self.image.get_rect()
-        # self.rect.center = (left, top)
+        self.text = ''
 
     def attack(self, target):
-        critical_chance = random.randint(1, 100)
-        critical_hit = 5 if critical_chance > 95 else 0
-        damage = self.attack_power + critical_hit
+        critical_chance = randint(1, 100)
+        critical_hit = 0.5 * self.attack_power if critical_chance > 95 else 0
+        damage = self.attack_power * randint(70, 130) // 100 + critical_hit
         target.current_health = max(
             0, target.current_health - damage)
         if target.current_health <= 0:
@@ -31,10 +28,10 @@ class Units(Sprite):
         if critical_hit > 0:
             self.text = f'{target.name} was critically hit for {damage}'
         else:
-            self.text = f'{self.name} has attacked target.name for {damage}'
+            self.text = f'{self.name} has attacked {target.name} for {damage}'
 
     def draw(self, screen, time_delta):
-        screen.blit(self.image, self.rect)
+        pass
 
     def is_alive(self):
         return self.alive
@@ -43,7 +40,7 @@ class Units(Sprite):
         if attribute == 'health':
             self.current_health = min(
                 self.health_capacity, self.current_health + self.effect)
-        elif attribute in ['attack_power', 'defence', 'mana']:
+        elif attribute in ['attack_power', 'defence']:
             self[attribute] = max(0, self[attribute] + effect)
 
     def set_status(self, affliction):

@@ -8,42 +8,35 @@ class Player(Units):
         super().__init__(name, health, attack, defence)
         self.mana = mana
         self.acting = True
-        self.healthbar = pygame_gui.elements.UIScreenSpaceHealthBar(relative_rect=pygame.Rect(100, 500, 150, 30), sprite_to_monitor=self)
+        self.healthbar = pygame_gui.elements.UIScreenSpaceHealthBar(
+            relative_rect=pygame.Rect(200, 500, 200, 30), sprite_to_monitor=self)
         self.boosted = False
         self.boosted_attr = {}
-        self.block = False
+        self.set_ = False
         self.items = []
 
-    def block(self):
-        self.defence += 10
-        self.block = True
+    def draw(self, screen):
+        text = f'{self.name}    {self.current_health}/{self.health_capacity}'
+        font = pygame.font.Font('data/fonts/league_spartan.ttf', 20)
+        player = font.render(text, True, 'white')
+        screen.blit(player, (100, 500))
+
+    def set_block(self):
+        self.defence += 5
+        self.set_ = True
 
     def remove_block(self):
-        if self.block == True:
-            self.defence -= 10
-            self.block = False
+        if self.set_ == True:
+            self.defence -= 5
+            self.set_ = False
 
     def post_game_heal(self):
-        self.current_health += 50
+        self.modify_attribute('health', 50)
 
-    # def draw(self, screen):
-    #     self.healthbar.draw(screen, self.current_health)
-
-    def alternate_acting(self):
-        self.acting = True if self.acting == False else False
 
     def reset_boosted(self):
         if self.boosted == True:
             for attribute, base_value in self.boosted_attr.items():
                 self[attribute] = base_value
 
-    def get_items(self):
-        return self.items
 
-    def add_item(self, item):
-        self.items.push(item)
-
-    def remove_item(self, item):  # use item
-        for i, object in enumerate(self.items):
-            if item.name == object.name:
-                return self.items.pop(i)

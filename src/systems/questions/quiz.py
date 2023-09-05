@@ -15,8 +15,8 @@ class Quiz(State):
         cross = pygame.image.load('assets/pictures/x.png').convert_alpha()
         image_rect = cross.get_rect()
         image_width = image_rect.width
-        pos_x = 100
-        pos_y = 100
+        pos_x = 700
+        pos_y = 600
         spacing = 10
         for i in range(self.chances):
             screen.blit(cross, (pos_x, pos_y))
