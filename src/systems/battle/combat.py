@@ -22,8 +22,11 @@ class Combat(state.State):
                       'items': [item.name for item in self.sm.inventory.items]}
         self.background = pygame.image.load(
             'assets/pictures/backgrounds/boss_battle_bg.png')
-        self.buttons = create_buttons(self.scene['normal'])
-        self.display_buttons = False
+        self.buttons_normal = create_buttons(self.scene['normal'])
+        self.buttons_act = create_buttons(self.scene['act'])
+        self.buttons_items = create_buttons(self.scene['items'])
+        disable_hide_buttons(self.buttons_act)
+        disable_hide_buttons(self.buttons_items)
         self.text = ''
         self.text_changed = False
         self.text_box = None
@@ -36,10 +39,11 @@ class Combat(state.State):
     def game_over(self):
         if not self.player.is_alive():
             if self.sm.cont_game() == True:
+                self.cont_game = False
                 self.reward = self.player.post_game_heal
                 self.store_state()
-                self.sm.set_state('quiz')
                 self.player.alive = True
+                self.sm.set_state('quiz')
             else:
                 self.sm.game_over = True
                 self.sm.set_state('postgame')
@@ -47,14 +51,14 @@ class Combat(state.State):
 
     def turn_combat(self):
         if self.turn == 'player':
-            ui_buttons_on(self.buttons)
+            enable_show_buttons(self.buttons_normal)
             self.victory()
             self.player.affliction()
             self.player.remove_block()
             self.set_text_box(self.player.text)
             self.create_text_box()
         else:
-            ui_buttons_off(self.buttons)
+            disable_hide_buttons(self.buttons_normal)
             self.game_over()
             self.enemy.affliction()
             self.enemy.attack(self.player)
@@ -81,17 +85,21 @@ class Combat(state.State):
                 pass
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == self.buttons['fight']:
+                if event.ui_element == self.buttons_normal['fight']:
                     self.player.attack(self.enemy)
                     self.turn = 'enemy'
-                elif event.ui_element == self.buttons['act']:
-                    manager.clear_and_reset()
-                    self.buttons = create_buttons(self.scene['act'])
-                elif event.ui_element == self.buttons['items']:
-                    pass
-                elif event.ui_element == self.buttons['block']:
+                elif event.ui_element == self.buttons_normal['act']:
+                    disable_hide_buttons(self.buttons_normal)
+                    enable_show_buttons(self.buttons_act)
+                elif event.ui_element == self.buttons_normal['items']:
+                    disable_hide_buttons(self.buttons_normal)
+                    enable_show_buttons(self.buttons_items)
+                elif event.ui_element == self.buttons_normal['block']:
                     self.player.set_block()
                     self.turn = 'enemy'
+                elif event.ui_element == self.buttons_act['poison']:
+                    self.enemy.set_status('poison')
+                    disable_hide_buttons(self.buttons_act)
 
             manager.process_events(event)
 
@@ -161,3 +169,13 @@ def ui_buttons_off(buttons):
 def ui_buttons_on(buttons):
     for button in buttons.values():
         button.enable()
+
+def disable_hide_buttons(buttons):
+    for button in buttons.values():
+        button.disable()
+        button.hide()
+
+def enable_show_buttons(buttons):
+    for button in buttons.values():
+        button.enable()
+        button.show()
