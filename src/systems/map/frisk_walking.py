@@ -1,5 +1,5 @@
 from systems.sprite_sheet import SpriteSheet
-
+import src.settings as s
 
 class FriskWalk(SpriteSheet):
     def __init__(self, direction, width, num_sprites, position):
@@ -21,3 +21,13 @@ class FriskWalk(SpriteSheet):
     def update_position(self):
         self.rect.x += self.move_x
         self.rect.y += self.move_y
+
+        if self.rect.x < 0:
+            self.rect.x = 0
+        elif self.rect.x > s.settings.screen_width - self.rect.width:
+            self.rect.x = s.settings.screen_width - self.rect.width
+
+        if self.rect.y < 0:
+            self.rect.y = 0
+        elif self.rect.y > s.settings.screen_height - self.rect.height:
+            self.rect.y = s.settings.screen_height - self.rect.height

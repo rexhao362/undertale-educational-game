@@ -18,6 +18,7 @@ class Player(Units):
 
     def draw(self, screen):
         self.healthbar.draw(screen, self.current_health)
+        self.draw_status(300, 430, screen)
 
     def set_block(self):
         self.defence += 5

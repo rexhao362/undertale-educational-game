@@ -1,7 +1,7 @@
 from src.systems.questions.maths.maths_questions import choose_maths_question
 import pygame
 import pygame_gui
-from src.systems.questions.quiz import Quiz
+from src.systems.questions.quiz import Quiz, create_start_box
 
 
 class MathsQuiz(Quiz):
@@ -12,7 +12,7 @@ class MathsQuiz(Quiz):
         self.answer = self.quiz['answer']
         self.solution = None
         self.num_box = create_num_box()
-        self.start_button = create_start_box()
+        create_start_box()
 
     def draw(self, screen, time_delta):
         font = pygame.font.Font('data/fonts/league_spartan.ttf', 36)
@@ -31,6 +31,8 @@ class MathsQuiz(Quiz):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     self.check_answer()
+                    create_start_box()
+
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
                 if event.ui_element == self.num_box:
@@ -38,6 +40,8 @@ class MathsQuiz(Quiz):
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 self.check_answer()
+                create_start_box()
+
 
             manager.process_events(event)
 
@@ -59,6 +63,4 @@ def create_num_box():
     return num_box
 
 
-def create_start_box():
-    return pygame_gui.elements.UIButton(relative_rect=pygame.Rect((-100, -200), (100, 50)),
-                                        text='Start')
+

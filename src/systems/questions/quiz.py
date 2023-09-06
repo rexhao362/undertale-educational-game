@@ -1,4 +1,5 @@
 import pygame
+import pygame_gui
 from src.systems.state import State
 
 
@@ -15,7 +16,7 @@ class Quiz(State):
         cross = pygame.image.load('assets/pictures/x.png').convert_alpha()
         image_rect = cross.get_rect()
         image_width = image_rect.width
-        pos_x = 700
+        pos_x = 200
         pos_y = 600
         spacing = 10
         for i in range(self.chances):
@@ -25,7 +26,7 @@ class Quiz(State):
     def correct_answer(self):
         self.user.correct_answer(self.subject)
         text = f'Correct! {self.answer} is the right answer!'
-        self.sm.set_success(True)  # TODO
+        self.sm.set_success(True)
         self.sm.reload_state()
 
     def wrong_answer(self):
@@ -39,3 +40,7 @@ class Quiz(State):
             text = f'That is the wrong answer. The correct answer is {self.answer}'
             self.sm.set_success(False)
             self.sm.reload_state()
+
+def create_start_box():
+    return pygame_gui.elements.UIButton(relative_rect=pygame.Rect((800, 600), (100, 50)),
+                                        text='GO')

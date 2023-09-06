@@ -81,23 +81,24 @@ class Combat(state.State):
             elif event.type == pygame.KEYDOWN:
                 pass
 
-            elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == self.buttons_normal['fight']:
-                    self.player.attack(self.enemy)
-                    self.player.draw_attack(self.sm.screen, s.settings.time_delta)
-                    self.turn = 'enemy'
-                elif event.ui_element == self.buttons_normal['act']:
-                    enable_show_buttons(self.buttons_act)
-                elif event.ui_element == self.buttons_normal['items']:
-                    disable_hide_buttons(self.buttons_normal)
-                    enable_show_buttons(self.buttons_items)
-                elif event.ui_element == self.buttons_normal['block']:
-                    self.player.set_block()
-                    self.turn = 'enemy'
-                elif event.ui_element == self.buttons_act['poison']:
-                    self.reward = self.enemy.set_status('poison')
-                    disable_hide_buttons(self.buttons_act)
-                    self.sm.set_state('quiz')
+            if self.turn == 'player':
+                if event.type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == self.buttons_normal['fight']:
+                        self.player.attack(self.enemy)
+                        self.player.draw_attack(
+                            self.sm.screen, s.settings.time_delta)
+                        self.turn = 'enemy'
+                    elif event.ui_element == self.buttons_normal['act']:
+                        enable_show_buttons(self.buttons_act)
+                    elif event.ui_element == self.buttons_normal['items']:
+                        enable_show_buttons(self.buttons_items)
+                    elif event.ui_element == self.buttons_normal['block']:
+                        self.player.set_block()
+                        self.turn = 'enemy'
+                    elif event.ui_element == self.buttons_act['poison']:
+                        self.reward = self.enemy.set_status('poison')
+                        disable_hide_buttons(self.buttons_act)
+                        self.sm.set_state('quiz')
 
             manager.process_events(event)
 

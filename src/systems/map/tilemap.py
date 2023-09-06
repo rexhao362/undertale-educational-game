@@ -1,8 +1,8 @@
+from random import randint
 from systems.state import State
 from src.systems.map.frisk_walking import FriskWalk
 from pytmx.util_pygame import load_pygame
 import pygame
-from pygame.sprite import Group
 
 
 class TileMap(State):
@@ -11,8 +11,11 @@ class TileMap(State):
         self.stage = self.sm.stage
         self.filename = f'assets/tilemaps/level_{self.stage}.tmx'
         self.map = load_pygame(self.filename)
-        self.current_sprite = self.frisk_walk('up', (450, 650))
+        self.start_pos = (450, 650)
+        self.current_sprite = self.frisk_walk('up', self.start_pos)
         self.steps = 5
+        self.combat_tile = (16, 5)
+        self.item_tile = random_tile()
 
     def draw_frisk(self, screen, time_delta):
         self.current_sprite.animate(time_delta)
@@ -32,6 +35,7 @@ class TileMap(State):
 
     def update(self):
         self.current_sprite.update_position()
+        self.encounter()
 
     def events(self, manager):
         for event in pygame.event.get():
@@ -55,7 +59,8 @@ class TileMap(State):
                         'left', self.current_sprite.rect)
                     self.current_sprite.move(-self.steps, 0)
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    self.current_sprite = self.frisk_walk('right', self.current_sprite.rect)
+                    self.current_sprite = self.frisk_walk(
+                        'right', self.current_sprite.rect)
                     self.current_sprite.move(
                         self.steps, 0)
 
@@ -63,6 +68,13 @@ class TileMap(State):
                 self.current_sprite.move(0, 0)
 
             manager.process_events(event)
+
+    def encounter(self):
+        tile = (16, 5)
+        if 14 * 32 < self.current_sprite.rect.x  < 18 *32:
+            if 3 * 32 < self.current_sprite.rect.y  < 7 *32:
+            
+                self.sm.set_state('combat')
 
     def reward_check(self):
         if self.reward != None:
@@ -79,7 +91,10 @@ class TileMap(State):
             # self.sm.set_success(False)
 
     def store_state(self):
-        pass
+        self.sm.previous_state = {
+            'name': 'tilemap',
+            'start_pos': self.current_sprite.rect
+        }
 
     def frisk_walk(self, direction, pos):
         walk = {
@@ -89,3 +104,18 @@ class TileMap(State):
             'down': FriskWalk('down', 19, 4, pos)
         }
         return walk[direction]
+
+
+def convert_tile_to_pixels(x, y):
+    tile_width = 32
+    tile_height = 32
+    return (
+        x * tile_width,
+        y * tile_height
+    )
+
+
+def random_tile():
+    x = randint(1, 30)
+    y = randint(1, 24)
+    return convert_tile_to_pixels(x, y)

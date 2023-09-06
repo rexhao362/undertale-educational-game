@@ -2,7 +2,7 @@ from json import load
 from random import choice, randint
 import pygame
 import pygame_gui
-from src.systems.questions.quiz import Quiz
+from src.systems.questions.quiz import Quiz, create_start_box
 from src.systems.questions.spelling.letterboxes import LetterBoxes, mask_num
 
 
@@ -20,6 +20,7 @@ class SpellingQuiz(Quiz):
         self.solution = {}
         self.letters = LetterBoxes(self.masked_word)
         self.chances = 0
+        create_start_box()
 
     def check_solution(self):
         for index, letter in self.solution.items():
@@ -44,8 +45,8 @@ class SpellingQuiz(Quiz):
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    self.check_solution()
                     manager.clear_and_reset()
+                    self.check_solution()
                     
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
@@ -54,9 +55,8 @@ class SpellingQuiz(Quiz):
                         self.solution[index] = event.text
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-            #     if event.ui_element == start_button:
-                self.check_solution()
                 manager.clear_and_reset()
+                self.check_solution()
 
             manager.process_events(event)
 
@@ -86,6 +86,9 @@ def mask_word(word):
             masked_word[index] = ''
             num_masks -= 1
     return masked_word
+
+def create_ui_button():
+    return 
 
 
 if __name__ == 'main':

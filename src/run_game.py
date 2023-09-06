@@ -14,7 +14,7 @@ pygame.init()
 
 def start_game():
     sm = state_manager.StateManager(current_user[0], screen, manager)
-    sm.set_state('tilemap')
+    sm.set_state('combat')
     clock = pygame.time.Clock()
 
     while sm.running:
