@@ -11,15 +11,12 @@ class TileMap(State):
         self.stage = self.sm.stage
         self.filename = f'assets/tilemaps/level_{self.stage}.tmx'
         self.map = load_pygame(self.filename)
-        self.current_sprite = frisk_walk['up']
-        self.current_sprite.rect.x = 450
-        self.current_sprite.rect.y = 700
-        self.steps = 0.1
+        self.current_sprite = self.frisk_walk('up', (450, 650))
+        self.steps = 5
 
     def draw_frisk(self, screen, time_delta):
         self.current_sprite.animate(time_delta)
-        sprites = Group(self.current_sprite)
-        sprites.draw(screen)
+        screen.blit(self.current_sprite.image, self.current_sprite.rect)
 
     def draw_tilemap(self, screen):
         for layer in self.map.visible_layers:
@@ -32,7 +29,6 @@ class TileMap(State):
     def draw(self, screen, time_delta):
         self.draw_tilemap(screen)
         self.draw_frisk(screen, time_delta)
-        print(self.current_sprite.rect)
 
     def update(self):
         self.current_sprite.update_position()
@@ -47,31 +43,24 @@ class TileMap(State):
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
-                    self.current_sprite = frisk_walk['up']
-                    self.current_sprite.move(0, self.steps)
-                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                    self.current_sprite = self.frisk_walk(
+                        'up', self.current_sprite.rect)
                     self.current_sprite.move(0, -self.steps)
-                    self.current_sprite = frisk_walk['down']
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                    self.current_sprite = self.frisk_walk(
+                        'down', self.current_sprite.rect)
+                    self.current_sprite.move(0, self.steps)
                 elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                    self.current_sprite = self.frisk_walk(
+                        'left', self.current_sprite.rect)
                     self.current_sprite.move(-self.steps, 0)
-                    self.current_sprite = frisk_walk['left']
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    self.current_sprite.move(self.steps, 0)
-                    self.current_sprite = frisk_walk['right']
+                    self.current_sprite = self.frisk_walk('right', self.current_sprite.rect)
+                    self.current_sprite.move(
+                        self.steps, 0)
 
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_UP or event.key == pygame.K_w:
-                    self.current_sprite = frisk_walk['up']
-                    self.current_sprite.move(0, -self.steps)
-                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    self.current_sprite.move(0, self.steps)
-                    self.current_sprite = frisk_walk['down']
-                elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    self.current_sprite.move(self.steps, 0)
-                    self.current_sprite = frisk_walk['left']
-                elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    self.current_sprite.move(-self.steps, 0)
-                    self.current_sprite = frisk_walk['right']
+                self.current_sprite.move(0, 0)
 
             manager.process_events(event)
 
@@ -92,10 +81,11 @@ class TileMap(State):
     def store_state(self):
         pass
 
-
-frisk_walk = {
-    'up': FriskWalk('up', 19, 4),
-    'left': FriskWalk('left', 17, 2),
-    'right': FriskWalk('right', 17, 2),
-    'down': FriskWalk('down', 19, 4)
-}
+    def frisk_walk(self, direction, pos):
+        walk = {
+            'up': FriskWalk('up', 19, 4, pos),
+            'left': FriskWalk('left', 17, 2, pos),
+            'right': FriskWalk('right', 17, 2, pos),
+            'down': FriskWalk('down', 19, 4, pos)
+        }
+        return walk[direction]
