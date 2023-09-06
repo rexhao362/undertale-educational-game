@@ -11,7 +11,9 @@ from src.systems.questions.spelling.spelling_quiz import SpellingQuiz
 
 
 class StateManager:
-    def __init__(self, username):
+    def __init__(self, username, screen, manager):
+        self.screen = screen
+        self.manager = manager
         self.state = None
         self.stage = 0
         self.previous_state = None
@@ -44,8 +46,8 @@ class StateManager:
 
         pygame.quit()
 
-    def set_state(self, new_state, manager):
-        manager.clear_and_reset()
+    def set_state(self, new_state):
+        self.manager.clear_and_reset()
         if new_state == 'tilemap':
             self.stage += 1
             self.state = TileMap(self)
@@ -63,6 +65,7 @@ class StateManager:
 
 
     def reload_state(self):
+        self.manager.clear_and_reset()
         if self.previous_state['name'] == 'combat':
             self.state = Combat(self, **self.previous_state)
     

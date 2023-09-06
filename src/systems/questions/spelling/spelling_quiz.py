@@ -30,11 +30,9 @@ class SpellingQuiz(Quiz):
                     self.solution[index] = None
                 else:
                     self.wrong_answer()
+        self.letters.redraw = True
         if self.word == self.masked_word:
             self.correct_answer()
-            self.sm.set_success(True)
-            self.sm.reload_state()
-        self.letters.redraw = True
 
     def events(self, manager):
         for event in pygame.event.get():

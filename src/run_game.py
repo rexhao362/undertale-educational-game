@@ -12,12 +12,9 @@ current_user = ['player']
 pygame.init()
 
 
-
-
 def start_game():
-    # game = Game(current_user[0])
-    sm = state_manager.StateManager(current_user[0])
-    sm.set_state('combat', manager)
+    sm = state_manager.StateManager(current_user[0], screen, manager)
+    sm.set_state('combat')
     clock = pygame.time.Clock()
 
     while sm.running:
@@ -28,12 +25,13 @@ def start_game():
         manager.update(time_delta)
         sm.state.draw(screen, time_delta)
         sm.state.update()
-        
+
         manager.draw_ui(screen)
 
         pygame.display.flip()
-    
+
     pygame.quit()
 
-if __name__  == 'main':
+
+if __name__ == 'main':
     start_game()

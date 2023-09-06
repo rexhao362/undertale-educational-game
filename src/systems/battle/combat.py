@@ -23,8 +23,8 @@ class Combat(state.State):
         self.background = pygame.image.load(
             'assets/pictures/backgrounds/boss_battle_bg.png')
         self.buttons_normal = create_buttons(self.scene['normal'])
-        self.buttons_act = create_buttons(self.scene['act'])
-        self.buttons_items = create_buttons(self.scene['items'])
+        self.buttons_act = create_buttons(self.scene['act'], 75)
+        self.buttons_items = create_buttons(self.scene['items'], 75)
         disable_hide_buttons(self.buttons_act)
         disable_hide_buttons(self.buttons_items)
         self.message_queue = []
@@ -34,7 +34,7 @@ class Combat(state.State):
     def victory(self):
         if not self.enemy.is_alive():
             self.player.post_game_heal()
-            self.sm.set_state('postgame', manager)
+            self.sm.set_state('postgame')
 
     def game_over(self):
         if not self.player.is_alive():
@@ -46,7 +46,7 @@ class Combat(state.State):
                 self.sm.set_state('quiz')
             else:
                 self.sm.game_over = True
-                self.sm.set_state('postgame', manager)
+                self.sm.set_state('postgame')
 
     def turn_combat(self):
         if self.turn == 'player':
@@ -70,7 +70,7 @@ class Combat(state.State):
         self.player.draw(screen)
         self.enemy.draw(screen)
 
-    def events(self, manager, screen, time_delta):
+    def events(self, manager):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -84,7 +84,7 @@ class Combat(state.State):
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.buttons_normal['fight']:
                     self.player.attack(self.enemy)
-                    self.player.draw_attack(screen, time_delta)
+                    self.player.draw_attack(self.sm.screen, s.settings.time_delta)
                     self.turn = 'enemy'
                 elif event.ui_element == self.buttons_normal['act']:
                     enable_show_buttons(self.buttons_act)
@@ -97,7 +97,7 @@ class Combat(state.State):
                 elif event.ui_element == self.buttons_act['poison']:
                     self.reward = self.enemy.set_status('poison')
                     disable_hide_buttons(self.buttons_act)
-                    self.sm.set_state('quiz', manager)
+                    self.sm.set_state('quiz')
 
             manager.process_events(event)
 
@@ -114,11 +114,10 @@ class Combat(state.State):
         }
 
     def create_text_box(self):
-        # if self.text_changed == True:
         if len(self.message_queue) > 0:
-            text_box = pygame_gui.elements.ui_text_box.UITextBox(
-                html_text=self.message_queue.pop(0), relative_rect=pygame.Rect(200, 500, 400, 200))
-            text_box.set_active_effect('TEXT_EFFECT_TYPING_APPEAR')
+            self.text_box = pygame_gui.elements.ui_text_box.UITextBox(
+                html_text=self.message_queue.pop(0), relative_rect=pygame.Rect(220, 600, 540, 100))
+            self.text_box.set_active_effect('TEXT_EFFECT_TYPING_APPEAR')
             self.text_changed = False
 
     def set_text_box(self, text):
@@ -128,7 +127,7 @@ class Combat(state.State):
             self.text_changed = True
 
 
-def create_buttons(buttons_list):
+def create_buttons(buttons_list, spacing=0):
     # Constants
     RECT_WIDTH = 100
     RECT_HEIGHT = 50
@@ -139,7 +138,7 @@ def create_buttons(buttons_list):
     total_rect_width = num_buttons * RECT_WIDTH + \
         (num_buttons-1) * RECT_DISTANCE
     left = (s.screen_values[0] - total_rect_width) // 2
-    top = (2 * s.screen_values[1]) // 3
+    top = (2 * s.screen_values[1]) // 3 + spacing
 
     buttons_dict = {}
     # Draw the four rectangles

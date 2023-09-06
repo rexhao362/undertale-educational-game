@@ -1,6 +1,5 @@
 import random
 from operator import add, sub, mul, truediv
-import pygame
 
 
 def create_maths_question():
