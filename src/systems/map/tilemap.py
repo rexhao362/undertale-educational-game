@@ -1,4 +1,5 @@
 from random import randint
+from systems.battle.items import create_item
 from systems.state import State
 from src.systems.map.frisk_walking import FriskWalk
 from pytmx.util_pygame import load_pygame
@@ -12,10 +13,11 @@ class TileMap(State):
         self.filename = f'assets/tilemaps/level_{self.stage}.tmx'
         self.map = load_pygame(self.filename)
         self.start_pos = (450, 650)
-        self.current_sprite = self.frisk_walk('up', self.start_pos)
+        self.current_sprite = frisk_walk('up', self.start_pos)
         self.steps = 5
         self.combat_tile = (16, 5)
-        self.item_tile = random_tile()
+        self.item_tile_1 = random_tile()
+        self.item_tile_2 = random_tile()
 
     def draw_frisk(self, screen, time_delta):
         self.current_sprite.animate(time_delta)
@@ -47,19 +49,19 @@ class TileMap(State):
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
-                    self.current_sprite = self.frisk_walk(
+                    self.current_sprite = frisk_walk(
                         'up', self.current_sprite.rect)
                     self.current_sprite.move(0, -self.steps)
                 elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    self.current_sprite = self.frisk_walk(
+                    self.current_sprite = frisk_walk(
                         'down', self.current_sprite.rect)
                     self.current_sprite.move(0, self.steps)
                 elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    self.current_sprite = self.frisk_walk(
+                    self.current_sprite = frisk_walk(
                         'left', self.current_sprite.rect)
                     self.current_sprite.move(-self.steps, 0)
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    self.current_sprite = self.frisk_walk(
+                    self.current_sprite = frisk_walk(
                         'right', self.current_sprite.rect)
                     self.current_sprite.move(
                         self.steps, 0)
@@ -76,19 +78,10 @@ class TileMap(State):
             
                 self.sm.set_state('combat')
 
-    def reward_check(self):
-        if self.reward != None:
-            if self.sm.get_success():
-                self.reward()
-            elif not self.sm.get_success():
-                pass
-            self.reward = None
-            self.sm.set_success(None)
-
-    def success_check(self):
-        if self.sm.get_success():
-            pass
-            # self.sm.set_success(False)
+    def buried_treasure(self):
+        if self.current_sprite.rect in [self.item_tile_1, self.item_tile_2]:
+            self.reward = create_item
+            self.sm.set_state('quiz')
 
     def store_state(self):
         self.sm.previous_state = {
@@ -96,14 +89,14 @@ class TileMap(State):
             'start_pos': self.current_sprite.rect
         }
 
-    def frisk_walk(self, direction, pos):
-        walk = {
-            'up': FriskWalk('up', 19, 4, pos),
-            'left': FriskWalk('left', 17, 2, pos),
-            'right': FriskWalk('right', 17, 2, pos),
-            'down': FriskWalk('down', 19, 4, pos)
-        }
-        return walk[direction]
+def frisk_walk(self, direction, pos):
+    walk = {
+        'up': FriskWalk('up', 19, 4, pos),
+        'left': FriskWalk('left', 17, 2, pos),
+        'right': FriskWalk('right', 17, 2, pos),
+        'down': FriskWalk('down', 19, 4, pos)
+    }
+    return walk[direction]
 
 
 def convert_tile_to_pixels(x, y):

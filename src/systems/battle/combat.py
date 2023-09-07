@@ -3,7 +3,6 @@ import src.settings as s
 import pygame
 import pygame_gui
 import logging
-from time import sleep
 import src.systems.state as state
 
 logger = logging.getLogger()
