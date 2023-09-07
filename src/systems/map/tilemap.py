@@ -12,12 +12,14 @@ class TileMap(State):
         self.stage = self.sm.stage
         self.filename = f'assets/tilemaps/level_{self.stage}.tmx'
         self.map = load_pygame(self.filename)
-        self.start_pos = (450, 650)
+        self.start_pos = kwargs.get('start_pos', (450, 650))
         self.current_sprite = frisk_walk('up', self.start_pos)
         self.steps = 5
         self.combat_tile = (16, 5)
         self.item_tile_1 = random_tile()
         self.item_tile_2 = random_tile()
+        self.reward = kwargs.get('reward', None)
+        self.target = kwargs.get('target', None)
 
     def draw_frisk(self, screen, time_delta):
         self.current_sprite.animate(time_delta)
@@ -38,6 +40,7 @@ class TileMap(State):
     def update(self):
         self.current_sprite.update_position()
         self.encounter()
+        self.buried_treasure()
 
     def events(self, manager):
         for event in pygame.event.get():
@@ -73,20 +76,23 @@ class TileMap(State):
 
     def encounter(self):
         tile = (16, 5)
-        if 14 * 32 < self.current_sprite.rect.x  < 18 *32:
-            if 3 * 32 < self.current_sprite.rect.y  < 7 *32:
-            
+        if 14 * 32 < self.current_sprite.rect.x < 18 * 32:
+            if 3 * 32 < self.current_sprite.rect.y < 7 * 32:
+
                 self.sm.set_state('combat')
 
     def buried_treasure(self):
         if self.current_sprite.rect in [self.item_tile_1, self.item_tile_2]:
-            self.reward = create_item
+            self.reward = self.sm.inventory.add_item
+            self.target = create_item()
             self.sm.set_state('quiz')
 
     def store_state(self):
         self.sm.previous_state = {
             'name': 'tilemap',
-            'start_pos': self.current_sprite.rect
+            'start_pos': self.current_sprite.rect,
+            'reward': self.reward,
+            'target': self.target
         }
 
 

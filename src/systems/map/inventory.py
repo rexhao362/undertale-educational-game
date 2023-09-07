@@ -16,17 +16,17 @@ class Inventory(State):
         pass
 
     def get_items(self):
-        return self.items
+        return [item.name for item in self.items]
     
     def add_item(self, item):
         self.items.push(item)
 
-    def use_item(self, item):  # use item
-        z = None
+    def use_item(self, item):
+        item_to_use = None
         for i, object in enumerate(self.items):
             if item.name == object.name:
-                z = self.items.pop(i)
-        if z.target == 'player':
-            z.apply_effect(self.sm.combat.player)
+                item_to_use = self.items.pop(i)
+        if item_to_use.target == 'player':
+            item_to_use.apply_effect(self.sm.combat.player)
         else:
-            z.apply_effect(self.sm.combat.enemy)
+            item_to_use.apply_effect(self.sm.combat.enemy)
