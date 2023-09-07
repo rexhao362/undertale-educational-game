@@ -28,7 +28,6 @@ class Combat(state.State):
         disable_hide_buttons(self.buttons_act)
         disable_hide_buttons(self.buttons_items)
         self.message_queue = []
-        self.text_changed = False
         self.text_box = None
 
     def victory(self):
@@ -38,10 +37,9 @@ class Combat(state.State):
 
     def game_over(self):
         if not self.player.is_alive():
-            if self.sm.cont_game() == True:
+            if self.sm.cont_game == True:
                 self.cont_game = False
                 self.reward = self.player.post_game_heal
-                self.store_state()
                 self.player.alive = True
                 self.sm.set_state('quiz')
             else:
@@ -103,7 +101,9 @@ class Combat(state.State):
             manager.process_events(event)
 
     def update(self):
-        self.turn_combat()
+        if self.message_queue_empty():
+            self.turn_combat()
+            # self.turn = 'player' if self.turn == 'enemy' else 'enemy'
 
     def store_state(self):
         self.sm.previous_state = {
@@ -119,13 +119,14 @@ class Combat(state.State):
             self.text_box = pygame_gui.elements.ui_text_box.UITextBox(
                 html_text=self.message_queue.pop(0), relative_rect=pygame.Rect(220, 600, 540, 100))
             self.text_box.set_active_effect('TEXT_EFFECT_TYPING_APPEAR')
-            self.text_changed = False
 
     def set_text_box(self, text):
         if text != None:
             self.message_queue.append(text)
             text = None
-            self.text_changed = True
+
+    def message_queue_empty(self):
+        return len(self.message_queue) == 0
 
 
 def create_buttons(buttons_list, spacing=0):

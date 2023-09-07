@@ -22,7 +22,7 @@ class User:
         self.scores[subject]['wrong'] += 1
 
     def update_user(self):
-        with open('save_file.json', 'r+') as f:
+        with open('save_file.json', 'r') as f:
             data = json.load(f)
             user_data = data[self.name]
             for subject in user_data.keys():
@@ -31,7 +31,9 @@ class User:
                 subject_data['total wrong'] += self.scores[subject]['wrong']
                 self.scores[subject]['correct'] = 0
                 self.scores[subject]['wrong'] = 0
-            json.dump(data, f)
+        
+        with open('save_file.json', 'w') as f:
+            json.dump(data, f, indent=4)    
 
 
 def create_user(new_user):

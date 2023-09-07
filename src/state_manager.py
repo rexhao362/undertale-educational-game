@@ -68,6 +68,8 @@ class StateManager:
         self.manager.clear_and_reset()
         if self.previous_state['name'] == 'combat':
             self.state = Combat(self, **self.previous_state)
+        elif self.previous_state['name'] == 'tilemap':
+            self.state = TileMap(self, **self.previous_state)
     
         self.state.reward_check()
 

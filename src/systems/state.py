@@ -16,15 +16,11 @@ class State:
         if self.reward != None:
             if self.sm.get_success():
                 self.reward()
-            elif not self.sm.get_success():
+            else:
                 pass
             self.reward = None
             self.sm.set_success(None)
 
-    def success_check(self):
-        if self.sm.get_success():
-            pass
-            # self.sm.set_success(False)
 
     def store_state(self):
         pass
