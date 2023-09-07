@@ -11,11 +11,14 @@ def create_maths_question():
     elif op == mul or op == truediv:
         num_1 = random.randint(2, 12)
         num_2 = random.randint(2, 12)
-    max_num = max([num_1, num_2])
-    min_num = min([num_1, num_2])
-    if op == truediv and max_num % min_num != 0:
-        op = mul
 
+    if op in [add, sub, mul]:
+        max_num = max([num_1, num_2])
+        min_num = min([num_1, num_2])
+    else:
+        num = mul(num_1, num_2)
+        max_num = num
+        min_num = random.choice([num_1, num_2])
 
     i = operators.index(op)
     symbols = ['+', '-', 'x', '/']
@@ -24,10 +27,8 @@ def create_maths_question():
 
     return {
         'text': text,
-        'answer': answer 
+        'answer': answer
     }
-
-
 
 
 def create_rounding_question():
@@ -37,8 +38,9 @@ def create_rounding_question():
 
     return {
         'text': text,
-        'answer': answer 
+        'answer': answer
     }
+
 
 def choose_maths_question():
     questions_list = [
@@ -49,5 +51,3 @@ def choose_maths_question():
     chosen_question = random.choice(questions_list)
 
     return chosen_question()
-
-
