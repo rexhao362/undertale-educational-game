@@ -3,16 +3,16 @@ from pygame.sprite import Sprite, Group
 
 
 class SpriteSheet(Sprite):
-    def __init__(self, sheet, width, height, spacing, num_sprites):
+    def __init__(self, name, width, height, spacing, num_sprites):
         super().__init__()
-        self.sheet = pygame.image.load(sheet)
+        self.sheet = pygame.image.load(f'assets/pictures/spritesheets/{name}.png')
         self.width = width
         self.height = height
         self.spacing = spacing
         self.num_sprites = num_sprites
         self.sprites = self.load_sprites()
         self.time = 0
-        self.animation_speed = 0.2
+        self.animation_speed = 0.4
         self.index = 0
         self.image = self.sprites[self.index]
         self.rect = self.image.get_rect()

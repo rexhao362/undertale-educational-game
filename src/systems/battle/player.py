@@ -1,33 +1,32 @@
 from src.systems.battle.units import HealthBar, Units
-from src.systems.sprite_sheet import SpriteSheet
-from pygame.sprite import Sprite, Group
-
+import pygame
 
 class Player(Units):
-    def __init__(self, name, mana=100, health=100, attack=20, defence=10):
+    def __init__(self, name, mana=2, health=200, attack=20, defence=10):
         super().__init__(name, health, attack, defence)
         self.mana = mana
-        self.acting = True
         self.healthbar = HealthBar(300, 450, 200, 20, self.health_capacity)
         self.boosted = False
         self.boosted_attr = {}
-        self.set_ = False
+        self.block = False
         self.items = []
-        self.fight_animation = SpriteSheet(
-            'assets/pictures/spritesheets/attack.png', 99, 152, 3, 6)
+
 
     def draw(self, screen):
         self.healthbar.draw(screen, self.current_health)
         self.draw_status(300, 430, screen)
+        self.draw_mana(screen)
 
     def set_block(self):
         self.defence += 5
-        self.set_ = True
+        self.block = True
+        text = f'{self.name} has blocked'
+        self.text_entry.append(text)
 
     def remove_block(self):
-        if self.set_ == True:
+        if self.block == True:
             self.defence -= 5
-            self.set_ = False
+            self.block = False
 
     def post_game_heal(self):
         self.modify_attribute('health', 50)
@@ -38,5 +37,18 @@ class Player(Units):
                 self[attribute] = base_value
 
     def draw_attack(self, screen, time_delta):
-        if self.fight_animation.fin == False:
-            self.fight_animation.play( screen, time_delta, (400,300))
+        if self.hit['move'].fin == False and self.hit['move'] is not None:
+            self.hit['move'].play(screen, time_delta, (400,300))
+
+    def draw_mana(self, screen):
+        mana = pygame.image.load('assets/pictures/mana_star.png').convert_alpha()
+        image_rect = mana.get_rect()
+        image_width = image_rect.width
+        pos_x = 50
+        pos_y = 450
+        spacing = 10
+        for i in range(self.mana):
+            screen.blit(mana, (pos_x, pos_y))
+            pos_x += image_width + spacing
+
+

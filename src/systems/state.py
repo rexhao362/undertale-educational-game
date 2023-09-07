@@ -15,7 +15,7 @@ class State:
     def reward_check(self):
         if self.reward != None:
             if self.sm.get_success():
-                self.reward()
+                self.reward(self.target, self.sm.success)
             else:
                 pass
             self.reward = None

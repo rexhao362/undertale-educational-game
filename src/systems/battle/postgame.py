@@ -28,10 +28,10 @@ class PostGame(state.State):
                 if self.sm.stage == 5:
                     exit()
                 else:
-                    self.sm.set_stage('tilemap')
+                    self.sm.set_state('tilemap')
 
             elif event.type == pygame.KEYDOWN:
                 if self.sm.stage == 5:
                     exit()
                 else:
-                    self.sm.set_stage('tilemap')
+                    self.sm.set_state('tilemap')

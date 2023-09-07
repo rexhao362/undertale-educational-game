@@ -14,10 +14,9 @@ class Combat(state.State):
         super().__init__(state_manager)
         self.player = self.sm.player
         self.enemy = kwargs.get('enemy', create_enemy())
-        self.turn = kwargs.get('turn', 'player')
-        self.num_turns = kwargs.get('num_turns', 0)
+        self.phase = kwargs.get('phase', 'player')
         self.scene = {'normal': ['fight', 'act', 'items', 'block'],
-                      'act': ['poison'],
+                      'act': ['poison', 'fire', 'thunder'],
                       'items': [item.name for item in self.sm.inventory.items]}
         self.background = pygame.image.load(
             'assets/pictures/backgrounds/boss_battle_bg.png')
@@ -28,44 +27,77 @@ class Combat(state.State):
         disable_hide_buttons(self.buttons_items)
         self.message_queue = []
         self.text_box = None
+        self.waiting = kwargs.get('waiting', False)
+        self.damage_phase = kwargs.get('damage_phase', False)
+        self.reward = kwargs.get('reward', None)
+        self.target = kwargs.get('target', None)
 
     def victory(self):
         if not self.enemy.is_alive():
             self.player.post_game_heal()
-            self.sm.set_state('postgame')
+            if self.waiting:
+                text = ["Congratulations, You've won the round!"]
+                self.set_text_box(text)
+            else:
+                self.sm.set_state('postgame')
 
     def game_over(self):
         if not self.player.is_alive():
             if self.sm.cont_game == True:
+                if self.waiting:
+                    text = [
+                        "Unlucky, You have one more chance to come back from this"]
+                    self.set_text_box(text)
+
                 self.cont_game = False
                 self.reward = self.player.post_game_heal
                 self.player.alive = True
                 self.sm.set_state('quiz')
             else:
+                if self.waiting:
+                    text = ["Unfortunate. Try again"]
+                    self.set_text_box(text)
                 self.sm.game_over = True
                 self.sm.set_state('postgame')
 
     def turn_combat(self):
-        if self.turn == 'player':
-            self.victory()
-            self.player.affliction()
+        if self.phase == 'player':
             self.player.remove_block()
-            self.set_text_box(self.player.text_entry)
-        else:
+
+        elif self.phase == 'enemy':
             disable_hide_buttons(self.buttons_normal)
-            self.game_over()
-            self.enemy.affliction()
-            self.enemy.attack(self.player)
-            self.set_text_box(self.enemy.text_entry)
-            self.num_turns += 1
+            self.enemy.hit_player(self.player)
             enable_show_buttons(self.buttons_normal)
-            self.turn = 'player'
+
+    def apply_damage(self, screen, time_delta):
+        if self.waiting:
+            if self.damage_phase:
+                if self.phase == 'player':
+                    self.reward_check()
+                    self.player.affliction()
+                    self.player.draw_attack(screen, time_delta)
+                    self.player.damage_application(self.enemy)
+                    self.set_text_box(self.player.text_entry)
+                    self.victory()
+                    self.phase = 'enemy'
+
+                else:
+                    self.enemy.affliction()
+                    self.enemy.hit_player(self.player)
+                    self.enemy.draw_attack(screen, time_delta)
+                    self.enemy.damage_application(self.player)
+                    self.set_text_box(self.enemy.text_entry)
+                    self.game_over()
+                    self.phase = 'player'
+
+                    self.damage_phase = False
 
     def draw(self, screen, time_delta):
         screen.fill('black')
         screen.blit(self.background, (0, 0))
         self.player.draw(screen)
         self.enemy.draw(screen)
+        self.apply_damage(screen, time_delta)
 
     def events(self, manager):
         for event in pygame.event.get():
@@ -78,39 +110,55 @@ class Combat(state.State):
             elif event.type == pygame.KEYDOWN:
                 pass
 
-            if self.turn == 'player':
+            if self.phase == 'player':
                 if event.type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == self.buttons_normal['fight']:
                         self.player.attack(self.enemy)
-                        self.player.draw_attack(
-                            self.sm.screen, s.settings.time_delta)
-                        self.turn = 'enemy'
+                        self.waiting = True
+                        self.damage_phase = True
                     elif event.ui_element == self.buttons_normal['act']:
-                        enable_show_buttons(self.buttons_act)
+                        if self.mana_check():
+                            enable_show_buttons(self.buttons_act)
+                        else:
+                            self.set_text_box(
+                                ["I am afraid you are out of mana.", "You can no longer use spell till after the round."])
                     elif event.ui_element == self.buttons_normal['items']:
                         enable_show_buttons(self.buttons_items)
                     elif event.ui_element == self.buttons_normal['block']:
                         self.player.set_block()
-                        self.turn = 'enemy'
+                        self.waiting = True
+                        self.damage_phase = True
                     elif event.ui_element == self.buttons_act['poison']:
-                        self.reward = self.enemy.set_status('poison')
+                        self.reward = self.enemy.poison_spell
+                        self.target = self.enemy
+                        disable_hide_buttons(self.buttons_act)
+                        self.sm.set_state('quiz')
+                    elif event.ui_element == self.buttons_act['fire']:
+                        self.reward = self.player.fire_spell
+                        self.target = self.enemy
+                        disable_hide_buttons(self.buttons_act)
+                        self.sm.set_state('quiz')
+                    elif event.ui_element == self.buttons_act['thunder']:
+                        self.reward = self.player.thunder_spell
+                        self.target = self.enemy
                         disable_hide_buttons(self.buttons_act)
                         self.sm.set_state('quiz')
 
             manager.process_events(event)
 
     def update(self):
-        if self.message_queue_empty():
+        if not self.waiting:
             self.turn_combat()
-            # self.turn = 'player' if self.turn == 'enemy' else 'enemy'
 
     def store_state(self):
         self.sm.previous_state = {
             'name': 'combat',
             'enemy': self.enemy,
-            'turn': self.turn,
-            'num_turns': self.num_turns,
-            'reward': self.reward
+            'phase': self.phase,
+            'reward': self.reward,
+            'target': self.target,
+            'waiting': True,
+            'damage_phase': True
         }
 
     def create_text_box(self):
@@ -118,14 +166,20 @@ class Combat(state.State):
             self.text_box = pygame_gui.elements.ui_text_box.UITextBox(
                 html_text=self.message_queue.pop(0), relative_rect=pygame.Rect(220, 600, 540, 100))
             self.text_box.set_active_effect('TEXT_EFFECT_TYPING_APPEAR')
+        else:
+            self.waiting = False
 
     def set_text_box(self, text):
-        if text != None:
-            self.message_queue.append(text)
-            text = None
+        if len(text) > 0:
+            self.message_queue.extend(text)
+            text.clear()
+            self.waiting = True
 
     def message_queue_empty(self):
         return len(self.message_queue) == 0
+
+    def mana_check(self):
+        return self.player.mana > 0
 
 
 def create_buttons(buttons_list, spacing=0):

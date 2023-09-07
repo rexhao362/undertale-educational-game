@@ -89,7 +89,8 @@ class TileMap(State):
             'start_pos': self.current_sprite.rect
         }
 
-def frisk_walk(self, direction, pos):
+
+def frisk_walk(direction, pos):
     walk = {
         'up': FriskWalk('up', 19, 4, pos),
         'left': FriskWalk('left', 17, 2, pos),

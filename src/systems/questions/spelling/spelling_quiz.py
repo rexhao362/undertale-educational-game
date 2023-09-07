@@ -20,7 +20,7 @@ class SpellingQuiz(Quiz):
         self.solution = {}
         self.letters = LetterBoxes(self.masked_word)
         self.chances = 0
-        create_start_box()
+        self.ui_button = create_start_box()
 
     def check_solution(self):
         for index, letter in self.solution.items():
