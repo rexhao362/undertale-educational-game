@@ -3,13 +3,19 @@ from operator import add, sub, mul, truediv
 
 
 def create_maths_question():
-    num_1 = random.randint(1, 12)
-    num_2 = random.randint(1, 12)
+    operators = [add, sub, mul, truediv]
+    op = random.choice(operators)
+    if op == add or op == sub:
+        num_1 = random.randint(1, 500)
+        num_2 = random.randint(1, 500)
+    elif op == mul or op == truediv:
+        num_1 = random.randint(2, 12)
+        num_2 = random.randint(2, 12)
     max_num = max([num_1, num_2])
     min_num = min([num_1, num_2])
-    operators = [add, sub, mul, truediv] if max_num % min_num == 0 else [
-        add, sub, mul]
-    op = random.choice(operators)
+    if op == truediv and max_num % min_num != 0:
+        op = mul
+
 
     i = operators.index(op)
     symbols = ['+', '-', 'x', '/']
@@ -22,17 +28,6 @@ def create_maths_question():
     }
 
 
-def create_fraction_question():
-    fractions = {
-        '1/2': 0.5,
-        '1/4': 0.25,
-        '1/3': 0.33,
-        '3/4': 0.75,
-        '1/8': 0.125,
-        '3/8': 0.375,
-        '3/8': 0.375,
-        '5/8': 0.375
-    }
 
 
 def create_rounding_question():
@@ -48,7 +43,6 @@ def create_rounding_question():
 def choose_maths_question():
     questions_list = [
         create_maths_question,
-        # create_fraction_question,
         create_rounding_question
     ]
 
