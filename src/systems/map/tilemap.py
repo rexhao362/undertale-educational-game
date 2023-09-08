@@ -82,10 +82,12 @@ class TileMap(State):
                 self.sm.set_state('combat')
 
     def buried_treasure(self):
-        if self.current_sprite.rect in [self.item_tile_1, self.item_tile_2]:
+        # if self.current_sprite.rect in [self.item_tile_1, self.item_tile_2]:
+        if (self.current_sprite.rect.x, self.current_sprite.rect.y) ==(450, 600):
             self.reward = self.sm.inventory.add_item
             self.target = create_item()
             self.sm.set_state('quiz')
+            
 
     def store_state(self):
         self.sm.previous_state = {

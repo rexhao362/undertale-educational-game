@@ -1,5 +1,5 @@
 from src.settings import screen
-from src.run_game import current_user
+from app import current_user
 import src.menus.parents_menu as p
 from json import load
 import pygame

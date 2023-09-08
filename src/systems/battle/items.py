@@ -5,7 +5,7 @@ from random import choice, randint
 
 class Items(Sprite):
     def __init__(self, attribute, effect):
-        super.__init__()
+        super().__init__()
         self.target = 'player' if self.effect > 0 else 'enemy'
         self.name = attribute.toUpper(
         ) + ' UP' if self.target == 'player' else attribute.toUpper() + ' DOWN'

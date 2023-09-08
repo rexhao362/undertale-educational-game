@@ -15,7 +15,7 @@ class StateManager:
         self.screen = screen
         self.manager = manager
         self.stage = 0
-        self.state = self.set_state('tilemap')
+        self.state = None
         self.previous_state = None
         self.success = None
         self.running = True
@@ -27,7 +27,8 @@ class StateManager:
 
     def run(self, screen, manager):
         clock = pygame.time.Clock()
-
+        self.set_state('tilemap')
+        
         while self.running:
             time_delta = clock.tick(60)/1000.0
             screen.fill('black')

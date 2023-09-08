@@ -5,7 +5,7 @@ current_user = ['player']
 
 
 def run_app():
-    app = StateManager(current_user[0])
+    app = StateManager(current_user[0], s.screen, m.manager)
     app.run(s.screen, m.manager)
 
 

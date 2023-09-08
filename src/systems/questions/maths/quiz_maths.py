@@ -32,14 +32,12 @@ class MathsQuiz(Quiz):
                 if event.key == pygame.K_RETURN:
                     self.check_answer()
 
-
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
                 if event.ui_element == self.num_box:
                     self.solution = event.text
 
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 self.check_answer()
-
 
             manager.process_events(event)
 
@@ -59,6 +57,3 @@ def create_num_box():
             (500, 300), (100, 50)))
     num_box.set_allowed_characters('numbers')
     return num_box
-
-
-
