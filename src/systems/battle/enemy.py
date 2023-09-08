@@ -19,8 +19,8 @@ class Enemy(Units):
         screen.blit(self.image, self.rect.center)
 
     def draw_attack(self, screen, time_delta):
-        if self.hit['move'].fin == False:
-            self.hit['move'].play(screen, time_delta, (400,600))
+        if not self.hit['move'].fin:
+            self.hit['move'].play(screen, time_delta, (400, 600))
 
     def hit_player(self, target):
         num = randint(1, 100)

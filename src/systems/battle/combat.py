@@ -1,5 +1,7 @@
 from src.systems.battle.enemy import create_enemy
-from src.systems.battle.combat_helpers import disable_hide_buttons, enable_show_buttons, create_buttons
+from src.systems.battle.combat_helpers import disable_hide_buttons
+from src.systems.battle.combat_helpers import create_buttons
+from src.systems.battle.combat_helpers import enable_show_buttons
 import pygame
 import pygame_gui
 import logging
@@ -43,7 +45,7 @@ class Combat(state.State):
 
     def game_over(self):
         if not self.player.is_alive():
-            if self.sm.cont_game == True:
+            if self.sm.cont_game:
                 if self.waiting:
                     text = [
                         "Unlucky, You have one more chance to come back from this"]
@@ -65,9 +67,7 @@ class Combat(state.State):
             self.player.remove_block()
 
         elif self.phase == 'enemy':
-            disable_hide_buttons(self.buttons_normal)
             self.enemy.hit_player(self.player)
-            enable_show_buttons(self.buttons_normal)
 
     def apply_damage(self, screen, time_delta):
         if self.waiting:
@@ -119,8 +119,10 @@ class Combat(state.State):
                         if self.mana_check():
                             enable_show_buttons(self.buttons_act)
                         else:
-                            self.set_text_box(
-                                ["I am afraid you are out of mana.", "You can no longer use spells till after this round."])
+                            self.set_text_box([
+                                "I am afraid you are out of mana.",
+                                "You can no longer use spells till after this round."
+                            ])
                     elif event.ui_element == self.buttons_normal['items']:
                         enable_show_buttons(self.buttons_items)
                     elif event.ui_element == self.buttons_normal['block']:
@@ -149,7 +151,6 @@ class Combat(state.State):
                                 self.target = name
                                 self.sm.sry_state('quiz')
 
-
             manager.process_events(event)
 
     def update(self):
@@ -170,7 +171,8 @@ class Combat(state.State):
     def create_text_box(self):
         if len(self.message_queue) > 0:
             self.text_box = pygame_gui.elements.ui_text_box.UITextBox(
-                html_text=self.message_queue.pop(0), relative_rect=pygame.Rect(220, 600, 540, 100))
+                html_text=self.message_queue.pop(0),
+                relative_rect=pygame.Rect(220, 600, 540, 100))
             self.text_box.set_active_effect('TEXT_EFFECT_TYPING_APPEAR')
         else:
             self.waiting = False

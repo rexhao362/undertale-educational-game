@@ -1,6 +1,7 @@
 from src.systems.battle.units import HealthBar, Units
 import pygame
 
+
 class Player(Units):
     def __init__(self, name, mana=2, health=200, attack=20, defence=10):
         super().__init__(name, health, attack, defence)
@@ -10,7 +11,6 @@ class Player(Units):
         self.boosted_attr = {}
         self.block = False
         self.items = []
-
 
     def draw(self, screen):
         self.healthbar.draw(screen, self.current_health)
@@ -24,7 +24,7 @@ class Player(Units):
         self.text_entry.append(text)
 
     def remove_block(self):
-        if self.block == True:
+        if self.block:
             self.defence -= 5
             self.block = False
 
@@ -33,16 +33,17 @@ class Player(Units):
         self.mana = 2
 
     def reset_boosted(self):
-        if self.boosted == True:
+        if self.boosted:
             for attribute, base_value in self.boosted_attr.items():
                 self[attribute] = base_value
 
     def draw_attack(self, screen, time_delta):
-        if self.hit['move'].fin == False and self.hit['move'] is not None:
-            self.hit['move'].play(screen, time_delta, (400,300))
+        if not self.hit['move'].fin and self.hit['move'] is not None:
+            self.hit['move'].play(screen, time_delta, (400, 300))
 
     def draw_mana(self, screen):
-        mana = pygame.image.load('assets/pictures/mana_star.png').convert_alpha()
+        mana = pygame.image.load(
+            'assets/pictures/mana_star.png').convert_alpha()
         image_rect = mana.get_rect()
         image_width = image_rect.width
         pos_x = 50
@@ -51,5 +52,3 @@ class Player(Units):
         for i in range(self.mana):
             screen.blit(mana, (pos_x, pos_y))
             pos_x += image_width + spacing
-
-

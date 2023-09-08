@@ -17,7 +17,7 @@ class Inventory(State):
 
     def get_items(self):
         return [item.name for item in self.items]
-    
+
     def add_item(self, item):
         self.items.push(item)
 

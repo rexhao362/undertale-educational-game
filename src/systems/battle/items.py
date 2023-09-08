@@ -40,6 +40,7 @@ def create_item():
         effect = randint(3, 7)
     return Items(attribute, effect)
 
+
 description = {
     'health': '',
     'attack_power': '',

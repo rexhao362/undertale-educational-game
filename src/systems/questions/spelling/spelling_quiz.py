@@ -24,7 +24,7 @@ class SpellingQuiz(Quiz):
 
     def check_solution(self):
         for index, letter in self.solution.items():
-            if letter != None:
+            if letter is not None:
                 if letter == self.word[index]:
                     self.masked_word[index] = self.word[index]
                     self.letters.delete_input_box(index)
@@ -47,10 +47,9 @@ class SpellingQuiz(Quiz):
                 if event.key == pygame.K_RETURN:
                     manager.clear_and_reset()
                     self.check_solution()
-                    
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
-                for index, text_box in self.letters.input_boxes.items(): 
+                for index, text_box in self.letters.input_boxes.items():
                     if event.ui_element == text_box:
                         self.solution[index] = event.text
 
@@ -68,13 +67,12 @@ class SpellingQuiz(Quiz):
         text = 'Guess the Missing Letters'
         font = pygame.font.Font('data/fonts/league_spartan.ttf', 24)
         question = font.render(text, True, 'white')
-        screen.blit(question, (200,100))
+        screen.blit(question, (200, 100))
         self.letters.draw_boxes(screen)
         self.draw_crosses(screen)
 
     def delete_solution(self, index):
         del self.solution[index]
-
 
 
 def mask_word(word):
@@ -87,21 +85,6 @@ def mask_word(word):
             num_masks -= 1
     return masked_word
 
+
 def create_ui_button():
-    return 
-
-
-if __name__ == 'main':
-    pygame.init()
-    from src.state_manager import StateManager
-    screen = pygame.display.set_mode((1200, 800))
-    running = True
-    sm = StateManager('player')
-    sm.next_state('quiz')
-    while running:
-        state.events(manager)
-        state.draw(screen)
-
-        pygame.display.flip()
-
-    pygame.quit()
+    return

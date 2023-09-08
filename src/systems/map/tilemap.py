@@ -29,7 +29,7 @@ class TileMap(State):
         for layer in self.map.visible_layers:
             for x, y, gid in layer:
                 tile = self.map.get_tile_image_by_gid(gid)
-                if tile != None:
+                if tile is not None:
                     screen.blit(tile, (x * self.map.tilewidth,
                                 y * self.map.tileheight))
 

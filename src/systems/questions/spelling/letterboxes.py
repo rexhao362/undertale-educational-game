@@ -2,6 +2,7 @@ import pygame
 import pygame_gui
 import src.settings as s
 
+
 class LetterBoxes:
     def __init__(self, word):
         self.word = word
@@ -25,7 +26,7 @@ class LetterBoxes:
                 if self.redraw == True:
                     box_vars = box_x, box_y, self.box_size, self.box_height
                     self.input_boxes[i] = create_input_box(*box_vars
-                        )
+                                                           )
             else:
                 box_rect = pygame.Rect(
                     box_x, box_y, self.box_size, self.box_height)
@@ -34,7 +35,7 @@ class LetterBoxes:
                 screen.blit(char_surface, char_rect.topleft)
 
             box_x += self.box_size + self.box_spacing
-        
+
         self.redraw = False
 
     def delete_input_box(self, index):
@@ -52,8 +53,10 @@ def mask_num(word):
 
 
 def create_input_box(box_x, box_y, box_size, box_height):
-    input_box = pygame_gui.elements.ui_text_entry_line.UITextEntryLine(relative_rect=pygame.Rect(
-        box_x, box_y, box_size, box_height), placeholder_text='*')
+    input_box = pygame_gui.elements.ui_text_entry_line.UITextEntryLine(
+        relative_rect=pygame.Rect(
+            box_x, box_y, box_size, box_height),
+        placeholder_text='*')
     input_box.set_text_length_limit(1)
     input_box.set_allowed_characters('letters')
     return input_box

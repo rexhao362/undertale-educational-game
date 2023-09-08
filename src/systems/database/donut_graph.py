@@ -33,6 +33,7 @@ def create_graph(user, subject):
 
     return figure
 
+
 def donut_graph_draw():
     figure = create_graph(current_user[0], p.current_subject[0])
     canvas = agg.FigureCanvasAgg(figure)
@@ -59,5 +60,3 @@ def donut_graph_draw():
 
         # Update the display
         pygame.display.flip()
-
-

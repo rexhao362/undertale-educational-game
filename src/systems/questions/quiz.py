@@ -41,6 +41,7 @@ class Quiz(State):
             self.sm.set_success(False)
             self.sm.reload_state()
 
+
 def create_start_box():
     return pygame_gui.elements.UIButton(relative_rect=pygame.Rect((800, 600), (100, 50)),
                                         text='GO')

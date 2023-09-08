@@ -2,11 +2,11 @@ import pygame_menu
 from src.menus.menu_class import custom_theme
 from src.menus.users_menu import set_current_user
 from src.settings import settings
-from src.menus.options import options_menu
 from src.systems.database.users import get_users_names
 from src.systems.database.donut_graph import donut_graph_draw
 
 current_subject = ['maths']
+
 
 def set_current_subject(value, subject):
     current_subject[0] = subject
@@ -14,7 +14,11 @@ def set_current_subject(value, subject):
 
 """Initialises menu"""
 parents_menu = pygame_menu.Menu(
-    'Database', settings.screen_width, settings.screen_height, theme=custom_theme)
+    'Database',
+    settings.screen_width,
+    settings.screen_height,
+    theme=custom_theme
+)
 
 parents_menu.add.selector(
     'User :', [(name, name) for name in get_users_names()],
@@ -36,8 +40,6 @@ parents_menu.bottom_frame = parents_menu.add.frame_h(
 )
 
 # Add three buttons to the frame
-parents_menu.bottom_frame.pack(
-    parents_menu.add.button('Options', options_menu))
 parents_menu.bottom_frame.pack(
     parents_menu.add.button('Back', pygame_menu.events.BACK))
 parents_menu.bottom_frame.pack(

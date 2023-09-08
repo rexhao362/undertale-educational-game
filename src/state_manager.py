@@ -14,8 +14,8 @@ class StateManager:
     def __init__(self, username, screen, manager):
         self.screen = screen
         self.manager = manager
-        self.state = None
         self.stage = 0
+        self.state = self.set_state('tilemap')
         self.previous_state = None
         self.success = None
         self.running = True
@@ -23,8 +23,7 @@ class StateManager:
         self.user = User(username)
         self.player = Player(username)
         self.game_over = False
-        self.cont_game = True 
-
+        self.cont_game = True
 
     def run(self, screen, manager):
         clock = pygame.time.Clock()
@@ -63,14 +62,13 @@ class StateManager:
         elif new_state == 'postgame':
             self.state = PostGame(self)
 
-
     def reload_state(self):
         self.manager.clear_and_reset()
         if self.previous_state['name'] == 'combat':
             self.state = Combat(self, **self.previous_state)
         elif self.previous_state['name'] == 'tilemap':
             self.state = TileMap(self, **self.previous_state)
-    
+
         self.state.reward_check()
 
     def set_success(self, bool):

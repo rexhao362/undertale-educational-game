@@ -3,8 +3,6 @@ import pygame
 import pygame_gui
 
 
-
-
 def create_buttons(buttons_list, spacing=0):
     # Constants
     RECT_WIDTH = 100

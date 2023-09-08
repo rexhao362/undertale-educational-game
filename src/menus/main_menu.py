@@ -3,13 +3,16 @@ import pygame_menu
 from src.settings import settings
 from src.menus.users_menu import user_menu
 from src.menus.parents_menu import parents_menu
-from src.menus.options import options_menu
 from src.menus.menu_class import custom_theme
 
 
 """Initialises menu"""
 main_menu = pygame_menu.Menu(
-    'Main Menu', settings.screen_width, settings.screen_height, theme=custom_theme)
+    'Main Menu',
+    settings.screen_width,
+    settings.screen_height,
+    theme=custom_theme
+)
 
 main_menu.font = pygame_menu.font.FONT_8BIT
 # main_menu.add.button('Kids', user_menu)
@@ -29,7 +32,6 @@ main_menu.bottom_frame = main_menu.add.frame_h(
 )
 
 # Add three buttons to the frame
-main_menu.bottom_frame.pack(main_menu.add.button('Options', options_menu))
 main_menu.bottom_frame.pack(
     main_menu.add.button('Back', pygame_menu.events.BACK))
 main_menu.bottom_frame.pack(

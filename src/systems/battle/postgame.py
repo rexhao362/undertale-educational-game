@@ -1,12 +1,12 @@
 import src.systems.state as state
 import pygame
 
+
 class PostGame(state.State):
     def __init__(self, state_manager):
         super().__init__(state_manager)
         self.sm.user.update_user()
-        self.font= pygame.font.Font()
-
+        self.font = pygame.font.Font()
 
     def draw(self, screen, time_delta):
         if self.sm.game_over == False:
