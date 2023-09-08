@@ -15,7 +15,9 @@ class PostGame(state.State):
             else:
                 pass
         else:
-            pass
+            image = 'assets/pictures/game_over.png'
+            game_over = pygame.image.load(image)
+            screen.blit(game_over, (400, 300))
 
     def update(self):
         pass

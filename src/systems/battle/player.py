@@ -31,6 +31,7 @@ class Player(Units):
     def post_game_heal(self):
         self.modify_attribute('health', 50)
         self.mana = 2
+        self.status = None
 
     def reset_boosted(self):
         if self.boosted:
@@ -38,7 +39,7 @@ class Player(Units):
                 self[attribute] = base_value
 
     def draw_attack(self, screen, time_delta):
-        if not self.hit['move'].fin and self.hit['move'] is not None:
+        if self.hit['move'] is not None and not self.hit['move'].fin:
             self.hit['move'].play(screen, time_delta, (400, 300))
 
     def draw_mana(self, screen):

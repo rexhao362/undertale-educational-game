@@ -19,6 +19,8 @@ def convert_tile_to_pixels(tile):
         tile[0] * tile_width,
         tile[1] * tile_height
     )
+
+
 def convert_pixels_to_tile(pixels):
     tile_width = 32
     tile_height = 32
@@ -41,7 +43,6 @@ def gen_random_tiles(num_tiles, map_width, map_height):
             random_tiles.append(tile)
 
     # Now, convert each random tile coordinate to pixel coordinates
-    random_pixel_tiles = [convert_tile_to_pixels(
-        tile) for tile in random_tiles]
 
-    return random_pixel_tiles
+
+    return random_tiles

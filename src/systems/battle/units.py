@@ -69,7 +69,7 @@ class Units(Sprite):
 
         self.hit['move'] = set_animation('thunder')
 
-    def poison_spell(self, target):
+    def poison_spell(self, target, success):
         if hasattr(self, 'mana'):
             self.mana -= 1
         target.status = 'poison'
@@ -87,12 +87,14 @@ class Units(Sprite):
         if attribute == 'health':
             self.current_health = min(
                 self.health_capacity, self.current_health + effect)
-        elif attribute in ['attack_power', 'defence']:
-            self[attribute] = max(0, self[attribute] + effect)
+        elif attribute == 'attack_power':
+            self.attack_power = max(0, self.attack_power + effect)
+        elif attribute == 'defence':
+            self.defence = max(0, self.defence + effect)
 
     def affliction(self):
         if self.status == 'poison':
-            damage = randint(2, 9)
+            damage = randint(5, 11)
             text = f"Poison has done {damage} to {self.name}'s health"
             self.text_entry.append(text)
 

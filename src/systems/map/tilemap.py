@@ -18,7 +18,7 @@ class TileMap(State):
         self.current_sprite = frisk_walk('up', self.start_pos)
         self.steps = 5
         self.combat_tile = (16, 5)
-        self.item_tiles = gen_random_tiles(500, 30, 24)
+        self.item_tiles = gen_random_tiles(10, 30, 24)
         self.reward = kwargs.get('reward', None)
         self.target = kwargs.get('target', None)
 
@@ -76,19 +76,19 @@ class TileMap(State):
             manager.process_events(event)
 
     def encounter(self):
-        tile = (16, 5)
+        (x, y) = (16, 5)
         if 14 * 32 < self.current_sprite.rect.x < 18 * 32:
             if 3 * 32 < self.current_sprite.rect.y < 7 * 32:
-
                 self.sm.set_state('combat')
 
     def buried_treasure(self):
-        pos = (self.current_sprite.rect.x, self.current_sprite.rect.y)
+        (x, y) = (self.current_sprite.rect.x, self.current_sprite.rect.y)
+        pos = convert_pixels_to_tile((x, y))
         if pos in self.item_tiles:
+            self.item_tiles.remove(pos)
             self.reward = self.sm.inventory.add_item
             self.target = create_item()
             self.sm.set_state('quiz')
-            
 
     def store_state(self):
         self.sm.previous_state = {

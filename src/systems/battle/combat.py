@@ -144,12 +144,12 @@ class Combat(state.State):
                         self.target = self.enemy
                         disable_hide_buttons(self.buttons_act)
                         self.sm.set_state('quiz')
-                    elif event.ui_element in self.buttons_items:
+                    elif event.ui_element in self.buttons_items.values():
                         for name, button in self.buttons_items.items():
                             if event.ui_element == button:
                                 self.reward = self.sm.inventory.use_item
                                 self.target = name
-                                self.sm.sry_state('quiz')
+                                self.sm.set_state('quiz')
 
             manager.process_events(event)
 

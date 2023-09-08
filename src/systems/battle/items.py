@@ -6,14 +6,14 @@ from random import choice, randint
 class Items(Sprite):
     def __init__(self, attribute, effect):
         super().__init__()
-        self.target = 'player' if self.effect > 0 else 'enemy'
-        self.name = attribute.toUpper(
-        ) + ' UP' if self.target == 'player' else attribute.toUpper() + ' DOWN'
-        self.description = description[attribute]
-        self.image = pygame.load.image(
-            f'assets/pictures/items/{self.name}.png')
         self.attribute = attribute
         self.effect = effect
+        self.target = 'player' if self.effect > 0 else 'enemy'
+        self.name = (attribute.replace('_', ' ')).upper(
+        ) + ' UP' if self.target == 'player' else (attribute.replace('_', ' ')).upper() + ' DOWN'
+        self.description = description[self.name]
+        self.image = pygame.image.load(
+            f'assets/pictures/items/{self.name}.png')
 
     def apply_effect(self, target):
         target.modify_attribute(self.attribute, self.effect)
@@ -37,12 +37,14 @@ def create_item():
     if attribute == 'health':
         effect = randint(15, 30)
     else:
-        effect = randint(3, 7)
+        effect = randint(-7, 7)
     return Items(attribute, effect)
 
 
 description = {
-    'health': '',
-    'attack_power': '',
-    'defence': ''
+    'HEALTH UP': 'Raises your current health',
+    'ATTACK POWER UP': 'Increases your attack power, making you hit harder',
+    'ATTACK POWER DOWN': 'Decreases the enemy\'s attack power, making them hit for less',
+    'DEFENCE UP': "Increases your defence power, allowing you to take more hits",
+    'DEFENCE DOWN': 'Decreases the enemy\'s defence power, allowing you to hit harder'
 }
