@@ -56,7 +56,7 @@ def donut_graph_draw():
         screen.fill('black')
 
         # Blit the Matplotlib plot onto the Pygame screen
-        screen.blit(surface, (0, 0))
+        screen.blit(surface, (150, 120))
 
         # Update the display
         pygame.display.flip()

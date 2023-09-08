@@ -13,7 +13,7 @@ class Items(Sprite):
         ) + ' UP' if self.target == 'player' else (attribute.replace('_', ' ')).upper() + ' DOWN'
         self.description = description[self.name]
         self.image = pygame.image.load(
-            f'assets/pictures/items/{self.name}.png')
+            f'assets/pictures/items/{self.name}.png').convert_alpha()
 
     def apply_effect(self, target):
         target.modify_attribute(self.attribute, self.effect)
@@ -32,7 +32,7 @@ class Items(Sprite):
 
 
 def create_item():
-    attribute = choice(['health', 'attack_power', 'defence'])
+    attribute = choice(['health', 'attack', 'defence'])
     effect = None
     if attribute == 'health':
         effect = randint(15, 30)
@@ -43,8 +43,8 @@ def create_item():
 
 description = {
     'HEALTH UP': 'Raises your current health',
-    'ATTACK POWER UP': 'Increases your attack power, making you hit harder',
-    'ATTACK POWER DOWN': 'Decreases the enemy\'s attack power, making them hit for less',
+    'ATTACK UP': 'Increases your attack , making you hit harder',
+    'ATTACK DOWN': 'Decreases the enemy\'s attack power, making them hit for less',
     'DEFENCE UP': "Increases your defence power, allowing you to take more hits",
     'DEFENCE DOWN': 'Decreases the enemy\'s defence power, allowing you to hit harder'
 }

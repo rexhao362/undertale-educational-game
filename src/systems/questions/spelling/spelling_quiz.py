@@ -86,5 +86,3 @@ def mask_word(word):
     return masked_word
 
 
-def create_ui_button():
-    return

@@ -45,6 +45,8 @@ class Units(Sprite):
             self.mana -= 1
             if not success:
                 self.hit['damage'] // 2
+                text = f'Unfortunately, you were incorrect. Fire will deal half damage.'
+                self.text_entry.append(text)
         text = f"""{self.name} has hit {target.name} 
         with Fire for {self.hit['damage']}"""
         self.text_entry.append(text)
@@ -63,13 +65,15 @@ class Units(Sprite):
             self.mana -= 1
             if not success:
                 self.hit['damage'] // 2
+                text = f'Unfortunately, you were incorrect. Thunder will deal half damage.'
+                self.text_entry.append(text)
         text = f"""{self.name} has hit {target.name} 
         with Thunder for {self.hit['damage']}"""
         self.text_entry.append(text)
 
         self.hit['move'] = set_animation('thunder')
 
-    def poison_spell(self, target, success):
+    def poison_spell(self, target, success=None):
         if hasattr(self, 'mana'):
             self.mana -= 1
         target.status = 'poison'
@@ -87,7 +91,7 @@ class Units(Sprite):
         if attribute == 'health':
             self.current_health = min(
                 self.health_capacity, self.current_health + effect)
-        elif attribute == 'attack_power':
+        elif attribute == 'attack':
             self.attack_power = max(0, self.attack_power + effect)
         elif attribute == 'defence':
             self.defence = max(0, self.defence + effect)

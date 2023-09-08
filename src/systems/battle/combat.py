@@ -22,7 +22,7 @@ class Combat(state.State):
                       'act': ['poison', 'fire', 'thunder'],
                       'items': self.sm.inventory.get_items()}
         self.background = pygame.image.load(
-            'assets/pictures/backgrounds/boss_battle_bg.png')
+            'assets/pictures/backgrounds/boss_battle_bg.png').convert_alpha()
         self.buttons_normal = create_buttons(self.scene['normal'])
         self.buttons_act = create_buttons(self.scene['act'], 75)
         self.buttons_items = create_buttons(self.scene['items'], 75)
@@ -172,8 +172,7 @@ class Combat(state.State):
         if len(self.message_queue) > 0:
             self.text_box = pygame_gui.elements.ui_text_box.UITextBox(
                 html_text=self.message_queue.pop(0),
-                relative_rect=pygame.Rect(220, 600, 540, 100))
-            self.text_box.set_active_effect('TEXT_EFFECT_TYPING_APPEAR')
+                relative_rect=pygame.Rect(220, 600, 540, 75))
         else:
             self.waiting = False
 

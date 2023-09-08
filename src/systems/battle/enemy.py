@@ -8,7 +8,7 @@ class Enemy(Units):
     def __init__(self, name, health=100, attack=20, defence=5):
         super().__init__(name, health, attack, defence)
         self.image = pygame.image.load(
-            f'./assets/pictures/units/enemies/{self.name}.png')
+            f'./assets/pictures/units/enemies/{self.name}.png').convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.center = (335, 100)
         self.healthbar = HealthBar(350, 10, 250, 30, self.health_capacity)
