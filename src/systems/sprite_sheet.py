@@ -5,7 +5,8 @@ from pygame.sprite import Sprite, Group
 class SpriteSheet(Sprite):
     def __init__(self, name, width, height, spacing, num_sprites):
         super().__init__()
-        self.sheet = pygame.image.load(f'assets/pictures/spritesheets/{name}.png')
+        self.sheet = pygame.image.load(
+            f'assets/pictures/spritesheets/{name}.png')
         self.width = width
         self.height = height
         self.spacing = spacing
@@ -41,7 +42,6 @@ class SpriteSheet(Sprite):
             self.index = (self.index + 1) % len(self.sprites)
             self.image = self.sprites[self.index]
             self.time = 0
-        
 
     def play(self, screen, time_delta, rect):
         self.animate(time_delta)
@@ -50,7 +50,6 @@ class SpriteSheet(Sprite):
 
         if self.index >= self.num_sprites - 1:
             self.fin = True
-
 
 
 if __name__ == '__main__':

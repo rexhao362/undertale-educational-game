@@ -84,5 +84,3 @@ def mask_word(word):
             masked_word[index] = ''
             num_masks -= 1
     return masked_word
-
-

@@ -13,14 +13,13 @@ class State:
         pass
 
     def reward_check(self):
-        if self.reward != None:
+        if self.reward is not None:
             if self.sm.get_success():
                 self.reward(self.target, self.sm.success)
             else:
                 pass
             self.reward = None
             self.sm.set_success(None)
-
 
     def store_state(self):
         pass

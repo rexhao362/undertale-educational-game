@@ -34,10 +34,11 @@ class Enemy(Units):
             self.poison_spell(target)
 
 
-enemy_pictures = listdir(f'assets/pictures/units/enemies')
+enemy_pictures = listdir('assets/pictures/units/enemies')
 enemy_names = [enemy.split('.')[0] for enemy in enemy_pictures]
 
 
-def create_enemy():
+def create_enemy(stage):
+    health = 100 + stage * 10
     enemy = choice(enemy_names)
-    return Enemy(enemy)
+    return Enemy(enemy, health=health)

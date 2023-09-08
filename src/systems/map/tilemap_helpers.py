@@ -42,7 +42,4 @@ def gen_random_tiles(num_tiles, map_width, map_height):
             unique_tiles.add(tile)
             random_tiles.append(tile)
 
-    # Now, convert each random tile coordinate to pixel coordinates
-
-
     return random_tiles

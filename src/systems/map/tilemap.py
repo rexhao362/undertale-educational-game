@@ -4,7 +4,6 @@ from pytmx.util_pygame import load_pygame
 import pygame
 from src.systems.map.tilemap_helpers import frisk_walk
 from src.systems.map.tilemap_helpers import gen_random_tiles
-from src.systems.map.tilemap_helpers import convert_tile_to_pixels
 from src.systems.map.tilemap_helpers import convert_pixels_to_tile
 
 

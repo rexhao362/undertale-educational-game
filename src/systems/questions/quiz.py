@@ -37,11 +37,13 @@ class Quiz(State):
             text = 'That was wrong. Try again'
         elif self.chances == self.max_chances:
             self.user.wrong_answer(self.subject)
-            text = f'That is the wrong answer. The correct answer is {self.answer}'
+            text = f"""That is the wrong answer.
+                    The correct answer is {self.answer}"""
             self.sm.set_success(False)
             self.sm.reload_state()
 
 
 def create_start_box():
-    return pygame_gui.elements.UIButton(relative_rect=pygame.Rect((800, 600), (100, 50)),
-                                        text='GO')
+    return pygame_gui.elements.UIButton(
+        relative_rect=pygame.Rect((800, 600), (100, 50)),
+        text='GO')

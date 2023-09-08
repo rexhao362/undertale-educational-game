@@ -14,36 +14,38 @@ class PostGame(state.State):
         self.wrong_spelling = self.sm.user.overall['spelling']['wrong']
 
     def draw(self, screen, time_delta):
-        if self.sm.game_over == False:
+        if not self.sm.game_over:
             if self.sm.stage == 5:
                 image = pygame.image.load(
                     'assets/pictures/backgrounds/victory.png').convert_alpha()
                 screen.blit(image, (0, 0))
-                text = f"""Congratulations on wining the game.You got {self.correct_maths} maths and {self.correct_spelling} spelling questions correct, respectively.
-                You got {self.wrong_maths} maths and {self.wrong_spelling} spelling questions wrong."""
+                text = f"""Congratulations on wining the game.
+                You got {self.correct_maths} maths and {self.correct_spelling}
+                spelling questions correct, respectively.
+                You got {self.wrong_maths} maths and {self.wrong_spelling}
+                spelling questions wrong."""
                 create_text_box(text)
-                # scores = self.font.render(text, True, 'white')
-                # screen.blit(scores, (450, 300))
             else:
                 image = pygame.image.load(
-                    'assets/pictures/backgrounds/round_won.png').convert_alpha()
+                    'assets/pictures/backgrounds/round_won.png'
+                    ).convert_alpha()
                 screen.blit(image, (0, 0))
-                text = f"""So far you have gotten {self.correct_maths} maths and {self.correct_spelling} spelling questions right, respectively.
-                You have gotten {self.wrong_maths} maths and {self.wrong_spelling} spelling questions wrong."""
+                text = f"""So far you have gotten {self.correct_maths} maths
+                and {self.correct_spelling} spelling questions right,
+                respectively.
+                You have gotten {self.wrong_maths} maths and
+                {self.wrong_spelling} spelling questions wrong."""
                 create_text_box(text)
-                # scores = self.font.render(text, True, 'white')
-                # screen.blit(scores, (450, 300))
         else:
             image = 'assets/pictures/game_over.png'
             game_over = pygame.image.load(image).convert_alpha()
             screen.blit('black')
             screen.blit(game_over, (200, 300))
-            text = f"""Unlucky. You managed to get {self.correct_maths} maths 
+            text = f"""Unlucky. You managed to get {self.correct_maths} maths
             and {self.correct_spelling} spelling questions right, respectively.
-            You got {self.wrong_maths} maths and {self.wrong_spelling} spelling questions wrong."""
+            You got {self.wrong_maths} maths and {self.wrong_spelling} spelling
+            questions wrong."""
             create_text_box(text)
-            # scores = self.font.render(text, True, 'white')
-            # screen.blit(scores, (450, 300))
 
     def update(self):
         pass

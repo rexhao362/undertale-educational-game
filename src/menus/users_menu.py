@@ -10,7 +10,11 @@ def set_current_user(value, name):
 
 
 user_menu = pygame_menu.Menu(
-    'user Menu', settings.screen_width, settings.screen_height, theme=custom_theme)
+    'user Menu',
+    settings.screen_width,
+    settings.screen_height,
+    theme=custom_theme
+)
 
 user_menu.font = pygame_menu.font.FONT_8BIT
 user_menu.add.selector(

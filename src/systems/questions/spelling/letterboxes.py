@@ -23,7 +23,7 @@ class LetterBoxes:
 
         for i, letter in enumerate(self.word):
             if letter == '':
-                if self.redraw == True:
+                if self.redraw:
                     box_vars = box_x, box_y, self.box_size, self.box_height
                     self.input_boxes[i] = create_input_box(*box_vars
                                                            )

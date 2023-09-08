@@ -32,7 +32,7 @@ class Units(Sprite):
             text = f'{target.name} was critically hit for {self.hit["damage"]}'
             self.text_entry.append(text)
         else:
-            text = f"""{self.name} has attacked 
+            text = f"""{self.name} has attacked
             {target.name} for {self.hit['damage']}"""
             self.text_entry.append(text)
 
@@ -45,9 +45,10 @@ class Units(Sprite):
             self.mana -= 1
             if not success:
                 self.hit['damage'] // 2
-                text = f'Unfortunately, you were incorrect. Fire will deal half damage.'
+                text = """Unfortunately, you were incorrect.
+                Fire will deal half damage."""
                 self.text_entry.append(text)
-        text = f"""{self.name} has hit {target.name} 
+        text = f"""{self.name} has hit {target.name}
         with Fire for {self.hit['damage']}"""
         self.text_entry.append(text)
 
@@ -65,10 +66,11 @@ class Units(Sprite):
             self.mana -= 1
             if not success:
                 self.hit['damage'] // 2
-                text = f'Unfortunately, you were incorrect. Thunder will deal half damage.'
+                text = """Unfortunately, you were incorrect.
+                        Thunder will deal half damage."""
                 self.text_entry.append(text)
-        text = f"""{self.name} has hit {target.name} 
-        with Thunder for {self.hit['damage']}"""
+        text = f"""{self.name} has hit {target.name}
+                with Thunder for {self.hit['damage']}"""
         self.text_entry.append(text)
 
         self.hit['move'] = set_animation('thunder')

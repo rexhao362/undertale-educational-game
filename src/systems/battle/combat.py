@@ -16,7 +16,7 @@ class Combat(state.State):
     def __init__(self, state_manager, **kwargs):
         super().__init__(state_manager)
         self.player = self.sm.player
-        self.enemy = kwargs.get('enemy', create_enemy())
+        self.enemy = kwargs.get('enemy', create_enemy(self.sm.stage))
         self.phase = kwargs.get('phase', 'player')
         self.scene = {'normal': ['fight', 'act', 'items', 'block'],
                       'act': ['poison', 'fire', 'thunder'],
@@ -48,7 +48,8 @@ class Combat(state.State):
             if self.sm.cont_game:
                 if self.waiting:
                     text = [
-                        "Unlucky, You have one more chance to come back from this"]
+                        """Unlucky, You have one more
+                        chance to come back from this"""]
                     self.set_text_box(text)
 
                 self.cont_game = False
@@ -121,7 +122,8 @@ class Combat(state.State):
                         else:
                             self.set_text_box([
                                 "I am afraid you are out of mana.",
-                                "You can no longer use spells till after this round."
+                                """You can no longer use
+                                spells till after this round."""
                             ])
                     elif event.ui_element == self.buttons_normal['items']:
                         enable_show_buttons(self.buttons_items)

@@ -9,8 +9,7 @@ class Items(Sprite):
         self.attribute = attribute
         self.effect = effect
         self.target = 'player' if self.effect > 0 else 'enemy'
-        self.name = (attribute.replace('_', ' ')).upper(
-        ) + ' UP' if self.target == 'player' else (attribute.replace('_', ' ')).upper() + ' DOWN'
+        self.name = gen_name(attribute, self.target)
         self.description = description[self.name]
         self.image = pygame.image.load(
             f'assets/pictures/items/{self.name}.png').convert_alpha()
@@ -41,10 +40,20 @@ def create_item():
     return Items(attribute, effect)
 
 
+def gen_name(attribute, target):
+    if target == 'player':
+        return (attribute.replace('_', ' ')).upper() + ' UP'
+    else:
+        return (attribute.replace('_', ' ')).upper() + ' DOWN'
+
+
 description = {
     'HEALTH UP': 'Raises your current health',
     'ATTACK UP': 'Increases your attack , making you hit harder',
-    'ATTACK DOWN': 'Decreases the enemy\'s attack power, making them hit for less',
-    'DEFENCE UP': "Increases your defence power, allowing you to take more hits",
-    'DEFENCE DOWN': 'Decreases the enemy\'s defence power, allowing you to hit harder'
+    'ATTACK DOWN': """Decreases the enemy's attack power,
+                    making them hit for less""",
+    'DEFENCE UP': """Increases your defence power,
+                    allowing you to take more hits""",
+    'DEFENCE DOWN': """Decreases the enemy's defence power,
+                    allowing you to hit harder"""
 }

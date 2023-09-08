@@ -31,14 +31,16 @@ class Inventory(State):
             if item_to_use.target == 'player':
                 item_to_use.apply_effect(self.sm.player)
                 text = [f'You have used {item_to_use.name}',
-                        f'It has increased your {item_to_use.attribute} by {item_to_use.effect}']
+                        f"""It has increased your {item_to_use.attribute}
+                        by {item_to_use.effect}"""]
                 self.sm.player.text_entry.extend(text)
             else:
                 item_to_use.apply_effect(self.sm.state.enemy)
                 text = [f'You have used {item_to_use.name}',
-                        f'It has decreased {self.sm.state.enemy}\'s {item_to_use.attribute} by {item_to_use.effect}']
+                        f"""It has decreased {self.sm.state.enemy}'s
+                        {item_to_use.attribute} by {item_to_use.effect}"""]
                 self.sm.player.text_entry.extend(text)
         else:
             text = [f'You have used {item_to_use.name}',
-                        f'Unfortunately, you failed the quiz, so it did not work']
+                    'Unfortunately, you failed the quiz, so it did not work']
             self.sm.player.text_entry.extend(text)
