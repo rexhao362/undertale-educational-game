@@ -1,9 +1,11 @@
-from random import randint
 from systems.battle.items import create_item
 from systems.state import State
-from src.systems.map.frisk_walking import FriskWalk
 from pytmx.util_pygame import load_pygame
 import pygame
+from src.systems.map.tilemap_helpers import frisk_walk
+from src.systems.map.tilemap_helpers import gen_random_tiles
+from src.systems.map.tilemap_helpers import convert_tile_to_pixels
+from src.systems.map.tilemap_helpers import convert_pixels_to_tile
 
 
 class TileMap(State):
@@ -16,8 +18,7 @@ class TileMap(State):
         self.current_sprite = frisk_walk('up', self.start_pos)
         self.steps = 5
         self.combat_tile = (16, 5)
-        self.item_tile_1 = random_tile()
-        self.item_tile_2 = random_tile()
+        self.item_tiles = gen_random_tiles(500, 30, 24)
         self.reward = kwargs.get('reward', None)
         self.target = kwargs.get('target', None)
 
@@ -82,8 +83,8 @@ class TileMap(State):
                 self.sm.set_state('combat')
 
     def buried_treasure(self):
-        # if self.current_sprite.rect in [self.item_tile_1, self.item_tile_2]:
-        if (self.current_sprite.rect.x, self.current_sprite.rect.y) ==(450, 600):
+        pos = (self.current_sprite.rect.x, self.current_sprite.rect.y)
+        if pos in self.item_tiles:
             self.reward = self.sm.inventory.add_item
             self.target = create_item()
             self.sm.set_state('quiz')
@@ -96,28 +97,3 @@ class TileMap(State):
             'reward': self.reward,
             'target': self.target
         }
-
-
-def frisk_walk(direction, pos):
-    walk = {
-        'up': FriskWalk('up', 19, 4, pos),
-        'left': FriskWalk('left', 17, 2, pos),
-        'right': FriskWalk('right', 17, 2, pos),
-        'down': FriskWalk('down', 19, 4, pos)
-    }
-    return walk[direction]
-
-
-def convert_tile_to_pixels(x, y):
-    tile_width = 32
-    tile_height = 32
-    return (
-        x * tile_width,
-        y * tile_height
-    )
-
-
-def random_tile():
-    x = randint(1, 30)
-    y = randint(1, 24)
-    return convert_tile_to_pixels(x, y)

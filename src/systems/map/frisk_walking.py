@@ -1,4 +1,4 @@
-from systems.sprite_sheet import SpriteSheet
+from src.systems.sprite_sheet import SpriteSheet
 import src.settings as s
 
 
