@@ -10,7 +10,7 @@ class Enemy(Units):
         self.image = pygame.image.load(
             f'./assets/pictures/units/enemies/{self.name}.png')
         self.rect = self.image.get_rect()
-        self.rect.center = (430, 200)
+        self.rect.center = (335, 100)
         self.healthbar = HealthBar(350, 10, 250, 30, self.health_capacity)
 
     def draw(self, screen):

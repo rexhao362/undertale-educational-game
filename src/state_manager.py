@@ -28,7 +28,7 @@ class StateManager:
     def run(self, screen, manager):
         clock = pygame.time.Clock()
         self.set_state('tilemap')
-        
+
         while self.running:
             time_delta = clock.tick(60)/1000.0
             screen.fill('black')
