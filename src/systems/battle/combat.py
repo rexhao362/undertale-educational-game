@@ -1,9 +1,10 @@
 from src.systems.battle.enemy import create_enemy
-import src.settings as s
+from src.systems.battle.combat_helpers import disable_hide_buttons, enable_show_buttons, create_buttons
 import pygame
 import pygame_gui
 import logging
 import src.systems.state as state
+
 
 logger = logging.getLogger()
 logging.basicConfig()
@@ -17,7 +18,7 @@ class Combat(state.State):
         self.phase = kwargs.get('phase', 'player')
         self.scene = {'normal': ['fight', 'act', 'items', 'block'],
                       'act': ['poison', 'fire', 'thunder'],
-                      'items': [item.name for item in self.sm.inventory.items]}
+                      'items': self.sm.inventory.get_items()}
         self.background = pygame.image.load(
             'assets/pictures/backgrounds/boss_battle_bg.png')
         self.buttons_normal = create_buttons(self.scene['normal'])
@@ -38,8 +39,7 @@ class Combat(state.State):
             if self.waiting:
                 text = ["Congratulations, You've won the round!"]
                 self.set_text_box(text)
-            else:
-                self.sm.set_state('postgame')
+            self.sm.set_state('postgame')
 
     def game_over(self):
         if not self.player.is_alive():
@@ -89,7 +89,6 @@ class Combat(state.State):
                     self.set_text_box(self.enemy.text_entry)
                     self.game_over()
                     self.phase = 'player'
-
                     self.damage_phase = False
 
     def draw(self, screen, time_delta):
@@ -121,7 +120,7 @@ class Combat(state.State):
                             enable_show_buttons(self.buttons_act)
                         else:
                             self.set_text_box(
-                                ["I am afraid you are out of mana.", "You can no longer use spell till after the round."])
+                                ["I am afraid you are out of mana.", "You can no longer use spells till after this round."])
                     elif event.ui_element == self.buttons_normal['items']:
                         enable_show_buttons(self.buttons_items)
                     elif event.ui_element == self.buttons_normal['block']:
@@ -143,6 +142,13 @@ class Combat(state.State):
                         self.target = self.enemy
                         disable_hide_buttons(self.buttons_act)
                         self.sm.set_state('quiz')
+                    elif event.ui_element in self.buttons_items:
+                        for name, button in self.buttons_items.items():
+                            if event.ui_element == button:
+                                self.reward = self.sm.inventory.use_item
+                                self.target = name
+                                self.sm.sry_state('quiz')
+
 
             manager.process_events(event)
 
@@ -180,42 +186,3 @@ class Combat(state.State):
 
     def mana_check(self):
         return self.player.mana > 0
-
-
-def create_buttons(buttons_list, spacing=0):
-    # Constants
-    RECT_WIDTH = 100
-    RECT_HEIGHT = 50
-    RECT_DISTANCE = 50
-
-    num_buttons = len(buttons_list)
-    # Calculate the x-coordinate for the first rectangle
-    total_rect_width = num_buttons * RECT_WIDTH + \
-        (num_buttons-1) * RECT_DISTANCE
-    left = (s.screen_values[0] - total_rect_width) // 2
-    top = (2 * s.screen_values[1]) // 3 + spacing
-
-    buttons_dict = {}
-    # Draw the four rectangles
-    for button in buttons_list:
-        rect = pygame.Rect((left, top), (RECT_WIDTH, RECT_HEIGHT))
-
-        buttons_dict[button] = pygame_gui.elements.UIButton(
-            relative_rect=rect,
-            text=button)
-
-        left += RECT_WIDTH + RECT_DISTANCE
-
-    return buttons_dict
-
-
-def disable_hide_buttons(buttons):
-    for button in buttons.values():
-        button.disable()
-        button.hide()
-
-
-def enable_show_buttons(buttons):
-    for button in buttons.values():
-        button.enable()
-        button.show()

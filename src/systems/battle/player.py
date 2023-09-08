@@ -30,6 +30,7 @@ class Player(Units):
 
     def post_game_heal(self):
         self.modify_attribute('health', 50)
+        self.mana = 2
 
     def reset_boosted(self):
         if self.boosted == True:

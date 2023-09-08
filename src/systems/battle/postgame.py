@@ -5,6 +5,7 @@ class PostGame(state.State):
     def __init__(self, state_manager):
         super().__init__(state_manager)
         self.sm.user.update_user()
+        self.font= pygame.font.Font()
 
 
     def draw(self, screen, time_delta):

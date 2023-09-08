@@ -14,12 +14,24 @@ class User:
                 'wrong': 0
             }
         }
+        self.overall = {
+            'maths': {
+                'correct': 0,
+                'wrong': 0
+            },
+            'spelling': {
+                'correct': 0,
+                'wrong': 0
+            }
+        }
 
     def correct_answer(self, subject):
         self.scores[subject]['correct'] += 1
+        self.overall[subject]['correct'] += 1
 
     def wrong_answer(self, subject):
         self.scores[subject]['wrong'] += 1
+        self.overall[subject]['wrong'] += 1
 
     def update_user(self):
         with open('save_file.json', 'r') as f:

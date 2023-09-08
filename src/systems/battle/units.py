@@ -40,7 +40,6 @@ class Units(Sprite):
     def fire_spell(self, target, success=None):
         self.hit["damage"] = self.attack_power * 2 * \
 randint(50, 110) // 100 - target.defence
-        print(self.hit['damage'])
         if hasattr(self, 'mana'):
             self.mana -= 1
             if not success:
@@ -90,7 +89,7 @@ randint(50, 110) // 100 - target.defence
 
     def affliction(self):
         if self.status == 'poison':
-            damage = randint(2, 7)
+            damage = randint(2, 9)
             text = f"Poison has done {damage} to {self.name}'s health"
             self.text_entry.append(text)
 

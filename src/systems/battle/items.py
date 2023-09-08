@@ -37,7 +37,7 @@ def create_item():
     if attribute == 'health':
         effect = randint(15, 30)
     else:
-        effect = randint(1, 7)
+        effect = randint(3, 7)
     return Items(attribute, effect)
 
 description = {
