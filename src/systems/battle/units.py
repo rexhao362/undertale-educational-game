@@ -1,8 +1,7 @@
 from pygame.sprite import Sprite
 import pygame
 from random import randint
-
-from systems.sprite_sheet import SpriteSheet
+from src.systems.sprite_sheet import SpriteSheet
 
 
 class Units(Sprite):

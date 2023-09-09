@@ -1,6 +1,7 @@
 import src.systems.state as state
 import pygame
 import pygame_gui
+from src.systems.music import play_music
 
 
 class PostGame(state.State):
@@ -25,6 +26,7 @@ class PostGame(state.State):
                 You got {self.wrong_maths} maths and {self.wrong_spelling}
                 spelling questions wrong."""
                 create_text_box(text)
+                play_music('Various Themes/Victorious')
             else:
                 image = pygame.image.load(
                     'assets/pictures/backgrounds/round_won.png'
@@ -35,6 +37,7 @@ class PostGame(state.State):
                 respectively.
                 You have gotten {self.wrong_maths} maths and
                 {self.wrong_spelling} spelling questions wrong."""
+                play_music('A Little R & R')
                 create_text_box(text)
         else:
             image = 'assets/pictures/game_over.png'
@@ -46,6 +49,7 @@ class PostGame(state.State):
             You got {self.wrong_maths} maths and {self.wrong_spelling} spelling
             questions wrong."""
             create_text_box(text)
+            play_music('Various Themes/To Suffer a Loss (Game Over)')
 
     def update(self):
         pass

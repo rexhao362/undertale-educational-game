@@ -40,3 +40,14 @@ def enable_show_buttons(buttons):
     for button in buttons.values():
         button.enable()
         button.show()
+
+
+def songs(stage):
+    songs = {
+        1: 'Battle/Battle Mage',
+        2: 'Battle/Battle with Beasts',
+        3: 'Battle/I\'ve Got Your Back! (Full)',
+        4: 'Battle/If It\'s a Fight You Want',
+        5: 'Battle/It\'s Bossing Time'
+    }
+    return songs[stage]

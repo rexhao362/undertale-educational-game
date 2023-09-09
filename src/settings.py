@@ -23,7 +23,7 @@ screen_values = (
 )
 screen = pygame.display.set_mode(screen_values)
 
-pygame.display.set_caption('Game')
+pygame.display.set_caption('Learning with Undertale')
 
 
 def transform_background(filename):

@@ -1,4 +1,4 @@
-from systems.state import State
+from src.systems.state import State
 
 
 class Inventory(State):

@@ -1,5 +1,5 @@
 import pygame
-from pygame.sprite import Sprite, Group
+from pygame.sprite import Sprite
 
 
 class SpriteSheet(Sprite):
@@ -52,14 +52,3 @@ class SpriteSheet(Sprite):
             self.fin = True
 
 
-if __name__ == '__main__':
-    pygame.init()
-    screen = pygame.display.set_mode((400, 300))
-    frisk = SpriteSheet('up', 19, 29, 5, 4)
-    clock = pygame.time.Clock()
-    all_sprites = Group(frisk)
-    while True:
-        time_delta = clock.tick(60)/1000.0
-        frisk.animate(time_delta)
-        all_sprites.draw(screen)
-        pygame.display.flip()

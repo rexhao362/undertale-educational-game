@@ -1,5 +1,5 @@
 import pygame_menu
-from app import run_app, current_user
+from src.app import run_app, current_user
 from src.settings import settings
 from src.menus.menu_class import custom_theme
 from src.systems.database.users import create_user, get_users_names

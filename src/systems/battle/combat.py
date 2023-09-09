@@ -2,14 +2,11 @@ from src.systems.battle.enemy import create_enemy
 from src.systems.battle.combat_helpers import disable_hide_buttons
 from src.systems.battle.combat_helpers import create_buttons
 from src.systems.battle.combat_helpers import enable_show_buttons
+from src.systems.battle.combat_helpers import songs
+import src.systems.state as state
+from src.systems.music import play_music
 import pygame
 import pygame_gui
-import logging
-import src.systems.state as state
-
-
-logger = logging.getLogger()
-logging.basicConfig()
 
 
 class Combat(state.State):
@@ -32,6 +29,7 @@ class Combat(state.State):
         self.damage_phase = kwargs.get('damage_phase', False)
         self.reward = kwargs.get('reward', None)
         self.target = kwargs.get('target', None)
+        play_music(songs(self.sm.stage))
 
     def victory(self):
         if not self.enemy.is_alive():
