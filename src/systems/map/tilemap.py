@@ -1,10 +1,12 @@
 from systems.battle.items import create_item
 from systems.state import State
+import src.systems.music as music
 from pytmx.util_pygame import load_pygame
 import pygame
 from src.systems.map.tilemap_helpers import frisk_walk
 from src.systems.map.tilemap_helpers import gen_random_tiles
 from src.systems.map.tilemap_helpers import convert_pixels_to_tile
+from src.systems.map.tilemap_helpers import song
 
 
 class TileMap(State):
@@ -20,18 +22,23 @@ class TileMap(State):
         self.item_tiles = gen_random_tiles(10, 30, 24)
         self.reward = kwargs.get('reward', None)
         self.target = kwargs.get('target', None)
+        music.play_music(song(self.stage))
 
     def draw_frisk(self, screen, time_delta):
         self.current_sprite.animate(time_delta)
         screen.blit(self.current_sprite.image, self.current_sprite.rect)
 
     def draw_tilemap(self, screen):
-        for layer in self.map.visible_layers:
+        for i, layer in enumerate(self.map.visible_layers):
             for x, y, gid in layer:
                 tile = self.map.get_tile_image_by_gid(gid)
                 if tile is not None:
                     screen.blit(tile, (x * self.map.tilewidth,
                                 y * self.map.tileheight))
+                # if self.map.get_tile_properties_by_gid(gid)['collision']:
+                #     if self.current_sprite.collide_rect((x,y)):
+                #         self.current_sprite.move(0, 0)
+
 
     def draw(self, screen, time_delta):
         self.draw_tilemap(screen)

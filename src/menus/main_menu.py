@@ -5,6 +5,9 @@ from src.menus.users_menu import user_menu
 from src.menus.parents_menu import parents_menu
 from src.menus.menu_class import custom_theme
 
+music = pygame_menu.sound.Sound()
+music.set_sound(pygame_menu.sound.SOUND_TYPE_OPEN_MENU,
+                'assets/music/Various Themes/Waiting.ogg')
 
 """Initialises menu"""
 main_menu = pygame_menu.Menu(
@@ -15,24 +18,7 @@ main_menu = pygame_menu.Menu(
 )
 
 main_menu.font = pygame_menu.font.FONT_8BIT
-# main_menu.add.button('Kids', user_menu)
+main_menu.set_sound(music, recursive=True)
 main_menu.add.button('Kids', user_menu)
 main_menu.add.button('Parents', parents_menu)
 main_menu.center_content()
-
-
-# Create a horizontal frame at the bottom of the screen
-main_menu.bottom_frame = main_menu.add.frame_h(
-    width=settings.screen_width,
-    height=100,
-    # vertical_alignment=pygame_menu.locals.POSITION_SOUTH,
-    align=pygame_menu.locals.ALIGN_RIGHT,
-    position=pygame_menu.locals.POSITION_SOUTHEAST,
-    border_width=0
-)
-
-# Add three buttons to the frame
-main_menu.bottom_frame.pack(
-    main_menu.add.button('Back', pygame_menu.events.BACK))
-main_menu.bottom_frame.pack(
-    main_menu.add.button('Exit', pygame_menu.events.EXIT))

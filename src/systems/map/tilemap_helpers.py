@@ -43,3 +43,13 @@ def gen_random_tiles(num_tiles, map_width, map_height):
             random_tiles.append(tile)
 
     return random_tiles
+
+def song(stage):
+    songs = {
+        1: 'Overworld/Journey Across the Blue',
+        2: 'Overworld/Long Road Ahead',
+        3: 'Overworld/On The Move',
+        4: 'Overworld/We\'re Bird People Now',
+        5: 'Overworld/World Travelers'
+    }
+    return songs[stage]

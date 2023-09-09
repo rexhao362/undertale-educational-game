@@ -18,14 +18,12 @@ class Combat(state.State):
         self.player = self.sm.player
         self.enemy = kwargs.get('enemy', create_enemy(self.sm.stage))
         self.phase = kwargs.get('phase', 'player')
-        self.scene = {'normal': ['fight', 'act', 'items', 'block'],
-                      'act': ['poison', 'fire', 'thunder'],
-                      'items': self.sm.inventory.get_items()}
         self.background = pygame.image.load(
             'assets/pictures/backgrounds/boss_battle_bg.png').convert_alpha()
-        self.buttons_normal = create_buttons(self.scene['normal'])
-        self.buttons_act = create_buttons(self.scene['act'], 75)
-        self.buttons_items = create_buttons(self.scene['items'], 75)
+        self.buttons_normal = create_buttons(
+            self.get_scene('normal'), object_id=True)
+        self.buttons_act = create_buttons(self.get_scene('act'), 75)
+        self.buttons_items = create_buttons(self.get_scene('items'), 75)
         disable_hide_buttons(self.buttons_act)
         disable_hide_buttons(self.buttons_items)
         self.message_queue = []
@@ -158,6 +156,14 @@ class Combat(state.State):
     def update(self):
         if not self.waiting:
             self.turn_combat()
+
+    def get_scene(self, scene):
+        if scene == 'normal':
+            return ['fight', 'act', 'items', 'block']
+        elif scene == 'act':
+            return ['poison', 'fire', 'thunder']
+        else:
+            return self.sm.inventory.get_items()
 
     def store_state(self):
         self.sm.previous_state = {

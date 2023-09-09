@@ -5,7 +5,7 @@ from os import listdir
 
 
 class Enemy(Units):
-    def __init__(self, name, health=100, attack=20, defence=5):
+    def __init__(self, name, health=100, attack=15, defence=10):
         super().__init__(name, health, attack, defence)
         self.image = pygame.image.load(
             f'./assets/pictures/units/enemies/{self.name}.png').convert_alpha()
@@ -39,6 +39,6 @@ enemy_names = [enemy.split('.')[0] for enemy in enemy_pictures]
 
 
 def create_enemy(stage):
-    health = 100 + stage * 10
+    health = 95 + stage * 5
     enemy = choice(enemy_names)
     return Enemy(enemy, health=health)

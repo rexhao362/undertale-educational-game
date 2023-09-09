@@ -3,7 +3,7 @@ import pygame
 
 
 class Player(Units):
-    def __init__(self, name, mana=2, health=200, attack=20, defence=10):
+    def __init__(self, name, mana=2, health=200, attack=25, defence=10):
         super().__init__(name, health, attack, defence)
         self.mana = mana
         self.healthbar = HealthBar(300, 450, 200, 20, self.health_capacity)

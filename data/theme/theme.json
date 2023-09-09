@@ -92,5 +92,37 @@
             "padding": "10,10",
             "line_spacing": "1.0"
         }
+    },
+    "#fight_button":
+    {
+        "normal_image":
+        {
+            "package": "assets.pictures.buttons",
+            "resource": "fight_button.png"
+        }
+    },
+    "#act_button":
+    {
+        "normal_image":
+        {
+            "package": "assets.pictures.buttons",
+            "resource": "act_button.png"
+        }
+    },
+    "#item_button":
+    {
+        "normal_image":
+        {
+            "package": "assets.pictures.buttons",
+            "resource": "item_button.png"
+        }
+    },
+    "#block_button":
+    {
+        "normal_image":
+        {
+            "package": "assets.pictures.buttons",
+            "resource": "block_button.png"
+        }
     }
 }
