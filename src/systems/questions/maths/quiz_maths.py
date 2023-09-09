@@ -26,11 +26,16 @@ class MathsQuiz(Quiz):
                 exit()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                pass
+                if self.message is not None:
+                    self.sm.reload_state()
+
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    self.check_answer()
+                    if self.message is not None:
+                        self.sm.reload_state()
+                    else:
+                        self.check_answer()
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
                 if event.ui_element == self.num_box:

@@ -19,7 +19,6 @@ class SpellingQuiz(Quiz):
         self.answer = ''.join(self.word)
         self.solution = {}
         self.letters = LetterBoxes(self.masked_word)
-        self.chances = 0
         self.ui_button = create_start_box()
 
     def check_solution(self):
@@ -39,14 +38,18 @@ class SpellingQuiz(Quiz):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
-
+            
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                pass
+                if self.message is not None:
+                    self.sm.reload_state()
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    manager.clear_and_reset()
-                    self.check_solution()
+                    if self.message is not None:
+                        self.sm.reload_state()
+                    else:
+                        manager.clear_and_reset()
+                        self.check_solution()
 
             elif event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
                 for index, text_box in self.letters.input_boxes.items():
@@ -73,6 +76,8 @@ class SpellingQuiz(Quiz):
 
     def delete_solution(self, index):
         del self.solution[index]
+
+    
 
 
 def mask_word(word):

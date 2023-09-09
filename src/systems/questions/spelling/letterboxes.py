@@ -7,7 +7,7 @@ class LetterBoxes:
     def __init__(self, word):
         self.word = word
         self.num_boxes = len(self.word)
-        self.font = pygame.font.Font('data/fonts/league_spartan.ttf', 28)
+        self.font = pygame.font.Font('data/fonts/league_spartan.ttf', 36)
         self.font_colour = 'white'
         self.box_size = 50
         self.box_height = 50

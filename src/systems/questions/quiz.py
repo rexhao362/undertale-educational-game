@@ -11,6 +11,7 @@ class Quiz(State):
         self.chances = 0
         self.max_chances = 3
         self.answer = None
+        self.message = None
 
     def draw_crosses(self, screen):
         cross = pygame.image.load('assets/pictures/x.png').convert_alpha()
@@ -25,23 +26,26 @@ class Quiz(State):
 
     def correct_answer(self):
         self.user.correct_answer(self.subject)
-        text = f'Correct! {self.answer} is the right answer!'
+        self.message = f'Correct! {self.answer} is the right answer!'
         self.sm.set_success(True)
-        self.sm.reload_state()
+        self.create_text_box()
 
     def wrong_answer(self):
-        # font = pygame.font.Font()
-        text = ''
         self.chances += 1
         if self.chances > 0 and self.chances < self.max_chances:
-            text = 'That was wrong. Try again'
+            pass
         elif self.chances == self.max_chances:
             self.user.wrong_answer(self.subject)
-            text = f"""That is the wrong answer.
+            self.message = f"""That is the wrong answer.
                     The correct answer is {self.answer}"""
             self.sm.set_success(False)
-            self.sm.reload_state()
+            self.create_text_box()
 
+
+    def create_text_box(self):
+        self.text_box = pygame_gui.elements.ui_text_box.UITextBox(
+            html_text=self.message,
+            relative_rect=pygame.Rect(230, 400, 400, 75))
 
 def create_start_box():
     return pygame_gui.elements.UIButton(
