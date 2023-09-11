@@ -37,7 +37,7 @@ class PostGame(state.State):
                 respectively.
                 You have gotten {self.wrong_maths} maths and
                 {self.wrong_spelling} spelling questions wrong."""
-                play_music('A Little R & R')
+                play_music('Various Themes/A Little R & R')
                 create_text_box(text)
         else:
             image = 'assets/pictures/game_over.png'
